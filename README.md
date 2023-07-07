@@ -23,12 +23,14 @@ deactivate
 rm -rf venv     # remove the venv
 ```
 
-### Config Template
-```py
-CHANNEL_ACCESS_TOKEN = 'CHANNEL_ACCESS_TOKEN'   # LINE BOT API
-CHANNEL_SECRET = 'CHANNEL_SECRET'               # LINE BOT Handler
+### Add LINE BOT Developer Config
 
-SERVER_DOMAIN_URL = 'SERVER_DOMAIN_URL'
+You should edit the file `config/linebot_template.conf` and rename into `config/linebot.conf`
+```js
+{
+    "CHANNEL_ACCESS_TOKEN": "YOUR_CHANNEL_ACCESS_TOKEN",    // LINE BOT API
+    "CHANNEL_SECRET": "YOUR_CHANNEL_SECRET"                 // LINE BOT Handler
+}
 ```
 
 
@@ -62,9 +64,7 @@ tunnels:
     proto: http
 ```
 
-type `ngrok start --all` in terminal to start `ngrok``
-
-
+type `ngrok start --all` in terminal to start `ngrok`
 
 License
 ---
