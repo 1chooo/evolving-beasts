@@ -1,5 +1,5 @@
-import numpy
-import matplotlib.pyplot as plt
+# -*- coding: utf-8 -*-
+
 import os
 from numpy import NaN
 import json
@@ -11,7 +11,6 @@ import asyncio
 import threading
 import config
 import pytz
-# import pymysql
 
 """ Import the package concerning flask """
 from flask import (
@@ -58,3 +57,7 @@ from linebot.models.template import *
 from linebot.models.events import (
     FollowEvent, MessageEvent
 )
+
+line_bot_config = json.load(open("../config/linebot.conf", "r", encoding="utf8"))
+line_bot_api = LineBotApi(line_bot_config["access_token"])
+handler = WebhookHandler(line_bot_config["channel_secret"])

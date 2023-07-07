@@ -1,5 +1,9 @@
 .vscode/
 
+config/linebot.conf
+config/chatgpt.conf
+config/imgur.conf
+
 config.py
 
 # Byte-compiled / optimized / DLL files
