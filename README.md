@@ -1,16 +1,75 @@
 # Monster Bot
 
-### Enviroment: 
+[![Made with Python](https://img.shields.io/badge/Python=3.9-blue?logo=python&logoColor=white)](https://python.org "Go to Python homepage")
+[![License](https://img.shields.io/badge/License-MIT-blue)](./LICENSE "Go to license section")
 
-#### With pip vertial environment
+A brief summary of the project
+---
+
+Keep Developing...
+
+Enviroment: 
+---
+
+### With pip vertial environment
 python request: `3.9.6`
 
-```console
+```
 pip3 install virtualenv
 virtualenv venv --python=python3.9.6
 source venv/bin/activate
-pip install line-bot-sdk
-pip install flask
+pip install -r requirements.txt
 deactivate
 rm -rf venv     # remove the venv
 ```
+
+### Config Template
+```py
+CHANNEL_ACCESS_TOKEN = 'CHANNEL_ACCESS_TOKEN'   # LINE BOT API
+CHANNEL_SECRET = 'CHANNEL_SECRET'               # LINE BOT Handler
+
+SERVER_DOMAIN_URL = 'SERVER_DOMAIN_URL'
+```
+
+
+### With ngrok free server
+```SHELL
+$ brew install ngrok --cask
+$ ngrok config add-authtoken YOUR_TOKEN
+$ python run.py
+$ ngrok http 5002
+```
+
+### Start multiple tunnel
+
+```shell
+$ ngrok config check
+Valid configuration file at YOUR_PATH/ngrok/ngrok.yml
+```
+
+Add the below code in `ngrok.yml`
+
+```yml
+version: "2"
+authtoken: "token"
+# 上方不需更動
+tunnels:
+  first:
+    addr: 5002
+    proto: http    
+  second:
+    addr: 5012
+    proto: http
+```
+
+type `ngrok start --all` in terminal to start `ngrok``
+
+
+
+License
+---
+Released under [MIT](./LICENSE) by [@1chooo](https://github.com/1chooo), [@Weather-Shakespeare](https://github.com/Weather-Shakespeare).
+
+This software can be modified and reused without restriction.
+The original license must be included with any copies of this software.
+If a significant portion of the source code is used, please provide a link back to this repository.
