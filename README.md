@@ -14,13 +14,24 @@ Enviroment:
 ### With pip vertial environment
 python request: `3.9.6`
 
+#### For **Linux/MacOS**
+```shell
+$ pip3 install virtualenv
+$ virtualenv venv --python=python3.9.6
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+$ deactivate
+$ rm -rf venv     # remove the venv
 ```
-pip3 install virtualenv
-virtualenv venv --python=python3.9.6
-source venv/bin/activate
-pip install -r requirements.txt
-deactivate
-rm -rf venv     # remove the venv
+
+#### For **Windows**
+```shell
+$ pip install virtualenv
+$ virtualenv venv
+$ venv\Scripts\activate
+$ pip install -r requirements.txt
+$ deactivate
+$ rmdir /s venv     # remove the venv
 ```
 
 ### Add LINE BOT Developer Config
