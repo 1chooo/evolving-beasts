@@ -59,10 +59,3 @@ from linebot.models.events import (
 )
 import linebot
 import Monster
-
-line_bot_config = json.load(open("../config/linebot.conf", "r", encoding="utf8"))
-line_bot_api = LineBotApi(line_bot_config["access_token"])
-handler = WebhookHandler(line_bot_config["channel_secret"])
-
-LINE_BOT_API = linebot.LineBotApi(Monster.config.CHANNEL_ACCESS_TOKEN)
-HANDLER = linebot.WebhookHandler(Monster.config.CHANNEL_SECRET)

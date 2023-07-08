@@ -1,5 +1,7 @@
 .vscode/
 
+log/
+
 config/linebot.conf
 config/chatgpt.conf
 config/imgur.conf

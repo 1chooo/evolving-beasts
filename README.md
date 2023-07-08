@@ -64,8 +64,8 @@ Add the below code in `ngrok.yml`
 
 ```yml
 version: "2"
-authtoken: "token"
-# 上方不需更動
+authtoken: "YOUR_TOKEN"
+# Please avoid making any changes to the content provided below
 tunnels:
   first:
     addr: 5002
