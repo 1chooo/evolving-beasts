@@ -14,3 +14,9 @@ def check_dir(file_path) -> None:
         print(file_path, 'has been created successfully.')
 
     return None
+
+def get_output_path(file_path, current_date, id, type) -> str:
+
+    output_path = file_path + current_date + '_' + id + type
+
+    return output_path
