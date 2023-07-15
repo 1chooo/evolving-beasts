@@ -10,20 +10,20 @@ import json
 from Monster import Utils
 from Monster import Drama
 from datetime import datetime
-from flask import Flask
-from flask import request
-from flask import abort
+from flask import Flask, request, abort
 from linebot import LineBotApi
 from linebot import WebhookHandler
 from linebot.exceptions import LineBotApiError
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import TextMessage
 from linebot.models import ImageMessage
+from linebot.models import VideoMessage
 from linebot.models import AudioMessage
 from linebot.models import TextSendMessage
 from linebot.models.events import FollowEvent
 from linebot.models.events import MessageEvent
-from linebot.v3.messaging import MessagingApiBlob
+
+app = Flask(__name__)
 
 config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.', 'config')
 config_path = os.path.join(config_dir, 'linebot.conf')
@@ -33,11 +33,9 @@ current_date = datetime.today().strftime('%Y%m%d')
 
 LINE_BOT_API = LineBotApi(line_bot_config['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
-USER_LOG_PATH = os.path.join(".", "log", current_date)
+USER_LOG_PATH = os.path.join('.', 'log', current_date)
 
 Utils.check_dir(USER_LOG_PATH)
-
-app = Flask(__name__)
 
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
@@ -87,101 +85,132 @@ def handle_text_message(event) -> None:
 
     try:
         if (event.message.text) == 'Hi Test':
-            reply_message = []
-            message1 = TextSendMessage(
-                text='Monster HiHi! Test 1')
-            reply_message.append(message1)
-            message2 = TextSendMessage(
-                text='HiHi! Test 2')
-            reply_message.append(message2)
-            message3 = TextSendMessage(
-                text='HiHi! Test 3')
-            reply_message.append(message3)
+            reply_messages = [
+                TextSendMessage(text='Monster HiHi! Test 1'),
+                TextSendMessage(text='HiHi! Test 2'),
+                TextSendMessage(text='HiHi! Test 3')
+            ]
             
             LINE_BOT_API.reply_message(
                 event.reply_token,
-                reply_message
+                reply_messages
             )
         else:
-            reply_message = []
+            reply_messages = []
 
             message1 = TextSendMessage(
                 text='這句話我們還不認識，或許有一天我們會學起來！')
-            reply_message.append(message1)
+            reply_messages.append(message1)
 
             LINE_BOT_API.reply_message(
                 event.reply_token,
-                reply_message
+                reply_messages
             )
 
     except Exception as e:
         print(f'Error occurred: {e}')
         LINE_BOT_API.reply_message(
             event.reply_token, 
-            TextSendMessage('''
-                我們目前還不能辨識您的這則訊息\n或許可以試試看別的內容哦～''')
+            TextSendMessage(
+                '我們目前還不能辨識您的這則訊息\n或許可以試試看別的內容哦～'
+            )
         )
 
 @HANDLER.add(MessageEvent, message=ImageMessage)
-def handle_image_message(event):
+def handle_image_message(event) -> None:
 
     global USER_LOG_PATH
 
+    message_elements = [
+        f"Image has been Uploaded\n{event.message.id}\non",
+        str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
+    ]
+
+    text = '\n'.join(message_elements)
+
     LINE_BOT_API.reply_message(
         event.reply_token,
-        TextSendMessage(
-            text='Image has been Uploaded ' +
-            event.message.id +
-            '\non ' +
-            str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
-        )
+        TextSendMessage(text=text)
     )
 
     try:    # Download the image
         message_content = LINE_BOT_API.get_message_content(event.message.id)
 
-
-        file_path = os.path.join(USER_LOG_PATH, "imgs")
+        file_path = os.path.join(USER_LOG_PATH, 'imgs')
         Utils.check_dir(file_path)
 
-        output_path = Utils.get_output_path(file_path, current_date, event.message.id, ".mp4")
+        output_path = Utils.get_output_path(file_path, current_date, event.message.id, '.jpg')
 
-        with open(output_path, "wb") as fd:
+        with open(output_path, 'wb') as fd:
             for chunk in message_content.iter_content():
                 fd.write(chunk)
 
     except LineBotApiError as e:
-        print('Unable to get message content: ' + str(e))
+        print('Unable to get Image message content: ' + str(e))
 
-@HANDLER.add(MessageEvent, message=AudioMessage)
-def handle_audio_message(event):
+@HANDLER.add(MessageEvent, message=VideoMessage)
+def handle_video_message(event) -> None:
 
     global USER_LOG_PATH
+
+    message_elements = [
+        f"Video has been Uploaded\n{event.message.id}\non",
+        str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
+    ]
+
+    text = '\n'.join(message_elements)
+
     LINE_BOT_API.reply_message(
         event.reply_token,
-        TextSendMessage(
-            text='Audio has been Uploaded ' +
-            event.message.id +
-            '\non ' +
-            str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
-        )
+        TextSendMessage(text=text)
     )
 
     try:    # Download the audio
         message_content = LINE_BOT_API.get_message_content(event.message.id)
 
-        file_path = os.path.join(USER_LOG_PATH, "audio")
-        print(file_path)
+        file_path = os.path.join(USER_LOG_PATH, 'video')
         Utils.check_dir(file_path)
 
-        output_path = Utils.get_output_path(file_path, current_date, event.message.id, ".MP4")
+        output_path = Utils.get_output_path(file_path, current_date, event.message.id, '.mp4')
 
-        with open(output_path, "wb") as fd:
+        with open(output_path, 'wb') as fd:
             for chunk in message_content.iter_content():
                 fd.write(chunk)
 
     except LineBotApiError as e:
-        print('Unable to get message content: ' + str(e))
+        print('Unable to get Video message content: ' + str(e))
+
+@HANDLER.add(MessageEvent, message=AudioMessage)
+def handle_audio_message(event) -> None:
+
+    global USER_LOG_PATH
+
+    message_elements = [
+        f"Audio has been Uploaded\n{event.message.id}\non",
+        str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
+    ]
+
+    text = '\n'.join(message_elements)
+
+    LINE_BOT_API.reply_message(
+        event.reply_token,
+        TextSendMessage(text=text)
+    )
+
+    try:    # Download the audio
+        message_content = LINE_BOT_API.get_message_content(event.message.id)
+
+        file_path = os.path.join(USER_LOG_PATH, 'audio')
+        Utils.check_dir(file_path)
+
+        output_path = Utils.get_output_path(file_path, current_date, event.message.id, '.mp3')
+
+        with open(output_path, 'wb') as fd:
+            for chunk in message_content.iter_content():
+                fd.write(chunk)
+
+    except LineBotApiError as e:
+        print('Unable to get Audio message content: ' + str(e))
 
 def start_flask() -> None:
     app.run(port=5002)

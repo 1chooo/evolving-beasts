@@ -15,8 +15,9 @@ def check_dir(file_path) -> None:
 
     return None
 
-def get_output_path(file_path, current_date, id, type) -> str:
+def get_output_path(file_path, current_date, id, file_type) -> str:
 
-    output_path = file_path + current_date + '_' + id + type
-
+    filename = f"{current_date}_{id}{file_type}"
+    output_path = os.path.join(file_path, filename)
+    
     return output_path
