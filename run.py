@@ -19,7 +19,6 @@ from linebot.models import TextMessage
 from linebot.models import ImageMessage
 from linebot.models import VideoMessage
 from linebot.models import AudioMessage
-from linebot.models import TextSendMessage
 from linebot.models.events import FollowEvent
 from linebot.models.events import MessageEvent
 
@@ -29,11 +28,11 @@ config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.', 'conf
 config_path = os.path.join(config_dir, 'linebot.conf')
 line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
 
-current_date = datetime.today().strftime('%Y%m%d')
+CURRENT_DATE = datetime.today().strftime('%Y%m%d')
 
 LINE_BOT_API = LineBotApi(line_bot_config['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
-USER_LOG_PATH = os.path.join('.', 'log', current_date)
+USER_LOG_PATH = os.path.join('.', 'log', CURRENT_DATE)
 
 Utils.check_dir(USER_LOG_PATH)
 
@@ -45,11 +44,7 @@ def callback() -> str:
     signature = request.headers['X-Line-Signature'] # get X-Line-Signature header value
     body = request.get_data(as_text=True)   # get request body as text
 
-    file_path = USER_LOG_PATH + '/user-event.log'   # record users' log
-    
-    with open(file_path, 'a') as output_file:
-        output_file.write(body)
-        output_file.write('\n')
+    Utils.store_user_event(USER_LOG_PATH, body)
 
     try:        # handle webhook body
         HANDLER.handle(body, signature)
@@ -65,152 +60,72 @@ def handle_user_profile(event) -> None:
     
     try:
         user_profile = LINE_BOT_API.get_profile(event.source.user_id)
-    except LineBotApiError as e: # Handling the fails when obtaining the user profile
-        print(f'LineBotApiError: {e}')
+    except LineBotApiError as e:    # Handling the fails when obtaining the user profile
+        Utils.line_bot_api_error_console(e)
         return
-    
-    file_path = USER_LOG_PATH + '/users-info.log'   # Store User INFO
 
-    with open(file_path, 'a') as myfile:
-        try:
-            print(json.dumps(vars(user_profile)))
-            myfile.write(json.dumps(vars(user_profile), sort_keys=True))
-            myfile.write('\n')
-        except Exception as e:  # Handling the fails when writing a file
-            print(f'Error: {e}')
-            return
+    Utils.store_user_info(USER_LOG_PATH, user_profile)
         
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_text_message(event) -> None:
 
     try:
         if (event.message.text) == 'Hi Test':
-            reply_messages = [
-                TextSendMessage(text='Monster HiHi! Test 1'),
-                TextSendMessage(text='HiHi! Test 2'),
-                TextSendMessage(text='HiHi! Test 3')
-            ]
-            
-            LINE_BOT_API.reply_message(
-                event.reply_token,
-                reply_messages
-            )
+            Drama.handle_test_text_message(event)
         else:
-            reply_messages = []
-
-            message1 = TextSendMessage(
-                text='這句話我們還不認識，或許有一天我們會學起來！')
-            reply_messages.append(message1)
-
-            LINE_BOT_API.reply_message(
-                event.reply_token,
-                reply_messages
-            )
+            Drama.handle_unknown_text_message(event)
 
     except Exception as e:
-        print(f'Error occurred: {e}')
-        LINE_BOT_API.reply_message(
-            event.reply_token, 
-            TextSendMessage(
-                '我們目前還不能辨識您的這則訊息\n或許可以試試看別的內容哦～'
-            )
-        )
+        Utils.text_exception_console(e)
+        Drama.handle_invalid_text_message(event)
 
 @HANDLER.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event) -> None:
 
     global USER_LOG_PATH
 
-    message_elements = [
-        f"Image has been Uploaded\n{event.message.id}\non",
-        str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
-    ]
-
-    text = '\n'.join(message_elements)
-
-    LINE_BOT_API.reply_message(
-        event.reply_token,
-        TextSendMessage(text=text)
-    )
+    Drama.handle_test_image_message(event)
 
     try:    # Download the image
-        message_content = LINE_BOT_API.get_message_content(event.message.id)
-
-        file_path = os.path.join(USER_LOG_PATH, 'imgs')
-        Utils.check_dir(file_path)
-
-        output_path = Utils.get_output_path(file_path, current_date, event.message.id, '.jpg')
-
-        with open(output_path, 'wb') as fd:
-            for chunk in message_content.iter_content():
-                fd.write(chunk)
+        Utils.download_file(
+            LINE_BOT_API, USER_LOG_PATH, event, 
+            'imgs', '.jpg', CURRENT_DATE
+        )
 
     except LineBotApiError as e:
-        print('Unable to get Image message content: ' + str(e))
+        Utils.image_exception_console(e)
 
 @HANDLER.add(MessageEvent, message=VideoMessage)
 def handle_video_message(event) -> None:
 
     global USER_LOG_PATH
 
-    message_elements = [
-        f"Video has been Uploaded\n{event.message.id}\non",
-        str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
-    ]
-
-    text = '\n'.join(message_elements)
-
-    LINE_BOT_API.reply_message(
-        event.reply_token,
-        TextSendMessage(text=text)
-    )
+    Drama.handle_test_video_message(event)
 
     try:    # Download the audio
-        message_content = LINE_BOT_API.get_message_content(event.message.id)
-
-        file_path = os.path.join(USER_LOG_PATH, 'video')
-        Utils.check_dir(file_path)
-
-        output_path = Utils.get_output_path(file_path, current_date, event.message.id, '.mp4')
-
-        with open(output_path, 'wb') as fd:
-            for chunk in message_content.iter_content():
-                fd.write(chunk)
+        Utils.download_file(
+            LINE_BOT_API, USER_LOG_PATH, event, 
+            'video', '.mp4', CURRENT_DATE
+        )
 
     except LineBotApiError as e:
-        print('Unable to get Video message content: ' + str(e))
+        Utils.image_exception_console(e)
 
 @HANDLER.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event) -> None:
 
     global USER_LOG_PATH
 
-    message_elements = [
-        f"Audio has been Uploaded\n{event.message.id}\non",
-        str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
-    ]
-
-    text = '\n'.join(message_elements)
-
-    LINE_BOT_API.reply_message(
-        event.reply_token,
-        TextSendMessage(text=text)
-    )
+    Drama.handle_test_audio_message(event)
 
     try:    # Download the audio
-        message_content = LINE_BOT_API.get_message_content(event.message.id)
-
-        file_path = os.path.join(USER_LOG_PATH, 'audio')
-        Utils.check_dir(file_path)
-
-        output_path = Utils.get_output_path(file_path, current_date, event.message.id, '.mp3')
-
-        with open(output_path, 'wb') as fd:
-            for chunk in message_content.iter_content():
-                fd.write(chunk)
+        Utils.download_file(
+            LINE_BOT_API, USER_LOG_PATH, event, 
+            'audio', '.mp3', CURRENT_DATE
+        )
 
     except LineBotApiError as e:
-        print('Unable to get Audio message content: ' + str(e))
+        Utils.audio_exception_console(e)
 
 def start_flask() -> None:
     app.run(port=5002)
