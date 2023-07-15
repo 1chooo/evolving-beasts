@@ -36,7 +36,8 @@ $ rmdir /s venv     # remove the venv
 
 ### Add LINE BOT Developer Config
 
-You should edit the file `config/linebot_template.conf` and rename into `config/linebot.conf`
+You should duplicate the file `config/linebot_template.conf` and rename into `config/linebot.conf`
+
 ```js
 {
     "CHANNEL_ACCESS_TOKEN": "YOUR_CHANNEL_ACCESS_TOKEN",    // LINE BOT API
@@ -76,6 +77,27 @@ tunnels:
 ```
 
 type `ngrok start --all` in terminal to start `ngrok`
+
+Project Structure
+---
+```
+PROJECT_ROOT
+├── test/
+│   ├── test_main.py/
+│   ├──   :
+│   └──   :
+├── Monster/
+│   ├── Drama.py
+│   ├── Utils.py
+│   └──   :
+├── config/
+│   ├── linebot.conf
+│   ├── chatgpt.conf
+│   └──   :
+├── run.py
+├── LICENSE
+└── README.md
+```
 
 License
 ---
