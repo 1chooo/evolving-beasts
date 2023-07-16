@@ -100,3 +100,64 @@ def handle_test_text_message(event) -> None:
         event.reply_token,
         reply_messages
     )
+
+
+class HandleTest:
+    
+    def __init__(self, line_bot_api, handler):
+        self.LINE_BOT_API = line_bot_api
+        self.HANDLER = handler
+
+    def handle_test_image_message(self, event) -> None:
+
+        message_elements = [
+            f"Image has been Uploaded\n{event.message.id}\non",
+            str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
+        ]
+
+        text = '\n'.join(message_elements)
+
+        LINE_BOT_API.reply_message(
+            event.reply_token,
+            TextSendMessage(text=text)
+        )
+    
+    def handle_test_video_message(self, event) -> None:
+
+        message_elements = [
+            f"Video has been Uploaded\n{event.message.id}\non",
+            str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
+        ]
+
+        text = '\n'.join(message_elements)
+
+        LINE_BOT_API.reply_message(
+            event.reply_token,
+            TextSendMessage(text=text)
+        )
+
+    def handle_test_audio_message(self, event) -> None:
+
+        message_elements = [
+            f"Audio has been Uploaded\n{event.message.id}\non",
+            str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
+        ]
+
+        text = '\n'.join(message_elements)
+
+        LINE_BOT_API.reply_message(
+            event.reply_token,
+            TextSendMessage(text=text)
+        )
+
+    def handle_test_text_message(self, event) -> None:
+        reply_messages = [
+            TextSendMessage(text='Monster HiHi! Test 1'),
+            TextSendMessage(text='HiHi! Test 2'),
+            TextSendMessage(text='HiHi! Test 3')
+        ]
+                
+        LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
