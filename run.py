@@ -9,6 +9,7 @@ import os
 import json
 from Monster import Utils
 from Monster import Drama
+from Monster.Drama import HandleTest
 from datetime import datetime
 from flask import Flask, request, abort
 from linebot import LineBotApi
@@ -35,6 +36,7 @@ HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
 USER_LOG_PATH = os.path.join('.', 'log', CURRENT_DATE)
 
 Utils.check_dir(USER_LOG_PATH)
+handle_test = HandleTest(LINE_BOT_API, HANDLER)
 
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
@@ -71,7 +73,7 @@ def handle_text_message(event) -> None:
 
     try:
         if (event.message.text) == 'Hi Test':
-            Drama.handle_test_text_message(event)
+            handle_test.handle_test_text_message(event)
         else:
             Drama.handle_unknown_text_message(event)
 
@@ -84,7 +86,7 @@ def handle_image_message(event) -> None:
 
     global USER_LOG_PATH
 
-    Drama.handle_test_image_message(event)
+    handle_test.handle_test_image_message(event)
 
     try:    # Download the image
         Utils.download_file(
@@ -100,7 +102,7 @@ def handle_video_message(event) -> None:
 
     global USER_LOG_PATH
 
-    Drama.handle_test_video_message(event)
+    handle_test.handle_test_video_message(event)
 
     try:    # Download the audio
         Utils.download_file(
@@ -116,7 +118,7 @@ def handle_audio_message(event) -> None:
 
     global USER_LOG_PATH
 
-    Drama.handle_test_audio_message(event)
+    handle_test.handle_test_audio_message(event)
 
     try:    # Download the audio
         Utils.download_file(

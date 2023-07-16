@@ -19,43 +19,58 @@ class TestFunc:
         self.LINE_BOT_API = line_bot_api
         self.HANDLER = handler
 
-    def handle_test_image_message(self, event):
-        self.LINE_BOT_API.reply_message(
+    def handle_test_image_message(self, event) -> None:
+
+        message_elements = [
+            f"Image has been Uploaded\n{event.message.id}\non",
+            str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
+        ]
+
+        text = '\n'.join(message_elements)
+
+        LINE_BOT_API.reply_message(
             event.reply_token,
-            TextSendMessage(
-                text='Image has been Uploaded ' +
-                event.message.id +
-                '\non ' +
-                str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
-            )
+            TextSendMessage(text=text)
+        )
+    
+    def handle_test_video_message(self, event) -> None:
+
+        message_elements = [
+            f"Video has been Uploaded\n{event.message.id}\non",
+            str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
+        ]
+
+        text = '\n'.join(message_elements)
+
+        LINE_BOT_API.reply_message(
+            event.reply_token,
+            TextSendMessage(text=text)
         )
 
-    def handle_test_audio_message(self, event):
-        self.LINE_BOT_API.reply_message(
+    def handle_test_audio_message(self, event) -> None:
+
+        message_elements = [
+            f"Audio has been Uploaded\n{event.message.id}\non",
+            str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
+        ]
+
+        text = '\n'.join(message_elements)
+
+        LINE_BOT_API.reply_message(
             event.reply_token,
-            TextSendMessage(
-                text='Audio has been Uploaded ' +
-                event.message.id +
-                '\non ' +
-                str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
-            )
+            TextSendMessage(text=text)
         )
 
     def handle_test_text_message(self, event) -> None:
-        reply_message = []
-        message1 = TextSendMessage(
-            text='Monster HiHi! Test 1')
-        reply_message.append(message1)
-        message2 = TextSendMessage(
-            text='HiHi! Test 2')
-        reply_message.append(message2)
-        message3 = TextSendMessage(
-            text='HiHi! Test 3')
-        reply_message.append(message3)
-        
-        self.LINE_BOT_API.reply_message(
+        reply_messages = [
+            TextSendMessage(text='Monster HiHi! Test 1'),
+            TextSendMessage(text='HiHi! Test 2'),
+            TextSendMessage(text='HiHi! Test 3')
+        ]
+                
+        LINE_BOT_API.reply_message(
             event.reply_token,
-            reply_message
+            reply_messages
         )
 
 # 在外部設置 LINE Bot API 相關變數
