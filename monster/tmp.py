@@ -83,3 +83,85 @@ HANDLER = WebhookHandler(line_bot_config["CHANNEL_SECRET"])
 
 # 創建 TestFunc 類別的實例並傳入外部變數
 test_func = TestFunc(LINE_BOT_API, HANDLER)
+
+def line_bot_api_error_console(e: Exception) -> None:
+    print(f'LineBotApiError: {str(e)}')
+
+def user_info_console(user_profile) -> None:
+    print(json.dumps(vars(user_profile)))
+
+def user_info_exception_console(e: Exception) -> None:
+    print(f'Error in getting user info: {str(e)}')
+
+def store_user_info(USER_LOG_PATH: str, user_profile) -> None:
+    file_path = os.path.join(USER_LOG_PATH, 'users-info.log')
+
+    with open(file_path, 'a') as myfile:
+        try:
+            user_info_console(user_profile)
+            myfile.write(json.dumps(vars(user_profile), sort_keys=True))
+            myfile.write('\n')
+        except Exception as e:      # Handling the fails when writing a file
+            user_info_exception_console(e)
+
+def user_event_exception_console(e: Exception) -> None:
+    print(f'Error in getting user event: {str(e)}')
+
+def store_user_event(USER_LOG_PATH: str, body: str) -> None:
+    file_path = os.path.join(USER_LOG_PATH, 'users-event.log')
+    
+    with open(file_path, 'a') as output_file:
+        try:
+            output_file.write(body)
+            output_file.write('\n')
+        except Exception as e:      # Handling the fails when writing a file
+            user_event_exception_console(e)
+
+def text_exception_console(e: LineBotApiError) -> None:
+    print(f'Error occurred: {str(e)}')
+
+def image_exception_console(e: LineBotApiError) -> None:
+    print(f'Unable to get Image message content: {str(e)}')
+
+def video_exception_console(e: LineBotApiError) -> None:
+    print(f'Unable to get Video message content: {str(e)}')
+
+def audio_exception_console(e: LineBotApiError) -> None:
+    print(f'Unable to get Audio message content: {str(e)}')
+
+class ExceptionConsole:
+    def __init__(self, line_bot_api, handler):
+        self.LINE_BOT_API = line_bot_api
+        self.HANDLER = handler
+
+    def text_exception_console(self, e: LineBotApiError) -> None:
+        print(f'Error occurred: {str(e)}')
+
+    def image_exception_console(self, e: LineBotApiError) -> None:
+        print(f'Unable to get Image message content: {str(e)}')
+
+    def video_exception_console(self, e: LineBotApiError) -> None:
+        print(f'Unable to get Video message content: {str(e)}')
+
+    def audio_exception_console(self, e: LineBotApiError) -> None:
+        print(f'Unable to get Audio message content: {str(e)}')
+
+def handle_unknown_text_message(event: MessageEvent) -> None:
+    reply_message = []
+
+    message1 = TextSendMessage(
+        text='這句話我們還不認識，或許有一天我們會學起來！')
+    reply_message.append(message1)
+
+    LINE_BOT_API.reply_message(
+        event.reply_token,
+        reply_message
+    )
+
+def handle_invalid_text_message(event: MessageEvent) -> None:
+    LINE_BOT_API.reply_message(
+        event.reply_token, 
+        TextSendMessage(
+            '我們目前還不能辨識您的這則訊息\n或許可以試試看別的內容哦～'
+        )
+    )

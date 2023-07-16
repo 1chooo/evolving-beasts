@@ -9,13 +9,17 @@ import os
 import json
 from Monster import Utils
 from Monster import Drama
-from Monster.Drama import HandleTest
+from Monster.Drama import AboutUsDrama
+from Monster.Drama import TestHandler
+from Monster.Drama import ErrorHandler
+from Monster.Utils import ConsoleLogger
 from datetime import datetime
 from flask import Flask, request, abort
 from linebot import LineBotApi
 from linebot import WebhookHandler
 from linebot.exceptions import LineBotApiError
 from linebot.exceptions import InvalidSignatureError
+from linebot.models import Profile
 from linebot.models import TextMessage
 from linebot.models import ImageMessage
 from linebot.models import VideoMessage
@@ -36,17 +40,20 @@ HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
 USER_LOG_PATH = os.path.join('.', 'log', CURRENT_DATE)
 
 Utils.check_dir(USER_LOG_PATH)
-handle_test = HandleTest(LINE_BOT_API, HANDLER)
+
+about_us_drama = AboutUsDrama(LINE_BOT_API, HANDLER)
+test_handler = TestHandler(LINE_BOT_API, HANDLER)
+error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
+console_logger = ConsoleLogger(LINE_BOT_API, HANDLER, USER_LOG_PATH)
 
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
-
     global USER_LOG_PATH
 
     signature = request.headers['X-Line-Signature'] # get X-Line-Signature header value
     body = request.get_data(as_text=True)   # get request body as text
 
-    Utils.store_user_event(USER_LOG_PATH, body)
+    console_logger.store_user_event(body)
 
     try:        # handle webhook body
         HANDLER.handle(body, signature)
@@ -56,37 +63,36 @@ def callback() -> str:
     return 'OK'
 
 @HANDLER.add(FollowEvent)
-def handle_user_profile(event) -> None:
-    
+def handle_user_profile(event: FollowEvent) -> None:
     global USER_LOG_PATH
     
     try:
         user_profile = LINE_BOT_API.get_profile(event.source.user_id)
     except LineBotApiError as e:    # Handling the fails when obtaining the user profile
-        Utils.line_bot_api_error_console(e)
+        console_logger.line_bot_api_error_console(e)
         return
 
-    Utils.store_user_info(USER_LOG_PATH, user_profile)
+    console_logger.store_user_info(user_profile)
         
 @HANDLER.add(MessageEvent, message=TextMessage)
-def handle_text_message(event) -> None:
-
+def handle_text_message(event: MessageEvent) -> None:
     try:
         if (event.message.text) == 'Hi Test':
-            handle_test.handle_test_text_message(event)
+            test_handler.handle_test_text_message(event)
+        elif (event.message.text) == '我想認識你們':
+            about_us_drama.handle_about_us_test(event)
         else:
-            Drama.handle_unknown_text_message(event)
+            error_handler.handle_unknown_text_message(event)
 
     except Exception as e:
-        Utils.text_exception_console(e)
-        Drama.handle_invalid_text_message(event)
+        console_logger.text_exception_console(e)
+        error_handler.handle_invalid_text_message(event)
 
 @HANDLER.add(MessageEvent, message=ImageMessage)
-def handle_image_message(event) -> None:
-
+def handle_image_message(event: MessageEvent) -> None:
     global USER_LOG_PATH
 
-    handle_test.handle_test_image_message(event)
+    test_handler.handle_test_image_message(event)
 
     try:    # Download the image
         Utils.download_file(
@@ -95,14 +101,14 @@ def handle_image_message(event) -> None:
         )
 
     except LineBotApiError as e:
-        Utils.image_exception_console(e)
+        console_logger.image_exception_console(e)
+        error_handler.handle_invalid_image_message(event)
 
 @HANDLER.add(MessageEvent, message=VideoMessage)
-def handle_video_message(event) -> None:
-
+def handle_video_message(event: MessageEvent) -> None:
     global USER_LOG_PATH
 
-    handle_test.handle_test_video_message(event)
+    test_handler.handle_test_video_message(event)
 
     try:    # Download the audio
         Utils.download_file(
@@ -111,14 +117,14 @@ def handle_video_message(event) -> None:
         )
 
     except LineBotApiError as e:
-        Utils.image_exception_console(e)
+        console_logger.image_exception_console(e)
+        error_handler.handle_invalid_video_message(event)
 
 @HANDLER.add(MessageEvent, message=AudioMessage)
-def handle_audio_message(event) -> None:
-
+def handle_audio_message(event: MessageEvent) -> None:
     global USER_LOG_PATH
 
-    handle_test.handle_test_audio_message(event)
+    test_handler.handle_test_audio_message(event)
 
     try:    # Download the audio
         Utils.download_file(
@@ -127,7 +133,8 @@ def handle_audio_message(event) -> None:
         )
 
     except LineBotApiError as e:
-        Utils.audio_exception_console(e)
+        console_logger.audio_exception_console(e)
+        error_handler.handle_invalid_audio_message(event)
 
 def start_flask() -> None:
     app.run(port=5002)
