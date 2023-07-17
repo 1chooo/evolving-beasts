@@ -7,19 +7,17 @@ Version: v0.0.1
 
 import os
 import json
-from Monster import Utils
-from Monster import Drama
+from datetime import datetime
 from Monster.Drama import AboutUsDrama
 from Monster.Drama import TestHandler
 from Monster.Drama import ErrorHandler
 from Monster.Utils import ConsoleLogger
-from datetime import datetime
+from Monster.Utils import FileHandler
 from flask import Flask, request, abort
 from linebot import LineBotApi
 from linebot import WebhookHandler
 from linebot.exceptions import LineBotApiError
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import Profile
 from linebot.models import TextMessage
 from linebot.models import ImageMessage
 from linebot.models import VideoMessage
@@ -39,12 +37,13 @@ LINE_BOT_API = LineBotApi(line_bot_config['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
 USER_LOG_PATH = os.path.join('.', 'log', CURRENT_DATE)
 
-Utils.check_dir(USER_LOG_PATH)
-
 about_us_drama = AboutUsDrama(LINE_BOT_API, HANDLER)
 test_handler = TestHandler(LINE_BOT_API, HANDLER)
 error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
 console_logger = ConsoleLogger(LINE_BOT_API, HANDLER, USER_LOG_PATH)
+file_handler = FileHandler(LINE_BOT_API, USER_LOG_PATH, CURRENT_DATE)
+
+file_handler.create_directory(USER_LOG_PATH)
 
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
@@ -95,10 +94,7 @@ def handle_image_message(event: MessageEvent) -> None:
     test_handler.handle_test_image_message(event)
 
     try:    # Download the image
-        Utils.download_file(
-            LINE_BOT_API, USER_LOG_PATH, event, 
-            'imgs', '.jpg', CURRENT_DATE
-        )
+        file_handler.download_file(event, 'imgs', '.jpg')
 
     except LineBotApiError as e:
         console_logger.image_exception_console(e)
@@ -111,10 +107,7 @@ def handle_video_message(event: MessageEvent) -> None:
     test_handler.handle_test_video_message(event)
 
     try:    # Download the audio
-        Utils.download_file(
-            LINE_BOT_API, USER_LOG_PATH, event, 
-            'video', '.mp4', CURRENT_DATE
-        )
+        file_handler.download_file(event, 'video', '.mp4')
 
     except LineBotApiError as e:
         console_logger.image_exception_console(e)
@@ -127,10 +120,7 @@ def handle_audio_message(event: MessageEvent) -> None:
     test_handler.handle_test_audio_message(event)
 
     try:    # Download the audio
-        Utils.download_file(
-            LINE_BOT_API, USER_LOG_PATH, event, 
-            'audio', '.mp3', CURRENT_DATE
-        )
+        file_handler.download_file(event, 'audio', '.mp3')
 
     except LineBotApiError as e:
         console_logger.audio_exception_console(e)

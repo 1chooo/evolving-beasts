@@ -11,33 +11,34 @@ from linebot import LineBotApi
 from linebot import WebhookHandler
 from linebot.exceptions import LineBotApiError
 from linebot.models import Profile
+from linebot.models.events import MessageEvent
 
-def check_dir(file_path: str) -> None:
-    if not os.path.isdir(file_path):
-        os.mkdir(file_path, mode=0o777)
-        print(file_path, 'has been created successfully.')
+class FileHandler:
+    def __init__(self, line_bot_api: LineBotApi, user_log_path: str, current_date: str):
+        self.LINE_BOT_API = line_bot_api
+        self.USER_LOG_PATH = user_log_path
+        self.CURRENT_DATE = current_date
 
-    return None
+    def create_directory(self, directory_path: str):
+        if not os.path.isdir(directory_path):
+            os.mkdir(directory_path, mode=0o777)
+            print(directory_path, 'has been created successfully.')
 
-def get_output_path(
-        file_path: str, CURRENT_DATE: str, id, file_type) -> str:
-    filename = f"{CURRENT_DATE}_{id}{file_type}"
-    output_path = os.path.join(file_path, filename)
-    
-    return output_path
+    def generate_output_path(self, directory_path: str, id, file_type: str):
+        filename = f"{self.CURRENT_DATE}_{id}{file_type}"
+        output_path = os.path.join(directory_path, filename)
+        
+        return output_path
 
-def download_file(
-        LINE_BOT_API: LineBotApi, USER_LOG_PATH: str, event, type: str, file_type: str, CURRENT_DATE: str) -> None:
-    message_content = LINE_BOT_API.get_message_content(event.message.id)
+    def download_file(self, event: MessageEvent, type: str, file_type: str):
+        message_content = self.LINE_BOT_API.get_message_content(event.message.id)
+        directory_path = os.path.join(self.USER_LOG_PATH, type)
+        self.create_directory(directory_path)
+        output_path = self.generate_output_path(directory_path, event.message.id, file_type)
 
-    file_path = os.path.join(USER_LOG_PATH, type)
-    check_dir(file_path)
-
-    output_path = get_output_path(file_path, CURRENT_DATE, event.message.id, file_type)
-
-    with open(output_path, 'wb') as fd:
-        for chunk in message_content.iter_content():
-            fd.write(chunk)
+        with open(output_path, 'wb') as fd:
+            for chunk in message_content.iter_content():
+                fd.write(chunk)
 
 class ConsoleLogger:
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler, user_log_path: str):

@@ -165,3 +165,37 @@ def handle_invalid_text_message(event: MessageEvent) -> None:
             '我們目前還不能辨識您的這則訊息\n或許可以試試看別的內容哦～'
         )
     )
+
+config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config')
+config_path = os.path.join(config_dir, 'linebot.conf')
+line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
+
+LINE_BOT_API = LineBotApi(line_bot_config["CHANNEL_ACCESS_TOKEN"])
+HANDLER = WebhookHandler(line_bot_config["CHANNEL_SECRET"])
+
+def check_dir(file_path: str) -> None:
+    if not os.path.isdir(file_path):
+        os.mkdir(file_path, mode=0o777)
+        print(file_path, 'has been created successfully.')
+
+    return None
+
+def get_output_path(
+        file_path: str, CURRENT_DATE: str, id, file_type: str) -> str:
+    filename = f"{CURRENT_DATE}_{id}{file_type}"
+    output_path = os.path.join(file_path, filename)
+    
+    return output_path
+
+def download_file(
+        LINE_BOT_API: LineBotApi, USER_LOG_PATH: str, event, type: str, file_type: str, CURRENT_DATE: str) -> None:
+    message_content = LINE_BOT_API.get_message_content(event.message.id)
+
+    file_path = os.path.join(USER_LOG_PATH, type)
+    check_dir(file_path)
+
+    output_path = get_output_path(file_path, CURRENT_DATE, event.message.id, file_type)
+
+    with open(output_path, 'wb') as fd:
+        for chunk in message_content.iter_content():
+            fd.write(chunk)
