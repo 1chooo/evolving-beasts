@@ -11,6 +11,7 @@ from datetime import datetime
 from Monster.Drama import AboutUsDrama
 from Monster.Drama import TestHandler
 from Monster.Drama import ErrorHandler
+from Monster.Drama import message_handlers
 from Monster.Utils import ConsoleLogger
 from Monster.Utils import FileHandler
 from flask import Flask, request, abort
@@ -58,6 +59,7 @@ def callback() -> str:
 
     try:        # handle webhook body
         HANDLER.handle(body, signature)
+        
     except InvalidSignatureError:
         abort(400)
 
@@ -78,24 +80,13 @@ def handle_user_profile(event: FollowEvent) -> None:
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_text_message(event: MessageEvent) -> None:
     try:
-        if (event.message.text) == 'Hi Test':
-            test_handler.handle_test_text_message(event)
-        elif (event.message.text) == '我想上傳回收物📸':
-            test_handler.handle_test_text_message(event)
-        elif (event.message.text) == '我想關心怪獸🔦':
-            test_handler.handle_test_text_message(event)
-        elif (event.message.text) == '我想關心永續新知🌏':
-            test_handler.handle_test_text_message(event)
-        elif (event.message.text) == '我想學習如何上傳回收物📖':
-            test_handler.handle_test_text_message(event)
-        elif (event.message.text) == '我想看最強怪獸👾':
-            test_handler.handle_test_text_message(event)
-        elif (event.message.text) == '我想更認識你們👋🏻':
-            about_us_drama.handle_about_us_message(event)
-        elif (event.message.text) == '我想認識成員——林群賀':
-            about_us_drama.handle_about_us_test(event)
-        else:
-            error_handler.handle_unknown_text_message(event)
+        message_text = event.message.text
+        message_handler = message_handlers.get(
+            message_text, # Retrieve the corresponding message handler function from the dictionary,
+            error_handler.handle_unknown_text_message # error handler if not found
+        )
+
+        message_handler(event)  # Call the corresponding message handler function to process the message
 
     except Exception as e:
         console_logger.text_exception_console(e)
