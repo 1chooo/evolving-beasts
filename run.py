@@ -16,14 +16,14 @@ from Monster.Utils import FileHandler
 from flask import Flask, request, abort
 from linebot import LineBotApi
 from linebot import WebhookHandler
-from linebot.exceptions import LineBotApiError
-from linebot.exceptions import InvalidSignatureError
 from linebot.models import TextMessage
 from linebot.models import ImageMessage
 from linebot.models import VideoMessage
 from linebot.models import AudioMessage
 from linebot.models.events import FollowEvent
 from linebot.models.events import MessageEvent
+from linebot.exceptions import LineBotApiError
+from linebot.exceptions import InvalidSignatureError
 
 app = Flask(__name__)
 
@@ -44,6 +44,8 @@ console_logger = ConsoleLogger(LINE_BOT_API, HANDLER, USER_LOG_PATH)
 file_handler = FileHandler(LINE_BOT_API, USER_LOG_PATH, CURRENT_DATE)
 
 file_handler.create_directory(USER_LOG_PATH)
+
+READY_TO_GET_MONSTER_NAME = False
 
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
@@ -78,7 +80,19 @@ def handle_text_message(event: MessageEvent) -> None:
     try:
         if (event.message.text) == 'Hi Test':
             test_handler.handle_test_text_message(event)
-        elif (event.message.text) == '我想認識你們':
+        elif (event.message.text) == '我想上傳回收物📸':
+            test_handler.handle_test_text_message(event)
+        elif (event.message.text) == '我想關心怪獸🔦':
+            test_handler.handle_test_text_message(event)
+        elif (event.message.text) == '我想關心永續新知🌏':
+            test_handler.handle_test_text_message(event)
+        elif (event.message.text) == '我想學習如何上傳回收物📖':
+            test_handler.handle_test_text_message(event)
+        elif (event.message.text) == '我想看最強怪獸👾':
+            test_handler.handle_test_text_message(event)
+        elif (event.message.text) == '我想更認識你們👋🏻':
+            about_us_drama.handle_about_us_message(event)
+        elif (event.message.text) == '我想認識成員——林群賀':
             about_us_drama.handle_about_us_test(event)
         else:
             error_handler.handle_unknown_text_message(event)
