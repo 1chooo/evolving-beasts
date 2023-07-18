@@ -206,3 +206,71 @@ def download_file(
     with open(output_path, 'wb') as fd:
         for chunk in message_content.iter_content():
             fd.write(chunk)
+
+'''
+'''
+
+from Drama import AboutUsDrama
+from Drama import TestHandler
+from Drama import ErrorHandler
+from Utils import ConsoleLogger
+from Utils import FileHandler
+
+config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.', 'config')
+config_path = os.path.join(config_dir, 'linebot.conf')
+line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
+
+CURRENT_DATE = datetime.today().strftime('%Y%m%d')
+
+LINE_BOT_API = LineBotApi(line_bot_config['CHANNEL_ACCESS_TOKEN'])
+HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
+USER_LOG_PATH = os.path.join('.', 'log', CURRENT_DATE)
+
+about_us_drama = AboutUsDrama(LINE_BOT_API, HANDLER)
+test_handler = TestHandler(LINE_BOT_API, HANDLER)
+error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
+console_logger = ConsoleLogger(LINE_BOT_API, HANDLER, USER_LOG_PATH)
+file_handler = FileHandler(LINE_BOT_API, USER_LOG_PATH, CURRENT_DATE)
+
+message_handlers = {
+    'Hi Test': test_handler.handle_test_text_message,
+    '我想上傳回收物📸': test_handler.handle_test_text_message,
+    '我想關心怪獸🔦': test_handler.handle_test_text_message,
+    '我想關心永續新知🌏': test_handler.handle_test_text_message,
+    '我想學習如何上傳回收物📖': test_handler.handle_test_text_message,
+    '我想看最強怪獸👾': test_handler.handle_test_text_message,
+    '我想更認識你們👋🏻': about_us_drama.handle_about_us_message,
+    '我想認識成員——林群賀': about_us_drama.handle_about_us_test,
+    '我想認識成員——葉霈恩': about_us_drama.handle_about_us_test,
+    '我想認識成員——黃品誠': about_us_drama.handle_about_us_test,
+    '我想認識成員——林源煜': about_us_drama.handle_about_us_test,
+    '我想認識成員——周姿吟': about_us_drama.handle_about_us_test,
+}
+
+# 獲取訊息文字
+message_text = event.message.text
+
+# 根據訊息文字選擇相應的處理函式，若找不到則使用預設的錯誤處理函式
+message_handler = message_handlers.get(message_text, error_handler.handle_unknown_text_message)
+
+        # 呼叫相應的處理函式處理訊息
+message_handler(event)
+
+if (event.message.text) == 'Hi Test':
+    test_handler.handle_test_text_message(event)
+elif (event.message.text) == '我想上傳回收物📸':
+    test_handler.handle_test_text_message(event)
+elif (event.message.text) == '我想關心怪獸🔦':
+    test_handler.handle_test_text_message(event)
+elif (event.message.text) == '我想關心永續新知🌏':
+    test_handler.handle_test_text_message(event)
+elif (event.message.text) == '我想學習如何上傳回收物📖':
+    test_handler.handle_test_text_message(event)
+elif (event.message.text) == '我想看最強怪獸👾':
+    test_handler.handle_test_text_message(event)
+elif (event.message.text) == '我想更認識你們👋🏻':
+    about_us_drama.handle_about_us_message(event)
+elif (event.message.text) == '我想認識成員——林群賀':
+    about_us_drama.handle_about_us_test(event)
+else:
+    error_handler.handle_unknown_text_message(event)

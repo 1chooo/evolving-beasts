@@ -5,15 +5,11 @@ Author: @1chooo(Hugo ChunHo Lin)
 Version: v0.0.1
 '''
 
+import os
+import json
 from datetime import datetime
 from linebot import LineBotApi
 from linebot import WebhookHandler
-from linebot.exceptions import LineBotApiError
-from linebot.exceptions import InvalidSignatureError
-from linebot.models import TextMessage
-from linebot.models import ImageMessage
-from linebot.models import VideoMessage
-from linebot.models import AudioMessage
 from linebot.models import TextSendMessage
 from linebot.models import ImageSendMessage
 from linebot.models import ImageCarouselTemplate
@@ -40,7 +36,7 @@ class ErrorHandler:
 
     def handle_unknown_text_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='這句話我們還不認識，或許有一天我們會學起來！'),
+            TextSendMessage(text='這句話怪獸還不認識誒，或許有一天我們會幫助怪熟學起來！'),
         ]
                 
         self.LINE_BOT_API.reply_message(
@@ -277,3 +273,29 @@ class AboutUsDrama:
             event.reply_token,
             reply_messages
         )
+
+config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config')
+config_path = os.path.join(config_dir, 'linebot.conf')
+line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
+
+LINE_BOT_API = LineBotApi(line_bot_config["CHANNEL_ACCESS_TOKEN"])
+HANDLER = WebhookHandler(line_bot_config["CHANNEL_SECRET"])
+
+about_us_drama = AboutUsDrama(LINE_BOT_API, HANDLER)
+test_handler = TestHandler(LINE_BOT_API, HANDLER)
+error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
+
+message_handlers = {
+    'Hi Test': test_handler.handle_test_text_message,
+    '我想上傳回收物📸': test_handler.handle_test_text_message,
+    '我想關心怪獸🔦': test_handler.handle_test_text_message,
+    '我想關心永續新知🌏': test_handler.handle_test_text_message,
+    '我想學習如何上傳回收物📖': test_handler.handle_test_text_message,
+    '我想看最強怪獸👾': test_handler.handle_test_text_message,
+    '我想更認識你們👋🏻': about_us_drama.handle_about_us_message,
+    '我想認識成員——林群賀': about_us_drama.handle_about_us_test,
+    '我想認識成員——葉霈恩': about_us_drama.handle_about_us_test,
+    '我想認識成員——黃品誠': about_us_drama.handle_about_us_test,
+    '我想認識成員——林源煜': about_us_drama.handle_about_us_test,
+    '我想認識成員——周姿吟': about_us_drama.handle_about_us_test,
+}
