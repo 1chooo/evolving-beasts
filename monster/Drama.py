@@ -147,6 +147,208 @@ class TestHandler:
             reply_messages
         )
 
+
+
+class UploadDrama:
+    
+    def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
+        self.LINE_BOT_API = line_bot_api
+        self.HANDLER = handler
+
+    def handle_upload_test(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(text='看來你想上傳回收物呢！'),
+            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
+            TextSendMessage(text='近請期待～'),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
+                preview_image_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+    
+    def handle_upload_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(text='歡迎投餵小怪怪'),
+            TextSendMessage(text='在上傳之前，想先問您是否知道小怪怪的喜好了呢！'),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
+                preview_image_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
+            ),
+            TemplateSendMessage(
+                alt_text='ConfirmTemplate',
+                template=ConfirmTemplate(
+                        text='了解小怪怪的喜好了嗎？',
+                        actions=[
+                            MessageAction(
+                                label='我最了解小怪怪了',
+                                text='我最了解小怪怪了，我想要直接上傳'
+                            ),
+                            MessageAction(
+                                label='沒聽說小怪怪的洗好',
+                                text='我還不太認識小怪怪，我想先了解小怪怪的喜好'
+                            )
+                        ]
+                    )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+class CheckMonsterDrama:
+    
+    def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
+        self.LINE_BOT_API = line_bot_api
+        self.HANDLER = handler
+
+    def handle_check_monster_test(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(text='看來你想查看怪獸狀態呢！'),
+            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
+            TextSendMessage(text='近請期待～'),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/ryGdhGVc2.png",
+                preview_image_url = "https://hackmd.io/_uploads/ryGdhGVc2.png",
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+class CheckNewsDrama:
+    
+    def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
+        self.LINE_BOT_API = line_bot_api
+        self.HANDLER = handler
+
+    def handle_check_news_test(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(text='看來你想查看永續新知呢！'),
+            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
+            TextSendMessage(text='近請期待～'),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/Skwd2fVcn.png",
+                preview_image_url = "https://hackmd.io/_uploads/Skwd2fVcn.png",
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+class UploadTeachingDrama:
+    
+    def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
+        self.LINE_BOT_API = line_bot_api
+        self.HANDLER = handler
+
+    def handle_upload_teaching_test(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(text='看來你想查看上傳教學呢！'),
+            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
+            TextSendMessage(text='近請期待～'),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+                preview_image_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_upload_teaching_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f"哈囉您好！歡迎使用\n"
+                     f"蛤！？為甚麼你的怪獸一直變大？\n"
+                     f"接下來我們將會有請小怪怪帶大家說明如何投餵怪獸回收物以讓怪獸健康成長"
+            ),
+            TextSendMessage(
+                text=f"首先簡單介紹小怪怪喜歡的回收物種類：\n"
+                     f"小怪怪因為還在成長，目前還是非常挑食（挑食是不好得行為哦～）\n"
+                     f"所以目前只喜歡吃：「寶特瓶、鋁箔包以及飲料紙杯」\n"
+                     f"因此為了滿足小怪怪的任性，目前請投餵這三種回收物為主"
+            ),
+            TemplateSendMessage(
+                alt_text='ConfirmTemplate',
+                template=ConfirmTemplate(
+                        text='了解小怪怪的任性了嗎？',
+                        actions=[
+                            MessageAction(
+                                label='了解了',
+                                text='我已經看懂了！我想知道更多小怪怪的資訊！'
+                            ),
+                            MessageAction(
+                                label='還想再看看',
+                                text='我還不太認識小怪怪，我還想再看看'
+                            )
+                        ]
+                    )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_upload_teaching_message_known(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f"相信您已經初步認識小怪怪了\n"
+                     f"小怪怪還是要好心跟大家說：\n"
+                     f"「我目前只喜歡吃寶特瓶、鋁箔包以及飲料紙杯，其他的我會挑食」"
+            ),
+            TextSendMessage(
+                text=f"首先請打開您的相機，根據以下範例圖式，"
+                     f"將回收物品置中按下快門",
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+                preview_image_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+            ),
+            # TextSendMessage(),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+class CheckRankDrama:
+    
+    def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
+        self.LINE_BOT_API = line_bot_api
+        self.HANDLER = handler
+
+    def handle_check_rank_test(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(text='看來你想查看怪獸排行榜呢！'),
+            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
+            TextSendMessage(text='近請期待～'),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/H13O3fVqn.png",
+                preview_image_url = "https://hackmd.io/_uploads/H13O3fVqn.png",
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
 class AboutUsDrama:
     
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
@@ -233,7 +435,66 @@ class AboutUsDrama:
                             image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
                             action=MessageAction(
                                 label='開發者——林群賀',
-                                text='我想認識成員——林群賀'
+                                text='我想更認識開發者——林群賀'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='最多五個字——傑尼龜',
+                                text='我想更認識成員——葉霈恩'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——黃品誠'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——林源煜'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——周姿吟'
+                            )
+                        )
+                    ]
+                )
+            )
+        ]
+        
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_about_us_ho_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text="嗨！大家好我是林群賀，主要負責本次專案 LINE BOT 的開發者，希望大家能享受這次的服務。"
+            ),
+            TextSendMessage(
+                text=f"若還想知道更多關於我的資訊可以前往我的個人網站\n"
+                     f"可以點擊以下連結前往哦：\n"
+                     f"https://sites.google.com/g.ncu.edu.tw/1chooo"
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            action=MessageAction(
+                                label='開發者——林群賀',
+                                text='我想更認識開發者——林群賀'
                             )
                         ),
                         ImageCarouselColumn(
@@ -274,6 +535,234 @@ class AboutUsDrama:
             reply_messages
         )
 
+    def handle_about_us_chou_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text="嗨！大家好我是周姿吟，主要負責xxx"
+            ),
+            TextSendMessage(
+                text=f"Hi"
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            action=MessageAction(
+                                label='開發者——林群賀',
+                                text='我想更認識開發者——林群賀'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——葉霈恩'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——黃品誠'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——林源煜'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——周姿吟'
+                            )
+                        )
+                    ]
+                )
+            )
+        ]
+        
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+    def handle_about_us_yeh_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text="嗨！大家好我是葉霈恩，主要負責xxx"
+            ),
+            TextSendMessage(
+                text=f"Hi"
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            action=MessageAction(
+                                label='開發者——林群賀',
+                                text='我想更認識開發者——林群賀'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——葉霈恩'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——黃品誠'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——林源煜'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——周姿吟'
+                            )
+                        )
+                    ]
+                )
+            )
+        ]
+        
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+    def handle_about_us_huang_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text="嗨！大家好我是黃品誠，主要負責xxx"
+            ),
+            TextSendMessage(
+                text=f"Hi"
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            action=MessageAction(
+                                label='開發者——林群賀',
+                                text='我想更認識開發者——林群賀'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——葉霈恩'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——黃品誠'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——林源煜'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——周姿吟'
+                            )
+                        )
+                    ]
+                )
+            )
+        ]
+        
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+    def handle_about_us_aaron_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text="嗨！大家好我是林源煜，主要負責xxx"
+            ),
+            TextSendMessage(
+                text=f"Hi"
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            action=MessageAction(
+                                label='開發者——林群賀',
+                                text='我想更認識開發者——林群賀'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——葉霈恩'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——黃品誠'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——林源煜'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            action=MessageAction(
+                                label='傑尼龜',
+                                text='我想認識成員——周姿吟'
+                            )
+                        )
+                    ]
+                )
+            )
+        ]
+        
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+'''
+'''
+
 config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config')
 config_path = os.path.join(config_dir, 'linebot.conf')
 line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
@@ -281,11 +770,17 @@ line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
 LINE_BOT_API = LineBotApi(line_bot_config["CHANNEL_ACCESS_TOKEN"])
 HANDLER = WebhookHandler(line_bot_config["CHANNEL_SECRET"])
 
+upload_drama = UploadDrama(LINE_BOT_API, HANDLER)
+check_monster_drama = CheckMonsterDrama(LINE_BOT_API, HANDLER)
+check_news_drama = CheckNewsDrama(LINE_BOT_API, HANDLER)
+upload_teaching_drama = UploadTeachingDrama(LINE_BOT_API, HANDLER)
+check_rank_drama = CheckRankDrama(LINE_BOT_API, HANDLER)
 about_us_drama = AboutUsDrama(LINE_BOT_API, HANDLER)
+
 test_handler = TestHandler(LINE_BOT_API, HANDLER)
 error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
 
-message_handlers = {
+text_message_handlers = {
     'Hi Test': test_handler.handle_test_text_message,
     '我想上傳回收物📸': test_handler.handle_test_text_message,
     '我想關心怪獸🔦': test_handler.handle_test_text_message,
@@ -299,3 +794,4 @@ message_handlers = {
     '我想認識成員——林源煜': about_us_drama.handle_about_us_test,
     '我想認識成員——周姿吟': about_us_drama.handle_about_us_test,
 }
+
