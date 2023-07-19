@@ -7,14 +7,20 @@ Version: v0.0.1
 
 import os
 import json
+import pandas as pd
+import numpy as np
 from datetime import datetime
-from Monster.Drama import AboutUsDrama
-from Monster.Drama import TestHandler
-from Monster.Drama import ErrorHandler
-from Monster.Drama import message_handlers
+from flask import Flask, request, abort
+from Monster.Drama import upload_drama
+from Monster.Drama import check_monster_drama
+from Monster.Drama import check_news_drama
+from Monster.Drama import upload_teaching_drama
+from Monster.Drama import check_rank_drama
+from Monster.Drama import about_us_drama
+from Monster.Drama import test_handler
+from Monster.Drama import error_handler
 from Monster.Utils import ConsoleLogger
 from Monster.Utils import FileHandler
-from flask import Flask, request, abort
 from linebot import LineBotApi
 from linebot import WebhookHandler
 from linebot.models import TextMessage
@@ -38,9 +44,6 @@ LINE_BOT_API = LineBotApi(line_bot_config['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
 USER_LOG_PATH = os.path.join('.', 'log', CURRENT_DATE)
 
-about_us_drama = AboutUsDrama(LINE_BOT_API, HANDLER)
-test_handler = TestHandler(LINE_BOT_API, HANDLER)
-error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
 console_logger = ConsoleLogger(LINE_BOT_API, HANDLER, USER_LOG_PATH)
 file_handler = FileHandler(LINE_BOT_API, USER_LOG_PATH, CURRENT_DATE)
 
@@ -79,14 +82,31 @@ def handle_user_profile(event: FollowEvent) -> None:
         
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_text_message(event: MessageEvent) -> None:
+    global READY_TO_GET_MONSTER_NAME
+    
     try:
-        message_text = event.message.text
-        message_handler = message_handlers.get(
-            message_text, # Retrieve the corresponding message handler function from the dictionary,
-            error_handler.handle_unknown_text_message # error handler if not found
-        )
-
-        message_handler(event)  # Call the corresponding message handler function to process the message
+        if (event.message.text) == 'Hi Test':
+            test_handler.handle_test_text_message(event)
+        elif (event.message.text) == '我想上傳回收物📸':
+            upload_drama.handle_upload_message(event)
+        elif (event.message.text) == '我想關心怪獸🔦':
+            check_monster_drama.handle_check_monster_test(event)
+        elif READY_TO_GET_MONSTER_NAME == True:
+            print(READY_TO_GET_MONSTER_NAME)
+        elif (event.message.text) == '我想關心永續新知🌏':
+            check_news_drama.handle_check_news_test(event)
+        elif (event.message.text) == '我想學習如何上傳回收物📖':
+            upload_teaching_drama.handle_upload_teaching_message(event)
+        elif (event.message.text) == '我已經看懂了！我想知道更多小怪怪的資訊！':
+            upload_teaching_drama.handle_upload_teaching_message_known(event)
+        elif (event.message.text) == '我想看最強怪獸👾':
+            check_rank_drama.handle_check_rank_test(event)
+        elif (event.message.text) == '我想更認識你們👋🏻':
+            about_us_drama.handle_about_us_message(event)
+        elif (event.message.text) == '我想更認識開發者——林群賀':
+            about_us_drama.handle_about_us_ho_message(event)
+        else:
+            error_handler.handle_unknown_text_message(event)
 
     except Exception as e:
         console_logger.text_exception_console(e)

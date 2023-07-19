@@ -7,6 +7,7 @@ Version: v0.0.1
 
 import os
 import json
+from datetime import datetime
 from linebot import LineBotApi
 from linebot import WebhookHandler
 from linebot.exceptions import LineBotApiError
@@ -90,3 +91,16 @@ class ConsoleLogger:
                 output_file.write('\n')
             except Exception as e:      # Handling the fails when writing a file
                 self.user_event_exception_console(e)
+
+config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config')
+config_path = os.path.join(config_dir, 'linebot.conf')
+line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
+
+LINE_BOT_API = LineBotApi(line_bot_config["CHANNEL_ACCESS_TOKEN"])
+HANDLER = WebhookHandler(line_bot_config["CHANNEL_SECRET"])
+
+CURRENT_DATE = datetime.today().strftime('%Y%m%d')
+USER_LOG_PATH = os.path.join('..', 'log', CURRENT_DATE)
+
+console_logger = ConsoleLogger(LINE_BOT_API, HANDLER, USER_LOG_PATH)
+file_handler = FileHandler(LINE_BOT_API, USER_LOG_PATH, CURRENT_DATE)

@@ -232,7 +232,10 @@ error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
 console_logger = ConsoleLogger(LINE_BOT_API, HANDLER, USER_LOG_PATH)
 file_handler = FileHandler(LINE_BOT_API, USER_LOG_PATH, CURRENT_DATE)
 
+print("Received text:", event.message.text)
+
 message_handlers = {
+    
     'Hi Test': test_handler.handle_test_text_message,
     '我想上傳回收物📸': test_handler.handle_test_text_message,
     '我想關心怪獸🔦': test_handler.handle_test_text_message,
@@ -274,3 +277,11 @@ elif (event.message.text) == '我想認識成員——林群賀':
     about_us_drama.handle_about_us_test(event)
 else:
     error_handler.handle_unknown_text_message(event)
+
+message_text = event.message.text
+        message_handler = message_handlers.get(
+            message_text, # Retrieve the corresponding message handler function from the dictionary,
+            error_handler.handle_unknown_text_message # error handler if not found
+        )
+
+        message_handler(event)  # Call the corresponding message handler function to process the message
