@@ -27,6 +27,7 @@ from linebot.models import TextMessage
 from linebot.models import ImageMessage
 from linebot.models import VideoMessage
 from linebot.models import AudioMessage
+from linebot.models import TextSendMessage
 from linebot.models.events import FollowEvent
 from linebot.models.events import MessageEvent
 from linebot.exceptions import LineBotApiError
@@ -79,32 +80,51 @@ def handle_user_profile(event: FollowEvent) -> None:
         return
 
     console_logger.store_user_info(user_profile)
-        
+
+CLIENT_MONSTER_NAME = ''
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_text_message(event: MessageEvent) -> None:
     global READY_TO_GET_MONSTER_NAME
+    global CLIENT_MONSTER_NAME
     
     try:
         if (event.message.text) == 'Hi Test':
             test_handler.handle_test_text_message(event)
         elif (event.message.text) == '我想上傳回收物📸':
-            upload_drama.handle_upload_message(event)
+            upload_drama.handle_upload_welcome_message(event)
         elif (event.message.text) == '我想關心怪獸🔦':
-            check_monster_drama.handle_check_monster_test(event)
+            check_monster_drama.handle_check_monster_welcome_message(event)
         elif READY_TO_GET_MONSTER_NAME == True:
-            print(READY_TO_GET_MONSTER_NAME)
+            print('準備讓用戶重新命名小怪怪')
+            CLIENT_MONSTER_NAME = event.message.text
+            READY_TO_GET_MONSTER_NAME = False
+            print(f'已將用戶怪獸名稱重新命名為{CLIENT_MONSTER_NAME}')
+
+            reply_messages = [
+                TextSendMessage(
+                    '已成功收到怪獸命名\n您的怪獸名稱是「' + CLIENT_MONSTER_NAME + '」！'
+                ),
+                TextSendMessage(
+                '測試成功'),
+            ]
+
+            LINE_BOT_API.reply_message(
+                event.reply_token,
+                reply_messages)
         elif (event.message.text) == '我想關心永續新知🌏':
-            check_news_drama.handle_check_news_test(event)
+            check_news_drama.handle_check_news_welcome_message(event)
         elif (event.message.text) == '我想學習如何上傳回收物📖':
-            upload_teaching_drama.handle_upload_teaching_message(event)
+            upload_teaching_drama.handle_upload_teaching_welcome_message(event)
         elif (event.message.text) == '我已經看懂了！我想知道更多小怪怪的資訊！':
-            upload_teaching_drama.handle_upload_teaching_message_known(event)
+            upload_teaching_drama.handle_upload_teaching_welcome_yes_message(event)
         elif (event.message.text) == '我想看最強怪獸👾':
-            check_rank_drama.handle_check_rank_test(event)
+            check_rank_drama.handle_check_rank_welcome_message(event)
         elif (event.message.text) == '我想更認識你們👋🏻':
-            about_us_drama.handle_about_us_message(event)
+            about_us_drama.handle_about_us_welcome_message(event)
         elif (event.message.text) == '我想更認識開發者——林群賀':
             about_us_drama.handle_about_us_ho_message(event)
+        elif (event.message.text) == '我想更認識——周姿吟':
+            about_us_drama.handle_about_us_chou_message(event)
         else:
             error_handler.handle_unknown_text_message(event)
 
