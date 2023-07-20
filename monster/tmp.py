@@ -285,3 +285,21 @@ message_text = event.message.text
         )
 
         message_handler(event)  # Call the corresponding message handler function to process the message
+
+elif READY_TO_GET_MONSTER_NAME == True:
+    print('準備讓用戶重新命名小怪怪')
+    CLIENT_MONSTER_NAME = event.message.text
+    READY_TO_GET_MONSTER_NAME = False
+    print(f'已將用戶怪獸名稱重新命名為{CLIENT_MONSTER_NAME}')
+
+    reply_messages = [
+        TextSendMessage(
+            '已成功收到怪獸命名\n您的怪獸名稱是「' + CLIENT_MONSTER_NAME + '」！'
+        ),
+        TextSendMessage(
+        '測試成功'),
+    ]
+
+    LINE_BOT_API.reply_message(
+        event.reply_token,
+        reply_messages)
