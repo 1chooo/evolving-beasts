@@ -29,7 +29,7 @@ from linebot.models.template import ButtonsTemplate
 from linebot.models.template import ConfirmTemplate
 from linebot.models.events import MessageEvent
 
-class ErrorHandler:
+class UnknownHandler:
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
         self.LINE_BOT_API = line_bot_api
         self.HANDLER = handler
@@ -92,6 +92,7 @@ class ErrorHandler:
             event.reply_token,
             reply_messages
         )
+
     def handle_unknown_image_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
@@ -150,6 +151,7 @@ class ErrorHandler:
             event.reply_token,
             reply_messages
         )
+
     def handle_unknown_video_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
@@ -208,6 +210,7 @@ class ErrorHandler:
             event.reply_token,
             reply_messages
         )
+
     def handle_unknown_audio_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
@@ -266,6 +269,11 @@ class ErrorHandler:
             event.reply_token,
             reply_messages
         )
+
+class ErrorHandler:
+    def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
+        self.LINE_BOT_API = line_bot_api
+        self.HANDLER = handler
 
     def handle_invalid_text_message(self, event: MessageEvent) -> None:
         reply_messages = [
@@ -1107,6 +1115,7 @@ check_rank_drama = CheckRankDrama(LINE_BOT_API, HANDLER)
 about_us_drama = AboutUsDrama(LINE_BOT_API, HANDLER)
 
 test_handler = TestHandler(LINE_BOT_API, HANDLER)
+unknown_handler = UnknownHandler(LINE_BOT_API, HANDLER)
 error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
 
 text_message_handlers = {

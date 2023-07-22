@@ -11,14 +11,8 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 from flask import Flask, request, abort
-from Monster.Drama import upload_drama
-from Monster.Drama import check_monster_drama
-from Monster.Drama import check_news_drama
-from Monster.Drama import upload_teaching_drama
-from Monster.Drama import check_rank_drama
-from Monster.Drama import about_us_drama
 from Monster.Drama import message_handler_map
-from Monster.Drama import test_handler
+from Monster.Drama import unknown_handler
 from Monster.Drama import error_handler
 from Monster.Utils import ConsoleLogger
 from Monster.Utils import FileHandler
@@ -53,6 +47,8 @@ file_handler.create_directory(USER_LOG_PATH)
 
 READY_TO_GET_MONSTER_NAME = False
 
+CLIENT_MONSTER_NAME = ''
+
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
     global USER_LOG_PATH
@@ -82,7 +78,6 @@ def handle_user_profile(event: FollowEvent) -> None:
 
     console_logger.store_user_info(user_profile)
 
-CLIENT_MONSTER_NAME = ''
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_text_message(event: MessageEvent) -> None:
     global READY_TO_GET_MONSTER_NAME
@@ -116,7 +111,7 @@ def handle_text_message(event: MessageEvent) -> None:
                 reply_messages
             )
         else:
-            error_handler.handle_unknown_text_message(event)
+            unknown_handler.handle_unknown_text_message(event)
 
     except Exception as e:
         console_logger.text_exception_console(e)
@@ -126,7 +121,7 @@ def handle_text_message(event: MessageEvent) -> None:
 def handle_image_message(event: MessageEvent) -> None:
     global USER_LOG_PATH
 
-    error_handler.handle_unknown_image_message(event)
+    unknown_handler.handle_unknown_image_message(event)
 
     try:    # Download the image
         file_handler.download_file(event, 'imgs', '.jpg')
@@ -139,7 +134,7 @@ def handle_image_message(event: MessageEvent) -> None:
 def handle_video_message(event: MessageEvent) -> None:
     global USER_LOG_PATH
 
-    error_handler.handle_unknown_video_message(event)
+    unknown_handler.handle_unknown_video_message(event)
 
     try:    # Download the audio
         file_handler.download_file(event, 'video', '.mp4')
@@ -152,7 +147,7 @@ def handle_video_message(event: MessageEvent) -> None:
 def handle_audio_message(event: MessageEvent) -> None:
     global USER_LOG_PATH
 
-    error_handler.handle_unknown_audio_message(event)
+    unknown_handler.handle_unknown_audio_message(event)
 
     try:    # Download the audio
         file_handler.download_file(event, 'audio', '.mp3')
