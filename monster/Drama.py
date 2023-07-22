@@ -490,28 +490,28 @@ class AboutUsDrama:
                             image_url='https://hackmd.io/_uploads/HyXj8OBq3.jpg',
                             action=MessageAction(
                                 label='資料前處理——周姿吟',
-                                text='我想更認識——周姿吟'
+                                text='我想更認識資料前處理——周姿吟'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
                             action=MessageAction(
-                                label='最多五個字——傑尼龜',
-                                text='我想更認識成員——葉霈恩'
+                                label='專案企劃——葉霈恩',
+                                text='我想更認識專案企劃——葉霈恩'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
                             action=MessageAction(
-                                label='傑尼龜',
+                                label='成員——黃品誠',
                                 text='我想認識成員——黃品誠'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            image_url='https://hackmd.io/_uploads/r10b0zKc3.jpg',
                             action=MessageAction(
-                                label='傑尼龜',
-                                text='我想認識成員——林源煜'
+                                label='模型訓練——林源煜',
+                                text='我想更認識模型訓練——林源煜'
                             )
                         ),
                     ]
@@ -542,43 +542,48 @@ class AboutUsDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/HyXj8OBq3.jpg',
+                            action=MessageAction(
+                                label='資料前處理——周姿吟',
+                                text='我想更認識資料前處理——周姿吟'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            action=MessageAction(
+                                label='專案企劃——葉霈恩',
+                                text='我想更認識專案企劃——葉霈恩'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            action=MessageAction(
+                                label='成員——黃品誠',
+                                text='我想認識成員——黃品誠'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/r10b0zKc3.jpg',
+                            action=MessageAction(
+                                label='模型訓練——林源煜',
+                                text='我想更認識模型訓練——林源煜'
+                            )
+                        ),
+                        ImageCarouselColumn(
                             image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
                             action=MessageAction(
                                 label='開發者——林群賀',
                                 text='我想更認識開發者——林群賀'
                             )
                         ),
-                        ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/HyXj8OBq3.jpg',
-                            action=MessageAction(
-                                label='資料前處理——周姿吟',
-                                text='我想更認識——周姿吟'
-                            )
-                        ),
-                        ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
-                            action=MessageAction(
-                                label='最多五個字——傑尼龜',
-                                text='我想更認識成員——葉霈恩'
-                            )
-                        ),
-                        ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
-                            action=MessageAction(
-                                label='傑尼龜',
-                                text='我想認識成員——黃品誠'
-                            )
-                        ),
-                        ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
-                            action=MessageAction(
-                                label='傑尼龜',
-                                text='我想認識成員——林源煜'
-                            )
-                        ),
                     ]
                 )
-            )
+            ),
+            TextSendMessage(
+                text=f"想必大家看完關於我們成員的介紹後，都能更認識我們了\n"
+                     f"若已經認識我們了，快快點擊下方選單功能👇🏻\n"
+                     f"體驗我們提供的完整服務內容吧！"
+            ),
         ]
         
         self.LINE_BOT_API.reply_message(
@@ -605,6 +610,27 @@ class AboutUsDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            action=MessageAction(
+                                label='專案企劃——葉霈恩',
+                                text='我想更認識專案企劃——葉霈恩'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            action=MessageAction(
+                                label='成員——黃品誠',
+                                text='我想認識成員——黃品誠'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/r10b0zKc3.jpg',
+                            action=MessageAction(
+                                label='模型訓練——林源煜',
+                                text='我想更認識模型訓練——林源煜'
+                            )
+                        ),
+                        ImageCarouselColumn(
                             image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
                             action=MessageAction(
                                 label='開發者——林群賀',
@@ -615,33 +641,17 @@ class AboutUsDrama:
                             image_url='https://hackmd.io/_uploads/HyXj8OBq3.jpg',
                             action=MessageAction(
                                 label='資料前處理——周姿吟',
-                                text='我想更認識——周姿吟'
-                            )
-                        ),
-                        ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
-                            action=MessageAction(
-                                label='最多五個字——傑尼龜',
-                                text='我想更認識成員——葉霈恩'
-                            )
-                        ),
-                        ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
-                            action=MessageAction(
-                                label='傑尼龜',
-                                text='我想認識成員——黃品誠'
-                            )
-                        ),
-                        ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
-                            action=MessageAction(
-                                label='傑尼龜',
-                                text='我想認識成員——林源煜'
+                                text='我想更認識資料前處理——周姿吟'
                             )
                         ),
                     ]
                 )
-            )
+            ),
+            TextSendMessage(
+                text=f"想必大家看完關於我們成員的介紹後，都能更認識我們了\n"
+                     f"若已經認識我們了，快快點擊下方選單功能👇🏻\n"
+                     f"體驗我們提供的完整服務內容吧！"
+            ),
         ]
         
         self.LINE_BOT_API.reply_message(
@@ -651,10 +661,10 @@ class AboutUsDrama:
     def handle_about_us_yeh_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
-                text="嗨！大家好我是葉霈恩，主要負責xxx"
+                text="嗨！大家好我是葉霈恩，在這次專案負責專案管理的職位，還請多多指教！"
             ),
             TextSendMessage(
-                text=f"Hi"
+                text=f"喜歡嘗試各樣新奇的事物，富有創意與熱情"
             ),
             TextSendMessage(
                 text=f"快接續滑動以下成員列表，並點擊成員頭像以，更進一步認識我們吧！🫵🏻"
@@ -663,6 +673,20 @@ class AboutUsDrama:
                 alt_text='ImageCarousel template',
                 template=ImageCarouselTemplate(
                     columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            action=MessageAction(
+                                label='成員——黃品誠',
+                                text='我想認識成員——黃品誠'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/r10b0zKc3.jpg',
+                            action=MessageAction(
+                                label='模型訓練——林源煜',
+                                text='我想更認識模型訓練——林源煜'
+                            )
+                        ),
                         ImageCarouselColumn(
                             image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
                             action=MessageAction(
@@ -674,33 +698,24 @@ class AboutUsDrama:
                             image_url='https://hackmd.io/_uploads/HyXj8OBq3.jpg',
                             action=MessageAction(
                                 label='資料前處理——周姿吟',
-                                text='我想更認識——周姿吟'
+                                text='我想更認識資料前處理——周姿吟'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
                             action=MessageAction(
-                                label='最多五個字——傑尼龜',
-                                text='我想更認識成員——葉霈恩'
-                            )
-                        ),
-                        ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
-                            action=MessageAction(
-                                label='傑尼龜',
-                                text='我想認識成員——黃品誠'
-                            )
-                        ),
-                        ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
-                            action=MessageAction(
-                                label='傑尼龜',
-                                text='我想認識成員——林源煜'
+                                label='專案企劃——葉霈恩',
+                                text='我想更認識專案企劃——葉霈恩'
                             )
                         ),
                     ]
                 )
-            )
+            ),
+            TextSendMessage(
+                text=f"想必大家看完關於我們成員的介紹後，都能更認識我們了\n"
+                     f"若已經認識我們了，快快點擊下方選單功能👇🏻\n"
+                     f"體驗我們提供的完整服務內容吧！"
+            ),
         ]
         
         self.LINE_BOT_API.reply_message(
@@ -713,7 +728,7 @@ class AboutUsDrama:
                 text="嗨！大家好我是黃品誠，主要負責xxx"
             ),
             TextSendMessage(
-                text=f"Hi"
+                text=f"我來自中央大學物理系，曾經擅長碳足跡熱點分析，希望能為環境永續盡一份心力。"
             ),
             TextSendMessage(
                 text=f"快接續滑動以下成員列表，並點擊成員頭像以，更進一步認識我們吧！🫵🏻"
@@ -722,6 +737,13 @@ class AboutUsDrama:
                 alt_text='ImageCarousel template',
                 template=ImageCarouselTemplate(
                     columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/r10b0zKc3.jpg',
+                            action=MessageAction(
+                                label='模型訓練——林源煜',
+                                text='我想更認識模型訓練——林源煜'
+                            )
+                        ),
                         ImageCarouselColumn(
                             image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
                             action=MessageAction(
@@ -733,33 +755,31 @@ class AboutUsDrama:
                             image_url='https://hackmd.io/_uploads/HyXj8OBq3.jpg',
                             action=MessageAction(
                                 label='資料前處理——周姿吟',
-                                text='我想更認識——周姿吟'
+                                text='我想更認識資料前處理——周姿吟'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
                             action=MessageAction(
-                                label='最多五個字——傑尼龜',
-                                text='我想更認識成員——葉霈恩'
+                                label='專案企劃——葉霈恩',
+                                text='我想更認識專案企劃——葉霈恩'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
                             action=MessageAction(
-                                label='傑尼龜',
+                                label='成員——黃品誠',
                                 text='我想認識成員——黃品誠'
-                            )
-                        ),
-                        ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
-                            action=MessageAction(
-                                label='傑尼龜',
-                                text='我想認識成員——林源煜'
                             )
                         ),
                     ]
                 )
-            )
+            ),
+            TextSendMessage(
+                text=f"想必大家看完關於我們成員的介紹後，都能更認識我們了\n"
+                     f"若已經認識我們了，快快點擊下方選單功能👇🏻\n"
+                     f"體驗我們提供的完整服務內容吧！"
+            ),
         ]
         
         self.LINE_BOT_API.reply_message(
@@ -769,10 +789,10 @@ class AboutUsDrama:
     def handle_about_us_aaron_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
-                text="嗨！大家好我是林源煜，主要負責xxx"
+                text="嗨！大家好我是林源煜，主要負責訓練影像分辨模型"
             ),
             TextSendMessage(
-                text=f"Hi"
+                text=f"喜歡探索有關於機器學習的新技術"
             ),
             TextSendMessage(
                 text=f"快接續滑動以下成員列表，並點擊成員頭像以，更進一步認識我們吧！🫵🏻"
@@ -792,33 +812,38 @@ class AboutUsDrama:
                             image_url='https://hackmd.io/_uploads/HyXj8OBq3.jpg',
                             action=MessageAction(
                                 label='資料前處理——周姿吟',
-                                text='我想更認識——周姿吟'
+                                text='我想更認識資料前處理——周姿吟'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
                             action=MessageAction(
-                                label='最多五個字——傑尼龜',
-                                text='我想更認識成員——葉霈恩'
+                                label='專案企劃——葉霈恩',
+                                text='我想更認識專案企劃——葉霈恩'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
                             action=MessageAction(
                                 label='傑尼龜',
                                 text='我想認識成員——黃品誠'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+                            image_url='https://hackmd.io/_uploads/r10b0zKc3.jpg',
                             action=MessageAction(
-                                label='傑尼龜',
-                                text='我想認識成員——林源煜'
+                                label='模型訓練——林源煜',
+                                text='我想更認識模型訓練——林源煜'
                             )
                         ),
                     ]
                 )
-            )
+            ),
+            TextSendMessage(
+                text=f"想必大家看完關於我們成員的介紹後，都能更認識我們了\n"
+                     f"若已經認識我們了，快快點擊下方選單功能👇🏻\n"
+                     f"體驗我們提供的完整服務內容吧！"
+            ),
         ]
         
         self.LINE_BOT_API.reply_message(
@@ -853,11 +878,11 @@ text_message_handlers = {
     '我想關心永續新知🌏': test_handler.handle_test_text_message,
     '我想學習如何上傳回收物📖': test_handler.handle_test_text_message,
     '我想看最強怪獸👾': test_handler.handle_test_text_message,
-    '我想更認識你們👋🏻': about_us_drama.handle_about_us_message,
+    '我想更認識你們👋🏻': about_us_drama.handle_about_us_welcome_message,
     '我想認識成員——林群賀': about_us_drama.handle_about_us_test,
     '我想認識成員——葉霈恩': about_us_drama.handle_about_us_test,
     '我想認識成員——黃品誠': about_us_drama.handle_about_us_test,
-    '我想認識成員——林源煜': about_us_drama.handle_about_us_test,
+    '我想更認識模型訓練——林源煜': about_us_drama.handle_about_us_test,
     '我想認識成員——周姿吟': about_us_drama.handle_about_us_test,
 }
 

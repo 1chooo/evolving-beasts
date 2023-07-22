@@ -105,12 +105,14 @@ def handle_text_message(event: MessageEvent) -> None:
                     '已成功收到怪獸命名\n您的怪獸名稱是「' + CLIENT_MONSTER_NAME + '」！'
                 ),
                 TextSendMessage(
-                '測試成功'),
+                    '測試成功'
+                ),
             ]
 
             LINE_BOT_API.reply_message(
                 event.reply_token,
-                reply_messages)
+                reply_messages
+            )
         elif (event.message.text) == '我想關心永續新知🌏':
             check_news_drama.handle_check_news_welcome_message(event)
         elif (event.message.text) == '我想學習如何上傳回收物📖':
@@ -123,8 +125,14 @@ def handle_text_message(event: MessageEvent) -> None:
             about_us_drama.handle_about_us_welcome_message(event)
         elif (event.message.text) == '我想更認識開發者——林群賀':
             about_us_drama.handle_about_us_ho_message(event)
-        elif (event.message.text) == '我想更認識——周姿吟':
+        elif (event.message.text) == '我想更認識資料前處理——周姿吟':
             about_us_drama.handle_about_us_chou_message(event)
+        elif (event.message.text) == '我想更認識專案企劃——葉霈恩':
+            about_us_drama.handle_about_us_yeh_message(event)
+        elif (event.message.text) == '我想更認識模型訓練——林源煜':
+            about_us_drama.handle_about_us_aaron_message(event)
+        elif (event.message.text) == '我想認識成員——黃品誠':
+            about_us_drama.handle_about_us_huang_message(event)
         else:
             error_handler.handle_unknown_text_message(event)
 
