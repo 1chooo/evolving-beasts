@@ -303,3 +303,50 @@ elif READY_TO_GET_MONSTER_NAME == True:
     LINE_BOT_API.reply_message(
         event.reply_token,
         reply_messages)
+
+
+def handle_message(event):
+    message_text = event.message.text
+
+    # Define a dictionary to map message texts to handler functions
+    message_handler_map = {
+        'Hi Test': test_handler.handle_test_text_message,
+        '我想上傳回收物📸': upload_drama.handle_upload_welcome_message,
+        '我想關心怪獸🔦': check_monster_drama.handle_check_monster_welcome_message,
+        '我想關心永續新知🌏': check_news_drama.handle_check_news_welcome_message,
+        '我想學習如何上傳回收物📖': upload_teaching_drama.handle_upload_teaching_welcome_message,
+        '我已經看懂了！我想知道更多小怪怪的資訊！': upload_teaching_drama.handle_upload_teaching_welcome_yes_message,
+        '我想看最強怪獸👾': check_rank_drama.handle_check_rank_welcome_message,
+        '我想更認識你們👋🏻': about_us_drama.handle_about_us_welcome_message,
+        '我想更認識開發者——林群賀': about_us_drama.handle_about_us_ho_message,
+        '我想更認識資料前處理——周姿吟': about_us_drama.handle_about_us_chou_message,
+        '我想更認識專案企劃——葉霈恩': about_us_drama.handle_about_us_yeh_message,
+        '我想更認識模型訓練——林源煜': about_us_drama.handle_about_us_aaron_message,
+        '我想認識成員——黃品誠': about_us_drama.handle_about_us_huang_message,
+    }
+
+    # Check if the message text exists in the dictionary and call the corresponding handler function
+    if message_text in message_handler_map:
+        handler_function = message_handler_map[message_text]
+        handler_function(event)
+    elif READY_TO_GET_MONSTER_NAME:
+        print('準備讓用戶重新命名小怪怪')
+        CLIENT_MONSTER_NAME = event.message.text
+        READY_TO_GET_MONSTER_NAME = False
+        print(f'已將用戶怪獸名稱重新命名為{CLIENT_MONSTER_NAME}')
+
+        reply_messages = [
+            TextSendMessage(
+                '已成功收到怪獸命名\n您的怪獸名稱是「' + CLIENT_MONSTER_NAME + '」！'
+            ),
+            TextSendMessage(
+                '測試成功'
+            ),
+        ]
+
+        LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+    else:
+        error_handler.handle_unknown_text_message(event)

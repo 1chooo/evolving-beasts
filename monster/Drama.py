@@ -36,7 +36,230 @@ class ErrorHandler:
 
     def handle_unknown_text_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='這句話怪獸還不認識誒，或許有一天我們會幫助怪熟學起來！'),
+            TextSendMessage(
+                text=f'小怪怪目前還不能辨識您的這則文字訊息\n'
+                     f'再嘗試投餵多投餵點食物給小怪怪吧～\n'
+                     f'讓他早日學起來🤤🤤🤤'
+            ),
+            TextSendMessage(
+                text='快查看以下列表挖掘小怪怪喜歡什麼吧🫵🏻'
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ByHY3GE93.png',
+                            action=MessageAction(
+                                label='如何投餵小怪怪',
+                                text='我想學習如何上傳回收物📖'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkoK2GNc2.png',
+                            action=MessageAction(
+                                label='投餵小怪怪',
+                                text='我想上傳回收物📸'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ryGdhGVc2.png',
+                            action=MessageAction(
+                                label='查看怪獸狀態',
+                                text='我想關心怪獸🔦'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
+                            action=MessageAction(
+                                label='關注永續新知',
+                                text='我想關心永續新知🌏'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Hy1_hMN52.png',
+                            action=MessageAction(
+                                label='認識我們',
+                                text='我想更認識你們👋🏻'
+                            )
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+    def handle_unknown_image_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f'小怪怪目前還不能辨識您的這則圖片訊息\n'
+                     f'再嘗試投餵多投餵點食物給小怪怪吧～\n'
+                     f'讓他早日學起來🤤🤤🤤'
+            ),
+            TextSendMessage(
+                text='快查看以下列表挖掘小怪怪喜歡什麼吧🫵🏻'
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ByHY3GE93.png',
+                            action=MessageAction(
+                                label='如何投餵小怪怪',
+                                text='我想學習如何上傳回收物📖'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkoK2GNc2.png',
+                            action=MessageAction(
+                                label='投餵小怪怪',
+                                text='我想上傳回收物📸'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ryGdhGVc2.png',
+                            action=MessageAction(
+                                label='查看怪獸狀態',
+                                text='我想關心怪獸🔦'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
+                            action=MessageAction(
+                                label='關注永續新知',
+                                text='我想關心永續新知🌏'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Hy1_hMN52.png',
+                            action=MessageAction(
+                                label='認識我們',
+                                text='我想更認識你們👋🏻'
+                            )
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+    def handle_unknown_video_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f'小怪怪目前還不能辨識您的這則影音訊息\n'
+                     f'再嘗試投餵多投餵點食物給小怪怪吧～\n'
+                     f'讓他早日學起來🤤🤤🤤'
+            ),
+            TextSendMessage(
+                text='快查看以下列表挖掘小怪怪喜歡什麼吧🫵🏻'
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ByHY3GE93.png',
+                            action=MessageAction(
+                                label='如何投餵小怪怪',
+                                text='我想學習如何上傳回收物📖'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkoK2GNc2.png',
+                            action=MessageAction(
+                                label='投餵小怪怪',
+                                text='我想上傳回收物📸'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ryGdhGVc2.png',
+                            action=MessageAction(
+                                label='查看怪獸狀態',
+                                text='我想關心怪獸🔦'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
+                            action=MessageAction(
+                                label='關注永續新知',
+                                text='我想關心永續新知🌏'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Hy1_hMN52.png',
+                            action=MessageAction(
+                                label='認識我們',
+                                text='我想更認識你們👋🏻'
+                            )
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+    def handle_unknown_audio_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f'小怪怪目前還不能辨識您的這則語音訊息\n'
+                     f'再嘗試投餵多投餵點食物給小怪怪吧～\n'
+                     f'讓他早日學起來🤤🤤🤤'
+            ),
+            TextSendMessage(
+                text='快查看以下列表挖掘小怪怪喜歡什麼吧🫵🏻'
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ByHY3GE93.png',
+                            action=MessageAction(
+                                label='如何投餵小怪怪',
+                                text='我想學習如何上傳回收物📖'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkoK2GNc2.png',
+                            action=MessageAction(
+                                label='投餵小怪怪',
+                                text='我想上傳回收物📸'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ryGdhGVc2.png',
+                            action=MessageAction(
+                                label='查看怪獸狀態',
+                                text='我想關心怪獸🔦'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
+                            action=MessageAction(
+                                label='關注永續新知',
+                                text='我想關心永續新知🌏'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Hy1_hMN52.png',
+                            action=MessageAction(
+                                label='認識我們',
+                                text='我想更認識你們👋🏻'
+                            )
+                        ),
+                    ]
+                )
+            ),
         ]
                 
         self.LINE_BOT_API.reply_message(
@@ -46,7 +269,10 @@ class ErrorHandler:
 
     def handle_invalid_text_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='我們目前還不能辨識您的這則文字訊息\n或許可以試試看別的內容哦～'),
+            TextSendMessage(
+                text=f'小怪怪在您的這則文字訊息中好像發現問題🤯'
+                     f'或許可以試試看別的內容哦～'
+                ),
         ]
                 
         self.LINE_BOT_API.reply_message(
@@ -56,7 +282,10 @@ class ErrorHandler:
     
     def handle_invalid_image_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='我們目前還不能辨識您的這則圖片訊息\n或許可以試試看別的內容哦～'),
+            TextSendMessage(
+                text=f'小怪怪在您的這則圖片訊息中好像發現問題🤯'
+                     f'或許可以試試看別的內容哦～'
+                ),
         ]
                 
         self.LINE_BOT_API.reply_message(
@@ -66,7 +295,10 @@ class ErrorHandler:
 
     def handle_invalid_video_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='我們目前還不能辨識您的這則影片訊息\n或許可以試試看別的內容哦～'),
+            TextSendMessage(
+                text=f'小怪怪在您的這則影音訊息中好像發現問題🤯'
+                     f'或許可以試試看別的內容哦～'
+                ),
         ]
                 
         self.LINE_BOT_API.reply_message(
@@ -76,7 +308,10 @@ class ErrorHandler:
 
     def handle_invalid_audio_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='我們目前還不能辨識您的這則語音訊息\n或許可以試試看別的內容哦～'),
+            TextSendMessage(
+                text=f'小怪怪在您的這則語音訊息中好像發現問題🤯'
+                     f'或許可以試試看別的內容哦～'
+                ),
         ]
                 
         self.LINE_BOT_API.reply_message(
@@ -223,6 +458,9 @@ class CheckMonsterDrama:
             event.reply_token,
             reply_messages
         )
+
+    def handle_check_monster_rename_monster_test(self, event: MessageEvent) -> None:
+        print('===Ready to let user rename Monster!!!===')
     
     def handle_check_monster_welcome_message(self, event: MessageEvent) -> None:
         reply_messages = [
@@ -501,7 +739,7 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
                             action=MessageAction(
                                 label='成員——黃品誠',
                                 text='我想認識成員——黃品誠'
@@ -556,7 +794,7 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
                             action=MessageAction(
                                 label='成員——黃品誠',
                                 text='我想認識成員——黃品誠'
@@ -617,7 +855,7 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
                             action=MessageAction(
                                 label='成員——黃品誠',
                                 text='我想認識成員——黃品誠'
@@ -674,7 +912,7 @@ class AboutUsDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
                             action=MessageAction(
                                 label='成員——黃品誠',
                                 text='我想認識成員——黃品誠'
@@ -766,7 +1004,7 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
                             action=MessageAction(
                                 label='成員——黃品誠',
                                 text='我想認識成員——黃品誠'
@@ -823,9 +1061,9 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/r1GmF2D5h.jpg',
+                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
                             action=MessageAction(
-                                label='傑尼龜',
+                                label='成員——黃品誠',
                                 text='我想認識成員——黃品誠'
                             )
                         ),
@@ -886,3 +1124,18 @@ text_message_handlers = {
     '我想認識成員——周姿吟': about_us_drama.handle_about_us_test,
 }
 
+message_handler_map = {
+    'Hi Test': test_handler.handle_test_text_message,
+    '我想上傳回收物📸': upload_drama.handle_upload_welcome_message,
+    '我想關心怪獸🔦': check_monster_drama.handle_check_monster_welcome_message,
+    '我想關心永續新知🌏': check_news_drama.handle_check_news_welcome_message,
+    '我想學習如何上傳回收物📖': upload_teaching_drama.handle_upload_teaching_welcome_message,
+    '我已經看懂了！我想知道更多小怪怪的資訊！': upload_teaching_drama.handle_upload_teaching_welcome_yes_message,
+    '我想看最強怪獸👾': check_rank_drama.handle_check_rank_welcome_message,
+    '我想更認識你們👋🏻': about_us_drama.handle_about_us_welcome_message,
+    '我想更認識開發者——林群賀': about_us_drama.handle_about_us_ho_message,
+    '我想更認識資料前處理——周姿吟': about_us_drama.handle_about_us_chou_message,
+    '我想更認識專案企劃——葉霈恩': about_us_drama.handle_about_us_yeh_message,
+    '我想更認識模型訓練——林源煜': about_us_drama.handle_about_us_aaron_message,
+    '我想認識成員——黃品誠': about_us_drama.handle_about_us_huang_message,
+}
