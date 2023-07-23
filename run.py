@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 from flask import Flask, request, abort
-from Monster.Drama import message_handler_map
+from Monster.Drama import text_message_handler_map
 from Monster.Drama import unknown_handler
 from Monster.Drama import error_handler
 from Monster.Utils import ConsoleLogger
@@ -86,8 +86,8 @@ def handle_text_message(event: MessageEvent) -> None:
     try:
         message_text = event.message.text
         
-        if message_text in message_handler_map: # Check if the message text exists in the dictionary and call the corresponding handler function
-            handler_function = message_handler_map[message_text]
+        if message_text in text_message_handler_map: # Check if the message text exists in the dictionary and call the corresponding handler function
+            handler_function = text_message_handler_map[message_text]
             handler_function(event)
         elif READY_TO_GET_MONSTER_NAME:
             print('準備讓用戶重新命名小怪怪')

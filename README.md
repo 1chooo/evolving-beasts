@@ -1,4 +1,4 @@
-# Monster Bot
+# Evolving Beasts
 
 [![Made with Python](https://img.shields.io/badge/Python=3.9-blue?logo=python&logoColor=white)](https://python.org "Go to Python homepage")
 [![License](https://img.shields.io/badge/License-MIT-blue)](./LICENSE "Go to license section")
@@ -6,7 +6,7 @@
 A brief summary of the project
 ---
 
-Keep Developing...
+**Evolving Beasts**, the **LINE BOT** supernova that seamlessly blends gaming, quests, nurturing, AI, and sustainability concepts
 
 Enviroment: 
 ---

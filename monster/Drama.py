@@ -747,10 +747,10 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
+                            image_url='https://hackmd.io/_uploads/HyGbBitq2.jpg',
                             action=MessageAction(
-                                label='成員——黃品誠',
-                                text='我想認識成員——黃品誠'
+                                label='效益分析——黃品誠',
+                                text='我想更認識效益分析——黃品誠'
                             )
                         ),
                         ImageCarouselColumn(
@@ -802,10 +802,10 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
+                            image_url='https://hackmd.io/_uploads/HyGbBitq2.jpg',
                             action=MessageAction(
-                                label='成員——黃品誠',
-                                text='我想認識成員——黃品誠'
+                                label='效益分析——黃品誠',
+                                text='我想更認識效益分析——黃品誠'
                             )
                         ),
                         ImageCarouselColumn(
@@ -863,10 +863,10 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
+                            image_url='https://hackmd.io/_uploads/HyGbBitq2.jpg',
                             action=MessageAction(
-                                label='成員——黃品誠',
-                                text='我想認識成員——黃品誠'
+                                label='效益分析——黃品誠',
+                                text='我想更認識效益分析——黃品誠'
                             )
                         ),
                         ImageCarouselColumn(
@@ -920,10 +920,10 @@ class AboutUsDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
+                            image_url='https://hackmd.io/_uploads/HyGbBitq2.jpg',
                             action=MessageAction(
-                                label='成員——黃品誠',
-                                text='我想認識成員——黃品誠'
+                                label='效益分析——黃品誠',
+                                text='我想更認識效益分析——黃品誠'
                             )
                         ),
                         ImageCarouselColumn(
@@ -971,10 +971,10 @@ class AboutUsDrama:
     def handle_about_us_huang_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
-                text="嗨！大家好我是黃品誠，主要負責xxx"
+                text="嗨！大家好我是黃品誠，主要負責產品效益分析"
             ),
             TextSendMessage(
-                text=f"我來自中央大學物理系，曾經擅長碳足跡熱點分析，希望能為環境永續盡一份心力。"
+                text=f"我來自物理系，熱衷於參加跨領域的專案～"
             ),
             TextSendMessage(
                 text=f"快接續滑動以下成員列表，並點擊成員頭像以，更進一步認識我們吧！🫵🏻"
@@ -1012,10 +1012,10 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
+                            image_url='https://hackmd.io/_uploads/HyGbBitq2.jpg',
                             action=MessageAction(
-                                label='成員——黃品誠',
-                                text='我想認識成員——黃品誠'
+                                label='效益分析——黃品誠',
+                                text='我想更認識效益分析——黃品誠'
                             )
                         ),
                     ]
@@ -1069,10 +1069,10 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481',
+                            image_url='https://hackmd.io/_uploads/HyGbBitq2.jpg',
                             action=MessageAction(
-                                label='成員——黃品誠',
-                                text='我想認識成員——黃品誠'
+                                label='效益分析——黃品誠',
+                                text='我想更認識效益分析——黃品誠'
                             )
                         ),
                         ImageCarouselColumn(
@@ -1118,22 +1118,7 @@ test_handler = TestHandler(LINE_BOT_API, HANDLER)
 unknown_handler = UnknownHandler(LINE_BOT_API, HANDLER)
 error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
 
-text_message_handlers = {
-    'Hi Test': test_handler.handle_test_text_message,
-    '我想上傳回收物📸': test_handler.handle_test_text_message,
-    '我想關心怪獸🔦': test_handler.handle_test_text_message,
-    '我想關心永續新知🌏': test_handler.handle_test_text_message,
-    '我想學習如何上傳回收物📖': test_handler.handle_test_text_message,
-    '我想看最強怪獸👾': test_handler.handle_test_text_message,
-    '我想更認識你們👋🏻': about_us_drama.handle_about_us_welcome_message,
-    '我想認識成員——林群賀': about_us_drama.handle_about_us_test,
-    '我想認識成員——葉霈恩': about_us_drama.handle_about_us_test,
-    '我想認識成員——黃品誠': about_us_drama.handle_about_us_test,
-    '我想更認識模型訓練——林源煜': about_us_drama.handle_about_us_test,
-    '我想認識成員——周姿吟': about_us_drama.handle_about_us_test,
-}
-
-message_handler_map = {
+text_message_handler_map = {
     'Hi Test': test_handler.handle_test_text_message,
     '我想上傳回收物📸': upload_drama.handle_upload_welcome_message,
     '我想關心怪獸🔦': check_monster_drama.handle_check_monster_welcome_message,
@@ -1146,5 +1131,5 @@ message_handler_map = {
     '我想更認識資料前處理——周姿吟': about_us_drama.handle_about_us_chou_message,
     '我想更認識專案企劃——葉霈恩': about_us_drama.handle_about_us_yeh_message,
     '我想更認識模型訓練——林源煜': about_us_drama.handle_about_us_aaron_message,
-    '我想認識成員——黃品誠': about_us_drama.handle_about_us_huang_message,
+    '我想更認識效益分析——黃品誠': about_us_drama.handle_about_us_huang_message,
 }
