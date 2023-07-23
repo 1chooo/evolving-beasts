@@ -350,3 +350,14 @@ def handle_message(event):
         )
     else:
         error_handler.handle_unknown_text_message(event)
+
+
+ImageSendMessage(
+    original_content_url = "https://www.notebookcheck.net/fileadmin/_processed_/b/1/csm_teaser_87a40a99d2.jpg",
+    preview_image_url = "https://www.notebookcheck.net/fileadmin/_processed_/b/1/csm_teaser_87a40a99d2.jpg",
+),
+
+ImageSendMessage(
+    original_content_url = "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340",
+    preview_image_url = "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340",
+),

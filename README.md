@@ -6,7 +6,11 @@
 A brief summary of the project
 ---
 
-**Evolving Beasts**, the **LINE BOT** supernova that seamlessly blends gaming, quests, nurturing, AI, and sustainability concepts
+**Evolving Beasts**, the **LINE BOT** supernova that seamlessly blends ***gaming, quests, nurturing, AI, and sustainability concepts***.
+
+| Weather Shakespeare|Evolving Beasts - LINE QRCODE |
+|-|-|
+| <img src="assets/imgs/profile.jpg" width="300">| <img src="https://qr-official.line.me/gs/M_010bobyp_BW.png" width="300"> |
 
 Enviroment: 
 ---
