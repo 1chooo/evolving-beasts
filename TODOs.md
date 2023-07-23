@@ -34,15 +34,29 @@
   - [ ] 輸入名稱
 - [ ] 集點卡實作
 
+Unknown, Error Handler
+---
+### UnknownHandler
+- [x] `handle_unknown_text_message`
+- [x] `handle_unknown_image_message`
+- [x] `handle_unknown_video_message`
+- [x] `handle_unknown_audio_message`
+### ErrorHandler
+
 圖文選單
 ---
-### 關於我們
-- [x] 介紹團隊
-- [ ] 介紹成員
-  - [ ] Hugo
-  - [ ] 
+### Check Rank
+- [x] `handle_check_rank_welcome_message`
 
-DEBUG USED
+### About Us
+- [x] `handle_about_us_welcome_message`
+  - [x] `handle_about_us_ho_message`
+  - [x] `handle_about_us_chou_message`
+  - [x] `handle_about_us_yeh_message`
+  - [x] `handle_about_us_huang_message`
+  - [x] `handle_about_us_aaron_message` 
+
+DEBUG USED (Optional)
 ---
 - [ ] `linebot.v3` version `run.py`
 - [x] Receive text, video, audio type message

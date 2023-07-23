@@ -87,8 +87,8 @@ def handle_text_message(event: MessageEvent) -> None:
         message_text = event.message.text
         
         if message_text in text_message_handler_map: # Check if the message text exists in the dictionary and call the corresponding handler function
-            handler_function = text_message_handler_map[message_text]
-            handler_function(event)
+            text_message_handler = text_message_handler_map[message_text]
+            text_message_handler(event)
         elif READY_TO_GET_MONSTER_NAME:
             print('準備讓用戶重新命名小怪怪')
 

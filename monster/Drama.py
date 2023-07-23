@@ -390,8 +390,6 @@ class TestHandler:
             reply_messages
         )
 
-
-
 class UploadDrama:
     
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
@@ -551,7 +549,7 @@ class UploadTeachingDrama:
             TextSendMessage(
                 text=f"哈囉您好！歡迎使用\n"
                      f"蛤！？為甚麼你的怪獸一直變大？\n"
-                     f"接下來我們將會有請小怪怪帶大家說明如何投餵怪獸回收物以讓怪獸健康成長"
+                     f"接下來我們將會有請「小怪怪」帶大家說明小怪怪的喜好以成功健康成長！"
             ),
             TextSendMessage(
                 text=f"首先簡單介紹小怪怪喜歡的回收物種類：\n"
@@ -1097,9 +1095,6 @@ class AboutUsDrama:
             reply_messages
         )
 
-'''
-'''
-
 config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config')
 config_path = os.path.join(config_dir, 'linebot.conf')
 line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
@@ -1119,17 +1114,42 @@ unknown_handler = UnknownHandler(LINE_BOT_API, HANDLER)
 error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
 
 text_message_handler_map = {
-    'Hi Test': test_handler.handle_test_text_message,
-    '我想上傳回收物📸': upload_drama.handle_upload_welcome_message,
-    '我想關心怪獸🔦': check_monster_drama.handle_check_monster_welcome_message,
-    '我想關心永續新知🌏': check_news_drama.handle_check_news_welcome_message,
-    '我想學習如何上傳回收物📖': upload_teaching_drama.handle_upload_teaching_welcome_message,
-    '我已經看懂了！我想知道更多小怪怪的資訊！': upload_teaching_drama.handle_upload_teaching_welcome_yes_message,
-    '我想看最強怪獸👾': check_rank_drama.handle_check_rank_welcome_message,
-    '我想更認識你們👋🏻': about_us_drama.handle_about_us_welcome_message,
-    '我想更認識開發者——林群賀': about_us_drama.handle_about_us_ho_message,
-    '我想更認識資料前處理——周姿吟': about_us_drama.handle_about_us_chou_message,
-    '我想更認識專案企劃——葉霈恩': about_us_drama.handle_about_us_yeh_message,
-    '我想更認識模型訓練——林源煜': about_us_drama.handle_about_us_aaron_message,
-    '我想更認識效益分析——黃品誠': about_us_drama.handle_about_us_huang_message,
+    'Hi Test': 
+        test_handler.handle_test_text_message,
+    # === Drama: Upload ===
+    '我想上傳回收物📸': 
+        upload_drama.handle_upload_welcome_message,
+    # === Drama: Check Monster ===
+    '我想關心怪獸🔦': 
+        check_monster_drama.handle_check_monster_welcome_message,
+    # === Drama: Check News ===
+    '我想關心永續新知🌏': 
+        check_news_drama.handle_check_news_welcome_message,
+    # === Drama: Upload Teaching ===
+    '我想學習如何上傳回收物📖': 
+        upload_teaching_drama.handle_upload_teaching_welcome_message,
+    '我最了解小怪怪了，我想要直接上傳': 
+        upload_teaching_drama.handle_upload_teaching_welcome_message,
+    '我還不太認識小怪怪，我想先了解小怪怪的喜好': 
+        upload_teaching_drama.handle_upload_teaching_welcome_message,
+    '我已經看懂了！我想知道更多小怪怪的資訊！': 
+        upload_teaching_drama.handle_upload_teaching_welcome_yes_message,
+    '我還不太認識小怪怪，我還想再看看': 
+        upload_teaching_drama.handle_upload_teaching_welcome_message,
+    # === Drama: Check Rank ===
+    '我想看最強怪獸👾': 
+        check_rank_drama.handle_check_rank_welcome_message,
+    # === Drama: About Us ===
+    '我想更認識你們👋🏻': 
+        about_us_drama.handle_about_us_welcome_message,
+    '我想更認識開發者——林群賀': 
+        about_us_drama.handle_about_us_ho_message,
+    '我想更認識資料前處理——周姿吟': 
+        about_us_drama.handle_about_us_chou_message,
+    '我想更認識專案企劃——葉霈恩': 
+        about_us_drama.handle_about_us_yeh_message,
+    '我想更認識模型訓練——林源煜': 
+        about_us_drama.handle_about_us_aaron_message,
+    '我想更認識效益分析——黃品誠': 
+        about_us_drama.handle_about_us_huang_message,
 }
