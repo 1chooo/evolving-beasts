@@ -508,6 +508,8 @@ class CheckNewsDrama:
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
         self.LINE_BOT_API = line_bot_api
         self.HANDLER = handler
+        self.READY_TO_GET_MONSTER_NAME = False
+        self.READY_TO_GET_IMAGE = False
 
     def handle_check_news_test(self, event: MessageEvent) -> None:
         reply_messages = [
