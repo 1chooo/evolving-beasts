@@ -12,6 +12,7 @@ import numpy as np
 from datetime import datetime
 from flask import Flask, request, abort
 from Monster.Drama import text_message_handler_map
+from Monster.Drama import check_monster_drama
 from Monster.Drama import unknown_handler
 from Monster.Drama import error_handler
 from Monster.Utils import ConsoleLogger
@@ -46,8 +47,7 @@ file_handler = FileHandler(LINE_BOT_API, USER_LOG_PATH, CURRENT_DATE)
 file_handler.create_directory(USER_LOG_PATH)
 
 READY_TO_GET_MONSTER_NAME = False
-
-CLIENT_MONSTER_NAME = ''
+READY_TO_GET_IMAGE = False
 
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
@@ -81,35 +81,16 @@ def handle_user_profile(event: FollowEvent) -> None:
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_text_message(event: MessageEvent) -> None:
     global READY_TO_GET_MONSTER_NAME
-    global CLIENT_MONSTER_NAME
     
     try:
         message_text = event.message.text
         
-        if message_text in text_message_handler_map: # Check if the message text exists in the dictionary and call the corresponding handler function
+        if READY_TO_GET_MONSTER_NAME:
+            check_monster_drama.handle_check_monster_rename_monster_test(event)
+            READY_TO_GET_MONSTER_NAME = False
+        elif message_text in text_message_handler_map: # Check if the message text exists in the dictionary and call the corresponding handler function
             text_message_handler = text_message_handler_map[message_text]
             text_message_handler(event)
-        elif READY_TO_GET_MONSTER_NAME:
-            print('準備讓用戶重新命名小怪怪')
-
-            CLIENT_MONSTER_NAME = event.message.text
-            READY_TO_GET_MONSTER_NAME = False
-
-            print(f'已將用戶怪獸名稱重新命名為{CLIENT_MONSTER_NAME}')
-
-            reply_messages = [
-                TextSendMessage(
-                    '已成功收到怪獸命名\n您的怪獸名稱是「' + CLIENT_MONSTER_NAME + '」！'
-                ),
-                TextSendMessage(
-                    '測試成功'
-                ),
-            ]
-
-            LINE_BOT_API.reply_message(
-                event.reply_token,
-                reply_messages
-            )
         else:
             unknown_handler.handle_unknown_text_message(event)
 
