@@ -361,3 +361,21 @@ ImageSendMessage(
     original_content_url = "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340",
     preview_image_url = "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340",
 ),
+
+TemplateSendMessage(
+    alt_text='Buttons template',
+    template=ButtonsTemplate(
+        title='Hello',
+        text='第一次見面嗎',
+        actions=[
+            MessageTemplateAction(
+                label='是，第一次見面',
+                text='是',
+            ),
+            MessageTemplateAction(
+                label='已經見過了',
+                text='見過了',
+            ),
+        ]
+    )
+)

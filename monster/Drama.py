@@ -421,20 +421,21 @@ class UploadDrama:
                 preview_image_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
             ),
             TemplateSendMessage(
-                alt_text='ConfirmTemplate',
-                template=ConfirmTemplate(
-                        text='了解小怪怪的喜好了嗎？',
-                        actions=[
-                            MessageAction(
-                                label='我最了解小怪怪了',
-                                text='我最了解小怪怪了，我想要直接上傳'
-                            ),
-                            MessageAction(
-                                label='沒聽說小怪怪的洗好',
-                                text='我還不太認識小怪怪，我想先了解小怪怪的喜好'
-                            )
-                        ]
-                    )
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='了解小怪怪的喜好了嗎？',
+                    text='小怪怪想被了解～',
+                    actions=[
+                        MessageTemplateAction(
+                            label='我最了解小怪怪了',
+                            text='我最了解小怪怪了，我想要直接上傳',
+                        ),
+                        MessageTemplateAction(
+                            label='沒聽說小怪怪的喜好',
+                            text='我想學習如何上傳回收物📖',
+                        ),
+                    ]
+                )
             ),
         ]
                 
@@ -467,6 +468,24 @@ class CheckMonsterDrama:
 
     def handle_check_monster_rename_monster_test(self, event: MessageEvent) -> None:
         print('===Ready to let user rename Monster!!!===')
+        
+        CLIENT_MONSTER_NAME = event.message.text
+        
+        print(f'User has renamed monster into {CLIENT_MONSTER_NAME}')
+
+        reply_messages = [
+            TextSendMessage(
+                '已成功收到怪獸命名\n您的怪獸名稱是「' + CLIENT_MONSTER_NAME + '」！'
+            ),
+            TextSendMessage(
+                '測試成功'
+            ),
+        ]
+
+        LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
     
     def handle_check_monster_welcome_message(self, event: MessageEvent) -> None:
         reply_messages = [
@@ -558,20 +577,21 @@ class UploadTeachingDrama:
                      f"因此為了滿足小怪怪的任性，目前請投餵這三種回收物為主"
             ),
             TemplateSendMessage(
-                alt_text='ConfirmTemplate',
-                template=ConfirmTemplate(
-                        text='了解小怪怪的任性了嗎？',
-                        actions=[
-                            MessageAction(
-                                label='了解了',
-                                text='我已經看懂了！我想知道更多小怪怪的資訊！'
-                            ),
-                            MessageAction(
-                                label='還想再看看',
-                                text='我還不太認識小怪怪，我還想再看看'
-                            )
-                        ]
-                    )
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='了解小怪怪的任性了嗎？',
+                    text='小怪怪還小有點小脾氣',
+                    actions=[
+                        MessageTemplateAction(
+                            label='了解了',
+                            text='我已經看懂了！我想知道更多小怪怪的資訊！',
+                        ),
+                        MessageTemplateAction(
+                            label='還想再看看',
+                            text='我還不太認識小怪怪，我還想再看看',
+                        ),
+                    ]
+                )
             ),
         ]
                 
@@ -1129,8 +1149,6 @@ text_message_handler_map = {
     '我想學習如何上傳回收物📖': 
         upload_teaching_drama.handle_upload_teaching_welcome_message,
     '我最了解小怪怪了，我想要直接上傳': 
-        upload_teaching_drama.handle_upload_teaching_welcome_message,
-    '我還不太認識小怪怪，我想先了解小怪怪的喜好': 
         upload_teaching_drama.handle_upload_teaching_welcome_message,
     '我已經看懂了！我想知道更多小怪怪的資訊！': 
         upload_teaching_drama.handle_upload_teaching_welcome_yes_message,
