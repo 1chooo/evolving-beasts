@@ -56,6 +56,11 @@ Unknown, Error Handler
   - [x] `handle_about_us_huang_message`
   - [x] `handle_about_us_aaron_message` 
 
+CI/CD
+---
+- [x] Test package
+- [ ] Dockerfile
+
 DEBUG USED (Optional)
 ---
 - [ ] `linebot.v3` version `run.py`
