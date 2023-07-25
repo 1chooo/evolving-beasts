@@ -46,9 +46,6 @@ file_handler = FileHandler(LINE_BOT_API, USER_LOG_PATH, CURRENT_DATE)
 
 file_handler.create_directory(USER_LOG_PATH)
 
-READY_TO_GET_MONSTER_NAME = False
-READY_TO_GET_IMAGE = False
-
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
     global USER_LOG_PATH
@@ -80,17 +77,14 @@ def handle_user_profile(event: FollowEvent) -> None:
 
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_text_message(event: MessageEvent) -> None:
-    global READY_TO_GET_MONSTER_NAME
-    
     try:
         message_text = event.message.text
         
-        if READY_TO_GET_MONSTER_NAME:
-            check_monster_drama.handle_check_monster_rename_monster_test(event)
-            READY_TO_GET_MONSTER_NAME = False
-        elif message_text in text_message_handler_map: # Check if the message text exists in the dictionary and call the corresponding handler function
+        if message_text in text_message_handler_map: # Check if the message text exists in the dictionary and call the corresponding handler function
             text_message_handler = text_message_handler_map[message_text]
             text_message_handler(event)
+        elif check_monster_drama.ready_to_get_monster_name_or_not():
+            check_monster_drama.handle_check_monster_rename_monster_test(event)
         else:
             unknown_handler.handle_unknown_text_message(event)
 

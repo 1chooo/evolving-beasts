@@ -395,6 +395,7 @@ class UploadDrama:
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
         self.LINE_BOT_API = line_bot_api
         self.HANDLER = handler
+        self.ready_to_get_image = False
 
     def handle_upload_test(self, event: MessageEvent) -> None:
         reply_messages = [
@@ -444,11 +445,15 @@ class UploadDrama:
             reply_messages
         )
 
+    def ready_to_get_image_or_not(self, ) -> bool:
+        return self.ready_to_get_image
+
 class CheckMonsterDrama:
     
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
         self.LINE_BOT_API = line_bot_api
         self.HANDLER = handler
+        self.ready_to_get_monster_name = False
 
     def handle_check_monster_test(self, event: MessageEvent) -> None:
         reply_messages = [
@@ -471,7 +476,8 @@ class CheckMonsterDrama:
         
         CLIENT_MONSTER_NAME = event.message.text
         
-        print(f'User has renamed monster into {CLIENT_MONSTER_NAME}')
+        print(f'===User has renamed monster into {CLIENT_MONSTER_NAME}===')
+        self.READY_TO_GET_MONSTER_NAME = False
 
         reply_messages = [
             TextSendMessage(
@@ -488,6 +494,8 @@ class CheckMonsterDrama:
         )
     
     def handle_check_monster_welcome_message(self, event: MessageEvent) -> None:
+        # self.ready_to_get_monster_name = True     # Test used
+        
         reply_messages = [
             TextSendMessage(text='看來你想查看怪獸狀態呢！'),
             TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
@@ -503,13 +511,14 @@ class CheckMonsterDrama:
             reply_messages
         )
 
+    def ready_to_get_monster_name_or_not(self, ) -> bool:
+        return self.ready_to_get_monster_name
+
 class CheckNewsDrama:
     
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
         self.LINE_BOT_API = line_bot_api
         self.HANDLER = handler
-        self.READY_TO_GET_MONSTER_NAME = False
-        self.READY_TO_GET_IMAGE = False
 
     def handle_check_news_test(self, event: MessageEvent) -> None:
         reply_messages = [
@@ -602,7 +611,47 @@ class UploadTeachingDrama:
             reply_messages
         )
 
-    def handle_upload_teaching_welcome_yes_message(self, event: MessageEvent) -> None:
+    def handle_upload_teaching_welcome_understand_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f"相信您已經初步認識小怪怪了\n"
+                     f"小怪怪還是要好心跟大家說：\n"
+                     f"「我目前只喜歡吃寶特瓶、鋁箔包以及飲料紙杯，其他的我會挑食」"
+            ),
+            TextSendMessage(
+                text=f"首先請打開您的相機，根據以下範例圖式，"
+                     f"將回收物品置中按下快門",
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+                preview_image_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+            ),
+            # TextSendMessage(),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='已了解小怪怪的喜好？',
+                    text='小怪怪餓了',
+                    actions=[
+                        MessageTemplateAction(
+                            label='我最了解小怪怪了',
+                            text='我最了解小怪怪了，我想要直接上傳',
+                        ),
+                        MessageTemplateAction(
+                            label='還不熟悉誒',
+                            text='我想學習如何上傳回收物📖',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_upload_teaching_welcome_more_info_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
                 text=f"相信您已經初步認識小怪怪了\n"
@@ -1123,6 +1172,7 @@ line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
 
 LINE_BOT_API = LineBotApi(line_bot_config["CHANNEL_ACCESS_TOKEN"])
 HANDLER = WebhookHandler(line_bot_config["CHANNEL_SECRET"])
+# READY_TO_GET_MONSTER_NAME = False
 
 upload_drama = UploadDrama(LINE_BOT_API, HANDLER)
 check_monster_drama = CheckMonsterDrama(LINE_BOT_API, HANDLER)
@@ -1153,9 +1203,9 @@ text_message_handler_map = {
     '我最了解小怪怪了，我想要直接上傳': 
         upload_teaching_drama.handle_upload_teaching_welcome_message,
     '我已經看懂了！我想知道更多小怪怪的資訊！': 
-        upload_teaching_drama.handle_upload_teaching_welcome_yes_message,
+        upload_teaching_drama.handle_upload_teaching_welcome_understand_message,
     '我還不太認識小怪怪，我還想再看看': 
-        upload_teaching_drama.handle_upload_teaching_welcome_message,
+        upload_teaching_drama.handle_upload_teaching_welcome_more_info_message,
     # === Drama: Check Rank ===
     '我想看最強怪獸👾': 
         check_rank_drama.handle_check_rank_welcome_message,
