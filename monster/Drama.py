@@ -28,6 +28,7 @@ from linebot.models.template import CarouselTemplate
 from linebot.models.template import ButtonsTemplate
 from linebot.models.template import ConfirmTemplate
 from linebot.models.events import MessageEvent
+from Monster.Utils import file_handler
 
 class UnknownHandler:
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
@@ -445,6 +446,69 @@ class UploadDrama:
             reply_messages
         )
 
+    def handle_upload_ready_upload_message(self, event: MessageEvent) -> None:
+        self.ready_to_get_image = True
+
+        reply_messages = [
+            TextSendMessage(
+                text=f'哈囉您好！在投餵小怪怪前，\n'
+                     f'再次提醒小怪怪目前還小只能消化：\n'
+                     f'「寶特瓶、鋁箔包🧃以及飲料紙杯🥤」'
+            ),
+            TextSendMessage(
+                text=f'並且依據以下圖例拍攝角度\n'
+                     f'讓小怪怪有最完整的用餐體驗🍽'
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
+                preview_image_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_upload_get_image(self, event: MessageEvent) -> None:
+        print('===Ready to let user send Image!!!===')
+
+        recycle_type = "寶特瓶"
+
+        reply_messages = [
+            TextSendMessage(
+                text=f'哈囉您好！小怪怪已經收到您的投餵\n'
+                     f'小怪怪感到非常開心'
+            ),
+            TextSendMessage(
+                text=f'因為小怪怪還在成長\n'
+                     f'因此想向您確認剛剛回傳的照片是否為：\n'
+                     f'{recycle_type}'
+            ),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title=f'小怪怪想知道吃了什麼',
+                    text='小怪怪剛吃飽',
+                    actions=[
+                        MessageTemplateAction(
+                            label=f'沒錯就是{recycle_type}',
+                            text=f'已經成功投餵{recycle_type}給小怪怪',
+                        ),
+                        MessageTemplateAction(
+                            label=f'好像不是{recycle_type}欸',
+                            text='小怪怪好像太餓認錯了！',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
     def ready_to_get_image_or_not(self, ) -> bool:
         return self.ready_to_get_image
 
@@ -494,8 +558,6 @@ class CheckMonsterDrama:
         )
     
     def handle_check_monster_welcome_message(self, event: MessageEvent) -> None:
-        # self.ready_to_get_monster_name = True     # Test used
-        
         reply_messages = [
             TextSendMessage(text='看來你想查看怪獸狀態呢！'),
             TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
@@ -513,6 +575,9 @@ class CheckMonsterDrama:
 
     def ready_to_get_monster_name_or_not(self, ) -> bool:
         return self.ready_to_get_monster_name
+    
+    def _get_user_id(self, event: MessageEvent) -> str:
+        return event.source.user_id
 
 class CheckNewsDrama:
     
@@ -583,7 +648,7 @@ class UploadTeachingDrama:
             ),
             TextSendMessage(
                 text=f"首先簡單介紹小怪怪喜歡的回收物種類：\n"
-                     f"小怪怪因為還在成長，目前還是非常挑食（挑食是不好得行為哦～）\n"
+                     f"小怪怪因為還小，很多食物都不喜歡，目前還是非常挑食（挑食是不好得行為哦～）\n"
                      f"所以目前只喜歡吃：「寶特瓶、鋁箔包以及飲料紙杯」\n"
                      f"因此為了滿足小怪怪的任性，目前請投餵這三種回收物為主"
             ),
@@ -1201,7 +1266,7 @@ text_message_handler_map = {
     '我想學習如何上傳回收物📖': 
         upload_teaching_drama.handle_upload_teaching_welcome_message,
     '我最了解小怪怪了，我想要直接上傳': 
-        upload_teaching_drama.handle_upload_teaching_welcome_message,
+        upload_drama.handle_upload_ready_upload_message,
     '我已經看懂了！我想知道更多小怪怪的資訊！': 
         upload_teaching_drama.handle_upload_teaching_welcome_understand_message,
     '我還不太認識小怪怪，我還想再看看': 
