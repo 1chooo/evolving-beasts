@@ -12,6 +12,7 @@ import numpy as np
 from datetime import datetime
 from flask import Flask, request, abort
 from Monster.Drama import text_message_handler_map
+from Monster.Drama import upload_drama
 from Monster.Drama import check_monster_drama
 from Monster.Drama import unknown_handler
 from Monster.Drama import error_handler
@@ -96,10 +97,12 @@ def handle_text_message(event: MessageEvent) -> None:
 def handle_image_message(event: MessageEvent) -> None:
     global USER_LOG_PATH
 
-    unknown_handler.handle_unknown_image_message(event)
-
-    try:    # Download the image
-        file_handler.download_file(event, 'imgs', '.jpg')
+    try:    
+        if upload_drama.ready_to_get_image_or_not():
+            upload_drama.handle_upload_get_image(event)
+        else:
+            unknown_handler.handle_unknown_image_message(event)
+        file_handler.download_file(event, 'imgs', '.jpg')   # Download the image
 
     except LineBotApiError as e:
         console_logger.image_exception_console(e)
@@ -109,10 +112,9 @@ def handle_image_message(event: MessageEvent) -> None:
 def handle_video_message(event: MessageEvent) -> None:
     global USER_LOG_PATH
 
-    unknown_handler.handle_unknown_video_message(event)
-
-    try:    # Download the audio
-        file_handler.download_file(event, 'video', '.mp4')
+    try:    
+        unknown_handler.handle_unknown_video_message(event)
+        file_handler.download_file(event, 'video', '.mp4')  # Download the audio
 
     except LineBotApiError as e:
         console_logger.image_exception_console(e)
@@ -122,10 +124,9 @@ def handle_video_message(event: MessageEvent) -> None:
 def handle_audio_message(event: MessageEvent) -> None:
     global USER_LOG_PATH
 
-    unknown_handler.handle_unknown_audio_message(event)
-
-    try:    # Download the audio
-        file_handler.download_file(event, 'audio', '.mp3')
+    try:    
+        unknown_handler.handle_unknown_audio_message(event)
+        file_handler.download_file(event, 'audio', '.mp3')      # Download the audio
 
     except LineBotApiError as e:
         console_logger.audio_exception_console(e)
