@@ -463,6 +463,10 @@ class UploadDrama:
                 original_content_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
                 preview_image_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
             ),
+            TextSendMessage(
+                text=f'放心傳送拍攝的回收物給小怪怪吧！\n'
+                     f'小怪怪肚子餓餓～～'
+            ),
         ]
                 
         self.LINE_BOT_API.reply_message(
@@ -471,19 +475,20 @@ class UploadDrama:
         )
 
     def handle_upload_get_image(self, event: MessageEvent) -> None:
-        print('===Ready to let user send Image!!!===')
+        print('===Successfully get Image from User!!!===')
+        self.ready_to_get_image = False
 
         recycle_type = "寶特瓶"
 
         reply_messages = [
             TextSendMessage(
-                text=f'哈囉您好！小怪怪已經收到您的投餵\n'
-                     f'小怪怪感到非常開心'
+                text=f'哈囉您好！小怪怪已經收到您的投餵！\n'
+                     f'小怪怪感到非常開心！'
             ),
             TextSendMessage(
                 text=f'因為小怪怪還在成長\n'
-                     f'因此想向您確認剛剛回傳的照片是否為：\n'
-                     f'{recycle_type}'
+                     f'因此想向您再次確認剛剛回傳的照片是否為：\n'
+                     f'👉🏻{recycle_type}'
             ),
             TemplateSendMessage(
                 alt_text='Buttons template',
@@ -498,6 +503,40 @@ class UploadDrama:
                         MessageTemplateAction(
                             label=f'好像不是{recycle_type}欸',
                             text='小怪怪好像太餓認錯了！',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_upload_bottle_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f'感謝您投餵的寶特瓶\n'
+                     f'小怪怪非常開心與你一起為地球盡一份心力\n'
+            ),
+            TextSendMessage(
+                text=f'另外因為您的投餵\n'
+                     f'「使用者的怪獸名稱」獲得了 10 分！！！'
+            ),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='小怪怪又成長了！',
+                    text='小怪怪想被了解～',
+                    actions=[
+                        MessageTemplateAction(
+                            label='繼續投餵小怪怪',
+                            text='我想上傳回收物📸',
+                        ),
+                        MessageTemplateAction(
+                            label='關心小怪怪',
+                            text='我想關心怪獸🔦',
                         ),
                     ]
                 )
@@ -703,8 +742,8 @@ class UploadTeachingDrama:
                             text='我最了解小怪怪了，我想要直接上傳',
                         ),
                         MessageTemplateAction(
-                            label='還不熟悉誒',
-                            text='我想學習如何上傳回收物📖',
+                            label='看更多上傳範例',
+                            text='我目前還不夠瞭解，可以再請小怪怪多給些範例嗎？',
                         ),
                     ]
                 )
@@ -716,21 +755,21 @@ class UploadTeachingDrama:
             reply_messages
         )
 
-    def handle_upload_teaching_welcome_more_info_message(self, event: MessageEvent) -> None:
+    def handle_upload_teaching_welcome_understand_yet_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
-                text=f"相信您已經初步認識小怪怪了\n"
-                     f"小怪怪還是要好心跟大家說：\n"
-                     f"「我目前只喜歡吃寶特瓶、鋁箔包以及飲料紙杯，其他的我會挑食」"
+                text=f"這邊要補充一些我們的故事，然後只有繼續按鈕\n"
+                     f"tt\n"
+                     f"tt"
             ),
             TextSendMessage(
-                text=f"首先請打開您的相機，根據以下範例圖式，"
-                     f"將回收物品置中按下快門",
+                text=f"tt"
+                     f"tt",
             ),
-            ImageSendMessage(
-                original_content_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
-                preview_image_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
-            ),
+            # ImageSendMessage(
+            #     original_content_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+            #     preview_image_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+            # ),
             # TextSendMessage(),
         ]
                 
@@ -1256,6 +1295,8 @@ text_message_handler_map = {
     # === Drama: Upload ===
     '我想上傳回收物📸': 
         upload_drama.handle_upload_welcome_message,
+    '已經成功投餵寶特瓶給小怪怪':
+        upload_drama.handle_upload_bottle_message,
     # === Drama: Check Monster ===
     '我想關心怪獸🔦': 
         check_monster_drama.handle_check_monster_welcome_message,
@@ -1270,7 +1311,7 @@ text_message_handler_map = {
     '我已經看懂了！我想知道更多小怪怪的資訊！': 
         upload_teaching_drama.handle_upload_teaching_welcome_understand_message,
     '我還不太認識小怪怪，我還想再看看': 
-        upload_teaching_drama.handle_upload_teaching_welcome_more_info_message,
+        upload_teaching_drama.handle_upload_teaching_welcome_understand_yet_message,
     # === Drama: Check Rank ===
     '我想看最強怪獸👾': 
         check_rank_drama.handle_check_rank_welcome_message,
