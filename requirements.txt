@@ -64,6 +64,7 @@ pure-eval==0.2.2
 pydantic==1.10.10
 Pygments==2.15.1
 pyimgur==0.6.0
+PyMySQL==1.1.0
 pyparsing==3.1.0
 python-dateutil==2.8.2
 pytz==2023.3
@@ -81,7 +82,7 @@ traitlets==5.9.0
 typing-inspect==0.9.0
 typing_extensions==4.7.1
 tzdata==2023.3
-urllib3==2.0.3
+urllib3==2.0.4
 wcwidth==0.2.6
 Werkzeug==2.3.6
 wrapt==1.15.0

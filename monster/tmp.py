@@ -379,3 +379,113 @@ TemplateSendMessage(
         ]
     )
 )
+
+
+    def handle_upload_teaching_welcome_understand_more_info_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f"小怪怪想讓大家\n"
+                     f"小怪怪還是想再好心跟大家說：\n"
+                     f"「我目前只喜歡吃寶特瓶、鋁箔包以及飲料紙杯，其他的我會挑食」"
+            ),
+            TextSendMessage(
+                text=f"首先請打開您的相機，根據以下範例圖式，"
+                     f"將回收物品置中按下快門",
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+                preview_image_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+            ),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='已了解小怪怪的喜好？',
+                    text='小怪怪餓了',
+                    actions=[
+                        MessageTemplateAction(
+                            label='我跟小怪怪',
+                            text='我跟小怪已經變熟了，我想要直接上傳',
+                        ),
+                        MessageTemplateAction(
+                            label='看更多上傳範例',
+                            text='我目前還不夠瞭解，可以再請小怪怪多給些範例嗎？',
+                        ),
+                    ]
+                )
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ByHY3GE93.png',
+                            action=MessageAction(
+                                label='如何投餵小怪怪',
+                                text='我想學習如何上傳回收物📖'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkoK2GNc2.png',
+                            action=MessageAction(
+                                label='投餵小怪怪',
+                                text='我想上傳回收物📸'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ryGdhGVc2.png',
+                            action=MessageAction(
+                                label='查看怪獸狀態',
+                                text='我想關心怪獸🔦'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
+                            action=MessageAction(
+                                label='關注永續新知',
+                                text='我想關心永續新知🌏'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Hy1_hMN52.png',
+                            action=MessageAction(
+                                label='認識我們',
+                                text='我想更認識你們👋🏻'
+                            )
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_upload_welcome_2message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(text='歡迎投餵小怪怪'),
+            TextSendMessage(text='在投餵之前，想先問您是否已經完成命名小怪怪的名稱呢！'),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='了解小怪怪的喜好了嗎？',
+                    text='小怪怪想被了解～',
+                    actions=[
+                        MessageTemplateAction(
+                            label='我最了解小怪怪了',
+                            text='我跟小怪怪已經變熟了，我想要直接上傳',
+                        ),
+                        MessageTemplateAction(
+                            label='沒聽說小怪怪的喜好',
+                            text='我想學習如何上傳回收物📖',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
