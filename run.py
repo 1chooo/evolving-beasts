@@ -9,8 +9,10 @@ import os
 import json
 import pandas as pd
 import numpy as np
+from pyimgur import Imgur
 from datetime import datetime
 from flask import Flask, request, abort
+from swagger_ui import api_doc
 from Monster.Drama import text_message_handler_map
 from Monster.Drama import upload_drama
 from Monster.Drama import check_monster_drama
@@ -33,13 +35,16 @@ from linebot.exceptions import InvalidSignatureError
 app = Flask(__name__)
 
 config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.', 'config')
-config_path = os.path.join(config_dir, 'linebot.conf')
-line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
+line_bot_config_path = os.path.join(config_dir, 'linebot.conf')
+line_bot_config = json.load(open(line_bot_config_path, 'r', encoding='utf8'))
+imgur_config_path = os.path.join(config_dir, 'imgur.conf')
+imgur_config = json.load(open(imgur_config_path, 'r', encoding='utf8'))
 
 CURRENT_DATE = datetime.today().strftime('%Y%m%d')
 
 LINE_BOT_API = LineBotApi(line_bot_config['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
+imgur_client = Imgur(imgur_config["client_id"], imgur_config["client_secret"])
 USER_LOG_PATH = os.path.join('.', 'log', CURRENT_DATE)
 
 console_logger = ConsoleLogger(LINE_BOT_API, HANDLER, USER_LOG_PATH)
