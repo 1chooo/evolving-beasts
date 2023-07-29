@@ -98,6 +98,9 @@ PROJECT_ROOT
 │   ├── linebot.conf
 │   ├── chatgpt.conf
 │   └──   :
+├── log/
+│   ├── date/
+│   └──   :
 ├── run.py
 ├── LICENSE
 └── README.md

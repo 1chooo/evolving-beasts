@@ -416,25 +416,21 @@ class UploadDrama:
     
     def handle_upload_welcome_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='歡迎投餵小怪怪'),
-            TextSendMessage(text='在上傳之前，想先問您是否知道小怪怪的喜好了呢！'),
-            ImageSendMessage(
-                original_content_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
-                preview_image_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
-            ),
+            TextSendMessage(text='歡迎大家投餵小怪怪'),
+            TextSendMessage(text='在投餵之前，想先問您是否已經完成命名小怪怪的名稱呢！'),
             TemplateSendMessage(
                 alt_text='Buttons template',
                 template=ButtonsTemplate(
-                    title='了解小怪怪的喜好了嗎？',
-                    text='小怪怪想被了解～',
+                    title='小怪怪有名字了嗎？',
+                    text='小怪怪想要酷酷的名字～～～',
                     actions=[
                         MessageTemplateAction(
-                            label='我最了解小怪怪了',
-                            text='我最了解小怪怪了，我想要直接上傳',
+                            label='已經給小怪怪酷酷的名字了',
+                            text='我的小怪怪已經有名字了，我想查看小怪怪名稱',
                         ),
                         MessageTemplateAction(
-                            label='沒聽說小怪怪的喜好',
-                            text='我想學習如何上傳回收物📖',
+                            label='忘記幫小怪怪取名字了',
+                            text='還沒幫小怪怪取名誒，我現在想要幫他命名',
                         ),
                     ]
                 )
@@ -456,12 +452,36 @@ class UploadDrama:
                      f'「寶特瓶、鋁箔包🧃以及飲料紙杯🥤」'
             ),
             TextSendMessage(
-                text=f'並且依據以下圖例拍攝角度\n'
+                text=f'若還是不太確定小怪怪的喜好可以點擊以下圖示，'
                      f'讓小怪怪有最完整的用餐體驗🍽'
             ),
-            ImageSendMessage(
-                original_content_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
-                preview_image_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='寶特瓶教學',
+                                text='我想看寶特瓶上傳詳細教學！'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='鋁箔包教學',
+                                text='我想看鋁箔包上傳詳細教學！'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='飲料紙杯教學',
+                                text='我想看飲料紙杯上傳詳細教學！'
+                            )
+                        ),
+                    ]
+                )
             ),
             TextSendMessage(
                 text=f'放心傳送拍攝的回收物給小怪怪吧！\n'
@@ -681,29 +701,31 @@ class UploadTeachingDrama:
     def handle_upload_teaching_welcome_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
-                text=f"哈囉您好！歡迎使用\n"
-                     f"蛤！？為甚麼你的怪獸一直變大？\n"
-                     f"接下來我們將會有請「小怪怪」帶大家說明小怪怪的喜好以成功健康成長！"
+                text=f"哈囉您好！歡迎加入我們\n"
+                     f"👉🏻蛤！？為甚麼你的怪獸一直變大？\n"
+                     f"接下來我們將會有請「小怪怪」帶大家說明小怪怪的喜好，以成功健康成長！"
             ),
             TextSendMessage(
-                text=f"首先簡單介紹小怪怪喜歡的回收物種類：\n"
-                     f"小怪怪因為還小，很多食物都不喜歡，目前還是非常挑食（挑食是不好得行為哦～）\n"
-                     f"所以目前只喜歡吃：「寶特瓶、鋁箔包以及飲料紙杯」\n"
+                text=f"小怪怪目前還小，很多食物都不喜歡，目前還是非常挑食\n"
+                     f"‼️挑食是不好得行為哦‼️"
+            ),
+            TextSendMessage(
+                text=f"所以目前只喜歡吃：「寶特瓶、鋁箔包以及飲料紙杯」\n"
                      f"因此為了滿足小怪怪的任性，目前請投餵這三種回收物為主"
             ),
             TemplateSendMessage(
                 alt_text='Buttons template',
                 template=ButtonsTemplate(
                     title='了解小怪怪的任性了嗎？',
-                    text='小怪怪還小有點小脾氣',
+                    text='小怪怪還小有點小脾氣呢！',
                     actions=[
                         MessageTemplateAction(
-                            label='了解了',
-                            text='我已經看懂了！我想知道更多小怪怪的資訊！',
+                            label='還是不夠瞭解小怪怪～',
+                            text='我還不太認識小怪怪，我還想再看看',
                         ),
                         MessageTemplateAction(
-                            label='還想再看看',
-                            text='我還不太認識小怪怪，我還想再看看',
+                            label='跟小怪怪很熟了！我想直接上傳',
+                            text='我跟小怪怪已經變熟了，我想要直接上傳',
                         ),
                     ]
                 )
@@ -718,32 +740,75 @@ class UploadTeachingDrama:
     def handle_upload_teaching_welcome_understand_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
-                text=f"相信您已經初步認識小怪怪了\n"
-                     f"小怪怪還是要好心跟大家說：\n"
+                text=f"相信大家已經初步認識小怪怪了\n"
+                     f"小怪怪還是想再好心跟大家說：\n"
                      f"「我目前只喜歡吃寶特瓶、鋁箔包以及飲料紙杯，其他的我會挑食」"
             ),
             TextSendMessage(
-                text=f"首先請打開您的相機，根據以下範例圖式，"
-                     f"將回收物品置中按下快門",
+                text=f"大家可以點選以下圖示以查看完整上傳教學！"
             ),
-            ImageSendMessage(
-                original_content_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
-                preview_image_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='寶特瓶教學',
+                                text='我想看寶特瓶上傳詳細教學！'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='鋁箔包教學',
+                                text='我想看鋁箔包上傳詳細教學！'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='飲料紙杯教學',
+                                text='我想看飲料紙杯上傳詳細教學！'
+                            )
+                        ),
+                    ]
+                )
             ),
-            # TextSendMessage(),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+    
+    def handle_upload_teaching_welcome_understand_yet_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f"看來大家還想更認識小怪怪呢！\n"
+                     f"那就來向各位介紹為什麼小怪怪喜歡回收物吧！"
+            ),
+            TextSendMessage(
+                text=f"因為地球只有一個，小怪怪想要引申做則，"
+                     f"帶頭引領大家做環保，因此發起了這次的活動",
+            ),
+            TextSendMessage(
+                text=f"目前想帶大家做好「寶特瓶、鋁箔包以及飲料紙杯」的分類習慣\n"
+                     f"因此現在只能投餵這些種類！"
+            ),
             TemplateSendMessage(
                 alt_text='Buttons template',
                 template=ButtonsTemplate(
-                    title='已了解小怪怪的喜好？',
-                    text='小怪怪餓了',
+                    title='總算了解小怪怪的任性了',
+                    text='小怪怪好愛地球',
                     actions=[
                         MessageTemplateAction(
-                            label='我最了解小怪怪了',
-                            text='我最了解小怪怪了，我想要直接上傳',
+                            label='已經初步認識小怪怪！',
+                            text='我已經初步認識小怪怪了！我想知道更多小怪怪的資訊！',
                         ),
                         MessageTemplateAction(
-                            label='看更多上傳範例',
-                            text='我目前還不夠瞭解，可以再請小怪怪多給些範例嗎？',
+                            label='我想支持小怪怪！',
+                            text='我能體會小怪怪的苦心，因此我想了解更多小怪怪的資訊以支持他！！！',
                         ),
                     ]
                 )
@@ -755,22 +820,176 @@ class UploadTeachingDrama:
             reply_messages
         )
 
-    def handle_upload_teaching_welcome_understand_yet_message(self, event: MessageEvent) -> None:
+    def handle_upload_teaching_bottle_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
-                text=f"這邊要補充一些我們的故事，然後只有繼續按鈕\n"
+                text=f"這是寶特瓶教學\n"
                      f"tt\n"
                      f"tt"
             ),
-            TextSendMessage(
-                text=f"tt"
-                     f"tt",
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='鋁箔包教學',
+                                text='我想看鋁箔包上傳詳細教學！'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='飲料紙杯教學',
+                                text='我想看飲料紙杯上傳詳細教學！'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='寶特瓶教學',
+                                text='我想看寶特瓶上傳詳細教學！'
+                            ),
+                        ),
+                    ]
+                )
             ),
-            # ImageSendMessage(
-            #     original_content_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
-            #     preview_image_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
-            # ),
-            # TextSendMessage(),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='已了解小怪怪的所有喜好？',
+                    text='小怪怪餓了',
+                    actions=[
+                        MessageTemplateAction(
+                            label='我跟小怪怪變朋友了！',
+                            text='我跟小怪怪已經變熟了，我想要直接上傳',
+                        ),
+                        MessageTemplateAction(
+                            label='還是不夠瞭解小怪怪',
+                            text='我還是不夠了解小怪怪，我想再看一次',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_upload_teaching_aluminum_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f"這是鋁箔包教學\n"
+                     f"tt\n"
+                     f"tt"
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='飲料紙杯教學',
+                                text='我想看飲料紙杯上傳詳細教學！'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='寶特瓶教學',
+                                text='我想看寶特瓶上傳詳細教學！'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='鋁箔包教學',
+                                text='我想看鋁箔包上傳詳細教學！'
+                            )
+                        ),
+                    ]
+                )
+            ),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='已了解小怪怪的所有喜好？',
+                    text='小怪怪餓了',
+                    actions=[
+                        MessageTemplateAction(
+                            label='我跟小怪怪變朋友了！',
+                            text='我跟小怪怪已經變熟了，我想要直接上傳',
+                        ),
+                        MessageTemplateAction(
+                            label='還是不夠瞭解小怪怪',
+                            text='我還是不夠了解小怪怪，我想再看一次',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_upload_teaching_cup_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f"這是飲料紙杯教學\n"
+                     f"tt\n"
+                     f"tt"
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='寶特瓶教學',
+                                text='我想看寶特瓶上傳詳細教學！'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='鋁箔包教學',
+                                text='我想看鋁箔包上傳詳細教學！'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            action=MessageAction(
+                                label='飲料紙杯教學',
+                                text='我想看飲料紙杯上傳詳細教學！'
+                            )
+                        ),
+                    ]
+                )
+            ),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='已了解小怪怪的所有喜好？',
+                    text='小怪怪餓了',
+                    actions=[
+                        MessageTemplateAction(
+                            label='我跟小怪怪變朋友了！',
+                            text='我跟小怪怪已經變熟了，我想要直接上傳',
+                        ),
+                        MessageTemplateAction(
+                            label='還是不夠瞭解小怪怪',
+                            text='我還是不夠了解小怪怪，我想再看一次',
+                        ),
+                    ]
+                )
+            ),
         ]
                 
         self.LINE_BOT_API.reply_message(
@@ -1290,8 +1509,6 @@ unknown_handler = UnknownHandler(LINE_BOT_API, HANDLER)
 error_handler = ErrorHandler(LINE_BOT_API, HANDLER)
 
 text_message_handler_map = {
-    'Hi Test': 
-        test_handler.handle_test_text_message,
     # === Drama: Upload ===
     '我想上傳回收物📸': 
         upload_drama.handle_upload_welcome_message,
@@ -1306,16 +1523,89 @@ text_message_handler_map = {
     # === Drama: Upload Teaching ===
     '我想學習如何上傳回收物📖': 
         upload_teaching_drama.handle_upload_teaching_welcome_message,
-    '我最了解小怪怪了，我想要直接上傳': 
-        upload_drama.handle_upload_ready_upload_message,
-    '我已經看懂了！我想知道更多小怪怪的資訊！': 
+    '我跟小怪怪已經變熟了，我想要直接上傳': 
+        upload_drama.handle_upload_welcome_message,
+    '我已經初步認識小怪怪了！我想知道更多小怪怪的資訊！': 
+        upload_teaching_drama.handle_upload_teaching_welcome_understand_message,
+    '我能體會小怪怪的苦心，因此我想了解更多小怪怪的資訊以支持他！！！': 
         upload_teaching_drama.handle_upload_teaching_welcome_understand_message,
     '我還不太認識小怪怪，我還想再看看': 
         upload_teaching_drama.handle_upload_teaching_welcome_understand_yet_message,
+    '我想看飲料紙杯上傳詳細教學！': 
+        upload_teaching_drama.handle_upload_teaching_cup_message,
+    '我想看寶特瓶上傳詳細教學！': 
+        upload_teaching_drama.handle_upload_teaching_bottle_message,
+    '我想看鋁箔包上傳詳細教學！': 
+        upload_teaching_drama.handle_upload_teaching_aluminum_message,
+    '我還是不夠了解小怪怪，我想再看一次': 
+        upload_teaching_drama.handle_upload_teaching_welcome_message,
     # === Drama: Check Rank ===
     '我想看最強怪獸👾': 
         check_rank_drama.handle_check_rank_welcome_message,
     # === Drama: About Us ===
+    '我想更認識你們👋🏻': 
+        about_us_drama.handle_about_us_welcome_message,
+    '我想更認識開發者——林群賀': 
+        about_us_drama.handle_about_us_ho_message,
+    '我想更認識資料前處理——周姿吟': 
+        about_us_drama.handle_about_us_chou_message,
+    '我想更認識專案企劃——葉霈恩': 
+        about_us_drama.handle_about_us_yeh_message,
+    '我想更認識模型訓練——林源煜': 
+        about_us_drama.handle_about_us_aaron_message,
+    '我想更認識效益分析——黃品誠': 
+        about_us_drama.handle_about_us_huang_message,
+}
+
+test_text_message_handler_map = {
+    'Hi Test': 
+    test_handler.handle_test_text_message,
+}
+
+upload_text_message_handler_map = {
+    '我想上傳回收物📸': 
+        upload_drama.handle_upload_welcome_message,
+    '已經成功投餵寶特瓶給小怪怪':
+        upload_drama.handle_upload_bottle_message,
+}
+
+check_monster_text_message_handler_map = {
+    '我想關心怪獸🔦': 
+        check_monster_drama.handle_check_monster_welcome_message,
+}
+
+check_rank_text_message_handler_map = {
+    '我想看最強怪獸👾': 
+        check_rank_drama.handle_check_rank_welcome_message,
+}
+
+check_news_text_message_handler_map = {
+    '我想關心永續新知🌏': 
+        check_news_drama.handle_check_news_welcome_message,
+}
+
+upload_teaching_text_message_handler_map = {
+    '我想學習如何上傳回收物📖': 
+        upload_teaching_drama.handle_upload_teaching_welcome_message,
+    '我跟小怪怪已經變熟了，我想要直接上傳': 
+        upload_drama.handle_upload_welcome_message,
+    '我已經初步認識小怪怪了！我想知道更多小怪怪的資訊！': 
+        upload_teaching_drama.handle_upload_teaching_welcome_understand_message,
+    '我能體會小怪怪的苦心，因此我想了解更多小怪怪的資訊以支持他！！！': 
+        upload_teaching_drama.handle_upload_teaching_welcome_understand_message,
+    '我還不太認識小怪怪，我還想再看看': 
+        upload_teaching_drama.handle_upload_teaching_welcome_understand_yet_message,
+    '我想看飲料紙杯上傳詳細教學！': 
+        upload_teaching_drama.handle_upload_teaching_cup_message,
+    '我想看寶特瓶上傳詳細教學！': 
+        upload_teaching_drama.handle_upload_teaching_bottle_message,
+    '我想看鋁箔包上傳詳細教學！': 
+        upload_teaching_drama.handle_upload_teaching_aluminum_message,
+    '我還是不夠了解小怪怪，我想再看一次': 
+        upload_teaching_drama.handle_upload_teaching_welcome_message,
+}
+
+about_us_text_message_handler_map = {
     '我想更認識你們👋🏻': 
         about_us_drama.handle_about_us_welcome_message,
     '我想更認識開發者——林群賀': 
