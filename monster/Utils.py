@@ -15,9 +15,8 @@ from linebot.models import Profile
 from linebot.models.events import MessageEvent
 
 class FileHandler:
-    def __init__(self, line_bot_api: LineBotApi, user_log_path: str, current_date: str):
+    def __init__(self, line_bot_api: LineBotApi, current_date: str):
         self.LINE_BOT_API = line_bot_api
-        self.USER_LOG_PATH = user_log_path
         self.CURRENT_DATE = current_date
 
     def create_directory(self, directory_path: str):
@@ -31,9 +30,9 @@ class FileHandler:
         
         return output_path
 
-    def download_file(self, event: MessageEvent, type: str, file_type: str):
+    def download_file(self, event: MessageEvent, type: str, file_type: str, user_log_path: str):
         message_content = self.LINE_BOT_API.get_message_content(event.message.id)
-        directory_path = os.path.join(self.USER_LOG_PATH, type)
+        directory_path = os.path.join(user_log_path, type)
         self.create_directory(directory_path)
         output_path = self.generate_output_path(directory_path, event.message.id, file_type)
 
@@ -42,10 +41,9 @@ class FileHandler:
                 fd.write(chunk)
 
 class ConsoleLogger:
-    def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler, user_log_path: str):
+    def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
         self.LINE_BOT_API = line_bot_api
         self.HANDLER = handler
-        self.USER_LOG_PATH = user_log_path
 
     def text_exception_console(self, e: LineBotApiError) -> None:
         print(f'Error occurred: {str(e)}')
@@ -68,8 +66,8 @@ class ConsoleLogger:
     def user_info_exception_console(self, e: Exception) -> None:
         print(f'Error in getting user info: {str(e)}')
 
-    def store_user_info(self, user_profile: Profile) -> None:
-        file_path = os.path.join(self.USER_LOG_PATH, 'users-info.log')
+    def store_user_info(self, user_profile: Profile, user_log_path: str) -> None:
+        file_path = os.path.join(user_log_path, 'users-info.log')
 
         with open(file_path, 'a') as myfile:
             try:
@@ -82,8 +80,8 @@ class ConsoleLogger:
     def user_event_exception_console(self, e: Exception) -> None:
         print(f'Error in getting user event: {str(e)}')
 
-    def store_user_event(self, body: str) -> None:
-        file_path = os.path.join(self.USER_LOG_PATH, 'users-event.log')
+    def store_user_event(self, body: str, user_log_path: str) -> None:
+        file_path = os.path.join(user_log_path, 'users-event.log')
         
         with open(file_path, 'a') as output_file:
             try:
@@ -100,7 +98,6 @@ LINE_BOT_API = LineBotApi(line_bot_config["CHANNEL_ACCESS_TOKEN"])
 HANDLER = WebhookHandler(line_bot_config["CHANNEL_SECRET"])
 
 CURRENT_DATE = datetime.today().strftime('%Y%m%d')
-USER_LOG_PATH = os.path.join('..', 'log', CURRENT_DATE)
 
-console_logger = ConsoleLogger(LINE_BOT_API, HANDLER, USER_LOG_PATH)
-file_handler = FileHandler(LINE_BOT_API, USER_LOG_PATH, CURRENT_DATE)
+console_logger = ConsoleLogger(LINE_BOT_API, HANDLER)
+file_handler = FileHandler(LINE_BOT_API, CURRENT_DATE)

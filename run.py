@@ -7,8 +7,6 @@ Version: v0.0.1
 
 import os
 import json
-import pandas as pd
-import numpy as np
 from pyimgur import Imgur
 from datetime import datetime
 from flask import Flask, request, abort
@@ -18,15 +16,14 @@ from Monster.Drama import upload_drama
 from Monster.Drama import check_monster_drama
 from Monster.Drama import unknown_handler
 from Monster.Drama import error_handler
-from Monster.Utils import ConsoleLogger
-from Monster.Utils import FileHandler
+from Monster.Utils import console_logger
+from Monster.Utils import file_handler
 from linebot import LineBotApi
 from linebot import WebhookHandler
 from linebot.models import TextMessage
 from linebot.models import ImageMessage
 from linebot.models import VideoMessage
 from linebot.models import AudioMessage
-from linebot.models import TextSendMessage
 from linebot.models.events import FollowEvent
 from linebot.models.events import MessageEvent
 from linebot.exceptions import LineBotApiError
@@ -47,19 +44,15 @@ HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
 imgur_client = Imgur(imgur_config["client_id"], imgur_config["client_secret"])
 USER_LOG_PATH = os.path.join('.', 'log', CURRENT_DATE)
 
-console_logger = ConsoleLogger(LINE_BOT_API, HANDLER, USER_LOG_PATH)
-file_handler = FileHandler(LINE_BOT_API, USER_LOG_PATH, CURRENT_DATE)
-
 file_handler.create_directory(USER_LOG_PATH)
 
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
-    global USER_LOG_PATH
 
     signature = request.headers['X-Line-Signature'] # get X-Line-Signature header value
     body = request.get_data(as_text=True)   # get request body as text
 
-    console_logger.store_user_event(body)
+    console_logger.store_user_event(body, USER_LOG_PATH)
 
     try:        # handle webhook body
         HANDLER.handle(body, signature)
@@ -71,7 +64,6 @@ def callback() -> str:
 
 @HANDLER.add(FollowEvent)
 def handle_user_profile(event: FollowEvent) -> None:
-    global USER_LOG_PATH
     
     try:
         user_profile = LINE_BOT_API.get_profile(event.source.user_id)
@@ -79,7 +71,7 @@ def handle_user_profile(event: FollowEvent) -> None:
         console_logger.line_bot_api_error_console(e)
         return
 
-    console_logger.store_user_info(user_profile)
+    console_logger.store_user_info(user_profile, USER_LOG_PATH)
 
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_text_message(event: MessageEvent) -> None:
@@ -100,14 +92,12 @@ def handle_text_message(event: MessageEvent) -> None:
 
 @HANDLER.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event: MessageEvent) -> None:
-    global USER_LOG_PATH
-
     try:    
         if upload_drama.ready_to_get_image_or_not():
             upload_drama.handle_upload_get_image(event)
         else:
             unknown_handler.handle_unknown_image_message(event)
-        file_handler.download_file(event, 'imgs', '.jpg')   # Download the image
+        file_handler.download_file(event, 'imgs', '.jpg', USER_LOG_PATH)   # Download the image
 
     except LineBotApiError as e:
         console_logger.image_exception_console(e)
@@ -115,11 +105,9 @@ def handle_image_message(event: MessageEvent) -> None:
 
 @HANDLER.add(MessageEvent, message=VideoMessage)
 def handle_video_message(event: MessageEvent) -> None:
-    global USER_LOG_PATH
-
     try:    
         unknown_handler.handle_unknown_video_message(event)
-        file_handler.download_file(event, 'video', '.mp4')  # Download the audio
+        file_handler.download_file(event, 'video', '.mp4', USER_LOG_PATH)  # Download the audio
 
     except LineBotApiError as e:
         console_logger.image_exception_console(e)
@@ -127,11 +115,9 @@ def handle_video_message(event: MessageEvent) -> None:
 
 @HANDLER.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event: MessageEvent) -> None:
-    global USER_LOG_PATH
-
     try:    
         unknown_handler.handle_unknown_audio_message(event)
-        file_handler.download_file(event, 'audio', '.mp3')      # Download the audio
+        file_handler.download_file(event, 'audio', '.mp3', USER_LOG_PATH)      # Download the audio
 
     except LineBotApiError as e:
         console_logger.audio_exception_console(e)

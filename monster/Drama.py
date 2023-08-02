@@ -29,6 +29,7 @@ from linebot.models.template import ButtonsTemplate
 from linebot.models.template import ConfirmTemplate
 from linebot.models.events import MessageEvent
 from Monster.Utils import file_handler
+import pymysql
 
 class UnknownHandler:
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
@@ -43,7 +44,7 @@ class UnknownHandler:
                      f'讓他早日學起來🤤🤤🤤'
             ),
             TextSendMessage(
-                text='快查看以下列表挖掘小怪怪喜歡什麼吧🫵🏻'
+                text=f'快查看以下列表挖掘小怪怪喜歡什麼吧🫵🏻'
             ),
             TemplateSendMessage(
                 alt_text='ImageCarousel template',
@@ -381,9 +382,15 @@ class TestHandler:
 
     def handle_test_text_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='Monster HiHi! Test 1'),
-            TextSendMessage(text='HiHi! Test 2'),
-            TextSendMessage(text='HiHi! Test 3')
+            TextSendMessage(
+                text=f'Monster HiHi! Test 1'
+            ),
+            TextSendMessage(
+                text=f'HiHi! Test 2'
+            ),
+            TextSendMessage(
+                text=f'HiHi! Test 3'
+            ),
         ]
                 
         self.LINE_BOT_API.reply_message(
@@ -400,9 +407,15 @@ class UploadDrama:
 
     def handle_upload_test(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='看來你想上傳回收物呢！'),
-            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
-            TextSendMessage(text='近請期待～'),
+            TextSendMessage(
+                text=f'看來你想上傳回收物呢！'
+            ),
+            TextSendMessage(
+                text=f'再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'
+            ),
+            TextSendMessage(
+                text=f'近請期待～'
+            ),
             ImageSendMessage(
                 original_content_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
                 preview_image_url = "https://hackmd.io/_uploads/BkoK2GNc2.png",
@@ -416,8 +429,12 @@ class UploadDrama:
     
     def handle_upload_welcome_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='歡迎大家投餵小怪怪'),
-            TextSendMessage(text='在投餵之前，想先問您是否已經完成命名小怪怪的名稱呢！'),
+            TextSendMessage(
+                text=f'歡迎大家投餵小怪怪'
+            ),
+            TextSendMessage(
+                text=f'在投餵之前，想先問您是否已經完成命名小怪怪的名稱呢！'
+            ),
             TemplateSendMessage(
                 alt_text='Buttons template',
                 template=ButtonsTemplate(
@@ -426,7 +443,7 @@ class UploadDrama:
                     actions=[
                         MessageTemplateAction(
                             label='已經給小怪怪酷酷的名字了',
-                            text='我的小怪怪已經有名字了，我想查看小怪怪名稱',
+                            text='我的小怪怪已經有名字了，我想直接投餵小怪怪！',
                         ),
                         MessageTemplateAction(
                             label='忘記幫小怪怪取名字了',
@@ -684,9 +701,15 @@ class UploadTeachingDrama:
 
     def handle_upload_teaching_test(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='看來你想查看上傳教學呢！'),
-            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
-            TextSendMessage(text='近請期待～'),
+            TextSendMessage(
+                text=f'看來你想查看上傳教學呢！'
+            ),
+            TextSendMessage(
+                text=f'再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'
+            ),
+            TextSendMessage(
+                text=f'近請期待～'
+            ),
             ImageSendMessage(
                 original_content_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
                 preview_image_url = "https://hackmd.io/_uploads/ByHY3GE93.png",
@@ -707,7 +730,7 @@ class UploadTeachingDrama:
             ),
             TextSendMessage(
                 text=f"小怪怪目前還小，很多食物都不喜歡，目前還是非常挑食\n"
-                     f"‼️挑食是不好得行為哦‼️"
+                     f"‼️挑食是不好的行為哦‼️"
             ),
             TextSendMessage(
                 text=f"所以目前只喜歡吃：「寶特瓶、鋁箔包以及飲料紙杯」\n"
@@ -1005,9 +1028,15 @@ class CheckRankDrama:
 
     def handle_check_rank_test(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='看來你想查看怪獸排行榜呢！'),
-            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
-            TextSendMessage(text='近請期待～'),
+            TextSendMessage(
+                text=f'看來你想查看怪獸排行榜呢！'
+            ),
+            TextSendMessage(
+                text=f'再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'
+            ),
+            TextSendMessage(
+                text=f'近請期待～'
+            ),
             ImageSendMessage(
                 original_content_url = "https://hackmd.io/_uploads/H13O3fVqn.png",
                 preview_image_url = "https://hackmd.io/_uploads/H13O3fVqn.png",
@@ -1512,6 +1541,8 @@ text_message_handler_map = {
     # === Drama: Upload ===
     '我想上傳回收物📸': 
         upload_drama.handle_upload_welcome_message,
+    '我的小怪怪已經有名字了，我想直接投餵小怪怪！': 
+        upload_drama.handle_upload_ready_upload_message,
     '已經成功投餵寶特瓶給小怪怪':
         upload_drama.handle_upload_bottle_message,
     # === Drama: Check Monster ===
@@ -1565,6 +1596,8 @@ test_text_message_handler_map = {
 upload_text_message_handler_map = {
     '我想上傳回收物📸': 
         upload_drama.handle_upload_welcome_message,
+    '我的小怪怪已經有名字了，我想直接投餵小怪怪！': 
+        upload_drama.handle_upload_ready_upload_message,
     '已經成功投餵寶特瓶給小怪怪':
         upload_drama.handle_upload_bottle_message,
 }

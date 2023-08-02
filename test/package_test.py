@@ -18,6 +18,7 @@ import tornado.ioloop
 import asyncio
 import threading
 import pytz
+import pymysql
 from flask import Flask, Request, abort
 from flask import jsonify, render_template
 from flask import url_for, send_from_directory
@@ -83,6 +84,9 @@ class TestPackages(unittest.TestCase):
 
     def test_pytz(self):
         self.assertIsNotNone(pytz)
+
+    def test_pymysql(self):
+        self.assertIsNotNone(pymysql)
 
     def test_flask(self):
         self.assertIsNotNone(Flask)
