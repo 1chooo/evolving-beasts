@@ -1524,7 +1524,6 @@ line_bot_config = json.load(open(config_path, 'r', encoding='utf8'))
 
 LINE_BOT_API = LineBotApi(line_bot_config["CHANNEL_ACCESS_TOKEN"])
 HANDLER = WebhookHandler(line_bot_config["CHANNEL_SECRET"])
-# READY_TO_GET_MONSTER_NAME = False
 
 upload_drama = UploadDrama(LINE_BOT_API, HANDLER)
 check_monster_drama = CheckMonsterDrama(LINE_BOT_API, HANDLER)
