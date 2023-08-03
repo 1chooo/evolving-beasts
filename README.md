@@ -8,8 +8,8 @@ A brief summary of the project
 
 **[Evolving Beasts](https://lin.ee/gEbeKQV)**, the **LINE BOT** supernova that seamlessly blends ***gaming, quests, nurturing, AI, and sustainability concepts***.
 
-| Weather Shakespeare|Evolving Beasts - LINE QRCODE |
-|-|-|
+| [Weather Shakespeare](https://weather-shakespeare.github.io/) |Evolving Beasts - LINE QRCODE |
+|:-:|:-:|
 | <img src="assets/imgs/profile.jpg" width="300">| <img src="assets/imgs/L_gainfriends_2dbarcodes_BW.png" width="300"> |
 
 Enviroment: 

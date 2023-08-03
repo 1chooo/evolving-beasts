@@ -5,10 +5,10 @@
 
 ### 用戶加入
 - [x] 已可以辨識用戶訊息
-- [ ] 加入好友圖文選單
+- [x] 加入好友圖文選單
     - [x] 功能
-    - [ ] 背景圖片
-- [ ] 帳號頭貼、背景圖
+    - [x] 背景圖片
+- [x] 帳號頭貼、背景圖
 - [ ] 帳號貼文設定
 
 ### 訊息相關
@@ -48,6 +48,9 @@ Unknown, Error Handler
 ### Check Rank
 - [x] `handle_check_rank_welcome_message`
 
+
+### Check News
+- [x] Send our website URL
 ### About Us
 - [x] `handle_about_us_welcome_message`
   - [x] `handle_about_us_ho_message`
