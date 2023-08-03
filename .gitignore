@@ -5,6 +5,7 @@ log/
 config/linebot.conf
 config/chatgpt.conf
 config/imgur.conf
+config/mysql.conf
 
 # config.py
 
