@@ -38,10 +38,9 @@ imgur_config_path = os.path.join(config_dir, 'imgur.conf')
 imgur_config = json.load(open(imgur_config_path, 'r', encoding='utf8'))
 
 CURRENT_DATE = datetime.today().strftime('%Y%m%d')
-
 LINE_BOT_API = LineBotApi(line_bot_config['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
-imgur_client = Imgur(imgur_config["client_id"], imgur_config["client_secret"])
+IMGUR_CLIENT = Imgur(imgur_config["client_id"], imgur_config["client_secret"])
 USER_LOG_PATH = os.path.join('.', 'log', CURRENT_DATE)
 
 file_handler.create_directory(USER_LOG_PATH)
