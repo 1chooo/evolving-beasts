@@ -37,19 +37,31 @@ class DatabaseSetting:
     
 
 class DatabaseService:
-    def __init__(self,) -> None:
-        return
-    
-    def getUserName(item, hasUserId = False):
-        db, cursor = DatabaseSetting.initDataBase()
-        if hasUserId:
-            sql = "SELECT id FROM stores WHERE user_id = '%s'" % (item)
-        else:
-            sql = "SELECT id FROM stores WHERE name = '%s'" % (item)
-        cursor.execute(sql)
-        results = cursor.fetchmany(1)
-        db.close()
-        if results:
-            return results[0][0]
-        else:
-            raise ValueError("查無此商店")
+    def __init__(self) -> None:
+        self.db_setting = DatabaseSetting()
+
+    def createUser(self, username, email, age):
+        try:
+            db, cursor = self.db_setting.initDataBase()
+
+            # 在這裡插入創建用戶資料的 SQL 語句，假設有一個名為 users 的資料表
+            # 假設資料表有三個欄位：username, email, age
+            sql = "INSERT INTO users (username, email, age) VALUES (%s, %s, %s)"
+            values = (username, email, age)
+
+            # 執行 SQL 語句
+            cursor.execute(sql, values)
+
+            # 提交變更
+            db.commit()
+
+            # 關閉連接
+            db.close()
+
+            print("用戶資料創建成功")
+        except Exception as e:
+            print("用戶資料創建失敗:", e)
+
+def main():
+    db_service = DatabaseService()
+    db_service.createUser("JohnDoe", "john@example.com", 30)
