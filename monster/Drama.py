@@ -73,9 +73,9 @@ class UnknownHandler:
                         ),
                         ImageCarouselColumn(
                             image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
-                            action=MessageAction(
+                            action=URIAction(
                                 label='關注永續新知',
-                                text='我想關心永續新知🌏'
+                                uri='https://weather-shakespeare.github.io/2023/07/31/aluminum/'
                             )
                         ),
                         ImageCarouselColumn(
@@ -132,9 +132,9 @@ class UnknownHandler:
                         ),
                         ImageCarouselColumn(
                             image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
-                            action=MessageAction(
+                            action=URIAction(
                                 label='關注永續新知',
-                                text='我想關心永續新知🌏'
+                                uri='https://weather-shakespeare.github.io/2023/07/31/aluminum/'
                             )
                         ),
                         ImageCarouselColumn(
@@ -191,9 +191,9 @@ class UnknownHandler:
                         ),
                         ImageCarouselColumn(
                             image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
-                            action=MessageAction(
+                            action=URIAction(
                                 label='關注永續新知',
-                                text='我想關心永續新知🌏'
+                                uri='https://weather-shakespeare.github.io/2023/07/31/aluminum/'
                             )
                         ),
                         ImageCarouselColumn(
@@ -250,9 +250,9 @@ class UnknownHandler:
                         ),
                         ImageCarouselColumn(
                             image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
-                            action=MessageAction(
+                            action=URIAction(
                                 label='關注永續新知',
-                                text='我想關心永續新知🌏'
+                                uri='https://weather-shakespeare.github.io/2023/07/31/aluminum/'
                             )
                         ),
                         ImageCarouselColumn(

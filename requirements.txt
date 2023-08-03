@@ -37,6 +37,7 @@ jupyter_core==5.3.1
 kiwisolver==1.4.4
 langchain==0.0.233
 langsmith==0.0.5
+liffpy==0.0.1a3
 line-bot-sdk==3.0.3
 MarkupSafe==2.1.3
 marshmallow==3.19.0
