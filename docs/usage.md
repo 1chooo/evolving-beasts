@@ -1,25 +1,10 @@
-# Evolving Beasts
+# Enviroment Usage
 
-[![project badge](https://img.shields.io/badge/1chooo-monster__bot-informational)](https://github.com/1chooo/monster-bot)
-[![Made with Python](https://img.shields.io/badge/Python=3.9-blue?logo=python&logoColor=white)](https://python.org "Go to Python homepage")
-[![License](https://img.shields.io/badge/License-MIT-blue)](./LICENSE "Go to license section")
-
-A brief summary of the project
+Create Virtual Environment
 ---
+With pip vertial environment: python request: `3.9.6`
 
-**[Evolving Beasts](https://lin.ee/gEbeKQV)**, the **LINE BOT** supernova that seamlessly blends ***gaming, quests, nurturing, AI, and sustainability concepts***.
-
-| [Weather Shakespeare](https://weather-shakespeare.github.io/) |Evolving Beasts - LINE QRCODE |
-|:-:|:-:|
-| <img src="imgs/profile.jpg" width="300">| <img src="imgs/L_gainfriends_2dbarcodes_BW.png" width="300"> |
-
-Enviroment: 
----
-
-### With pip vertial environment
-python request: `3.9.6`
-
-#### For **Linux/MacOS**
+### For Linux/MacOS
 ```shell
 $ pip3 install virtualenv
 $ virtualenv venv --python=python3.9.6
@@ -29,7 +14,7 @@ $ deactivate
 $ rm -rf venv     # remove the venv
 ```
 
-#### For **Windows**
+### For Windows
 ```shell
 $ pip install virtualenv
 $ virtualenv venv
@@ -39,8 +24,8 @@ $ deactivate
 $ rmdir /s venv     # remove the venv
 ```
 
-### Add LINE BOT Developer Config
-
+Add LINE BOT Developer Config
+---
 You should duplicate the file `config/linebot_template.conf` and rename into `config/linebot.conf`
 
 ```js
@@ -52,6 +37,7 @@ You should duplicate the file `config/linebot_template.conf` and rename into `co
 
 
 ### With ngrok free server
+
 ```SHELL
 $ brew install ngrok --cask
 $ ngrok config add-authtoken YOUR_TOKEN
@@ -61,10 +47,12 @@ $ ngrok http 5002
 
 ### Start multiple tunnel
 
-```shell
+```bash
 $ ngrok config check
 Valid configuration file at YOUR_PATH/ngrok/ngrok.yml
 ```
+
+### Setting your `ngrok` token
 
 Add the below code in `YOUR_PATH/ngrok/ngrok.yml`
 
@@ -82,6 +70,9 @@ tunnels:
 ```
 
 type `ngrok start --all` in terminal to start `ngrok`
+
+Build docs website
+---
 
 ```shell
 $ mkdocs build
@@ -114,10 +105,34 @@ PROJECT_ROOT
 └── README.md
 ```
 
-License
+Data File Structure
 ---
-Released under [MIT](./LICENSE) by [@1chooo](https://github.com/1chooo), [@Weather-Shakespeare](https://github.com/Weather-Shakespeare).
-
-This software can be modified and reused without restriction.
-The original license must be included with any copies of this software.
-If a significant portion of the source code is used, please provide a link back to this repository.
+```
+data/
+├── bottle/
+│   ├── bottle_front/
+│   ├── bottle_up/
+│   ├── bottle_down/
+│   ├── bottle_flatten_front/
+│   ├── bottle_flatten_side/
+│   ├── bottle_flatten_up/
+│   └── bottle_flatten_down/
+├── cup/
+│   ├── cup_front/
+│   ├── cup_up/
+│   ├── cup_down/
+│   ├── cup_flatten_front/
+│   ├── cup_flatten_side/
+│   ├── cup_flatten_up/
+│   └── cup_flatten_down/
+├── aluminum/
+|   ├── aluminum_front/
+|   ├── aluminum_side/
+|   ├── aluminum_up/
+|   ├── aluminum_down/
+|   ├── aluminum_flatten_front/
+|   ├── aluminum_flatten_side/
+|   ├── aluminum_flatten_up/
+|   └── aluminum_flatten_down/
+└── ...
+```

@@ -58,5 +58,7 @@ extra:
 
 nav:
     - Home: index.md
+    - Enviroment Usage: usage.md
+    - Beast: beast.md
     - Reference: reference.md
     - Report Issues: https://github.com/Weather-Shakespeare/monster-bot/issues
