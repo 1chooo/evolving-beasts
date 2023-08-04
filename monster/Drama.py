@@ -775,21 +775,21 @@ class UploadTeachingDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/SkrLoPcs3.png',
                             action=MessageAction(
                                 label='寶特瓶教學',
                                 text='我想看寶特瓶上傳詳細教學！'
                             ),
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/B1HUiwco2.png',
                             action=MessageAction(
                                 label='鋁箔包教學',
                                 text='我想看鋁箔包上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/BySUiw5s3.png',
                             action=MessageAction(
                                 label='飲料紙杯教學',
                                 text='我想看飲料紙杯上傳詳細教學！'
@@ -855,21 +855,21 @@ class UploadTeachingDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/B1HUiwco2.png',
                             action=MessageAction(
                                 label='鋁箔包教學',
                                 text='我想看鋁箔包上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/BySUiw5s3.png',
                             action=MessageAction(
                                 label='飲料紙杯教學',
                                 text='我想看飲料紙杯上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/SkrLoPcs3.png',
                             action=MessageAction(
                                 label='寶特瓶教學',
                                 text='我想看寶特瓶上傳詳細教學！'
@@ -914,21 +914,21 @@ class UploadTeachingDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/BySUiw5s3.png',
                             action=MessageAction(
                                 label='飲料紙杯教學',
                                 text='我想看飲料紙杯上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/SkrLoPcs3.png',
                             action=MessageAction(
                                 label='寶特瓶教學',
                                 text='我想看寶特瓶上傳詳細教學！'
                             ),
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/B1HUiwco2.png',
                             action=MessageAction(
                                 label='鋁箔包教學',
                                 text='我想看鋁箔包上傳詳細教學！'
@@ -973,21 +973,21 @@ class UploadTeachingDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/SkrLoPcs3.png',
                             action=MessageAction(
                                 label='寶特瓶教學',
                                 text='我想看寶特瓶上傳詳細教學！'
                             ),
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/B1HUiwco2.png',
                             action=MessageAction(
                                 label='鋁箔包教學',
                                 text='我想看鋁箔包上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/BySUiw5s3.png',
                             action=MessageAction(
                                 label='飲料紙杯教學',
                                 text='我想看飲料紙杯上傳詳細教學！'

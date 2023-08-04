@@ -1,4 +1,4 @@
-name: CI/CD
+name: package test, deploy web
 
 on:
   push:
@@ -30,3 +30,12 @@ jobs:
     - name: Finish tests
       run: |
         echo "All Package has been installed successfully!"
+    
+    - name: Build MkDocs
+      run: mkdocs build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        personal_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
