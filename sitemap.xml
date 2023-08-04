@@ -11,12 +11,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://1chooo.github.io/monster-bot/developing_note/</loc>
+         <loc>https://1chooo.github.io/monster-bot/beast/</loc>
          <lastmod>2023-08-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://1chooo.github.io/monster-bot/reference/</loc>
+         <lastmod>2023-08-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://1chooo.github.io/monster-bot/usage/</loc>
          <lastmod>2023-08-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
