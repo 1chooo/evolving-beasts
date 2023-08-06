@@ -477,21 +477,21 @@ class UploadDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/BkrFRThs2.png',
                             action=MessageAction(
                                 label='寶特瓶教學',
                                 text='我想看寶特瓶上傳詳細教學！'
                             ),
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/HkBKRa3s3.png',
                             action=MessageAction(
                                 label='鋁箔包教學',
                                 text='我想看鋁箔包上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16touch-silver-gallery-2019?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1582233083340',
+                            image_url='https://hackmd.io/_uploads/ryHtCT2jn.png',
                             action=MessageAction(
                                 label='飲料紙杯教學',
                                 text='我想看飲料紙杯上傳詳細教學！'
@@ -594,12 +594,20 @@ class CheckMonsterDrama:
         self.LINE_BOT_API = line_bot_api
         self.HANDLER = handler
         self.ready_to_get_monster_name = False
+        self.CLIENT_MONSTER_NAME = '小怪怪'
+        self.user_score = 100
 
     def handle_check_monster_test(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='看來你想查看怪獸狀態呢！'),
-            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
-            TextSendMessage(text='近請期待～'),
+            TextSendMessage(
+                text=f'看來你想查看怪獸狀態呢！'
+            ),
+            TextSendMessage(
+                text=f'再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'
+            ),
+            TextSendMessage(
+                text=f'近請期待～'
+            ),
             ImageSendMessage(
                 original_content_url = "https://hackmd.io/_uploads/ryGdhGVc2.png",
                 preview_image_url = "https://hackmd.io/_uploads/ryGdhGVc2.png",
@@ -614,14 +622,14 @@ class CheckMonsterDrama:
     def handle_check_monster_rename_monster_test(self, event: MessageEvent) -> None:
         print('===Ready to let user rename Monster!!!===')
         
-        CLIENT_MONSTER_NAME = event.message.text
+        self.CLIENT_MONSTER_NAME = event.message.text
         
-        print(f'===User has renamed monster into {CLIENT_MONSTER_NAME}===')
-        self.READY_TO_GET_MONSTER_NAME = False
+        print(f'===User has renamed monster into {self.CLIENT_MONSTER_NAME}===')
+        self.ready_to_get_monster_name = False
 
         reply_messages = [
             TextSendMessage(
-                '已成功收到怪獸命名\n您的怪獸名稱是「' + CLIENT_MONSTER_NAME + '」！'
+                '已成功收到怪獸命名\n您的怪獸名稱是「' + self.CLIENT_MONSTER_NAME + '」！'
             ),
             TextSendMessage(
                 '測試成功'
@@ -635,12 +643,28 @@ class CheckMonsterDrama:
     
     def handle_check_monster_welcome_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='看來你想查看怪獸狀態呢！'),
-            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
-            TextSendMessage(text='近請期待～'),
-            ImageSendMessage(
-                original_content_url = "https://hackmd.io/_uploads/ryGdhGVc2.png",
-                preview_image_url = "https://hackmd.io/_uploads/ryGdhGVc2.png",
+            TextSendMessage(
+                text=f'歡迎查看怪獸狀態！'
+            ),
+            TextSendMessage(
+                text=f'在查看之前先幫小怪怪取個酷酷的名字吧！'
+            ),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='小怪怪有名字了嗎？',
+                    text='小怪怪想要酷酷的名字～～～',
+                    actions=[
+                        MessageTemplateAction(
+                            label='已經給小怪怪酷酷的名字了',
+                            text='我想關心我的怪獸',
+                        ),
+                        MessageTemplateAction(
+                            label='還沒幫小怪怪取過名字誒',
+                            text='還沒幫小怪怪取名誒，我現在想要幫他命名',
+                        ),
+                    ]
+                )
             ),
         ]
                 
@@ -649,6 +673,73 @@ class CheckMonsterDrama:
             reply_messages
         )
 
+    def handle_check_monster_user_check_message(self, event: MessageEvent) -> None:
+        monster_name = self._get_user_monster_name()
+        score = self._get_user_score()
+
+        if score <= 100:
+            monster_image_url = "https://hackmd.io/_uploads/HkLY0p3ih.png"
+        elif score <= 500:
+            monster_image_url = "https://hackmd.io/_uploads/BkeSKAa3in.png"
+        else:
+            monster_image_url = "https://hackmd.io/_uploads/SkBtR6nih.png"
+
+        reply_messages = [
+            TextSendMessage(
+                text=f'嗨您好！您的怪獸名稱是：{monster_name}\n'
+                     f'您目前的得分是：{score}'
+            ),
+            ImageSendMessage(
+                original_content_url = monster_image_url,
+                preview_image_url = monster_image_url,
+            ),
+            TextSendMessage(
+                text=f'{monster_name}現在還是很餓，快快繼續投餵讓他繼續長大吧！'
+            ),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title=f'我要讓{monster_name}繼續成長！',
+                    text=f'{monster_name}想要酷酷的名字～～～',
+                    actions=[
+                        MessageTemplateAction(
+                            label='我想直接投餵！',
+                            text='我想上傳回收物📸',
+                        ),
+                        MessageTemplateAction(
+                            label='我想學習如何投餵',
+                            text='我想學習如何上傳回收物📖',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_check_monster_user_rename_monster_message(self, event: MessageEvent) -> None:
+        self.ready_to_get_monster_name = True
+        print('ready_to_get_monster_name:', self.ready_to_get_monster_name)
+        reply_messages = [
+            TextSendMessage(
+                text=f'請直接輸入您想命名的名字！'
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def _get_user_score(self, ) -> int:
+        return self.user_score
+
+    def _get_user_monster_name(self, ) -> str:
+        return self.CLIENT_MONSTER_NAME
+    
     def ready_to_get_monster_name_or_not(self, ) -> bool:
         return self.ready_to_get_monster_name
     
@@ -775,21 +866,21 @@ class UploadTeachingDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/SkrLoPcs3.png',
+                            image_url='https://hackmd.io/_uploads/BkrFRThs2.png',
                             action=MessageAction(
                                 label='寶特瓶教學',
                                 text='我想看寶特瓶上傳詳細教學！'
                             ),
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/B1HUiwco2.png',
+                            image_url='https://hackmd.io/_uploads/HkBKRa3s3.png',
                             action=MessageAction(
                                 label='鋁箔包教學',
                                 text='我想看鋁箔包上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/BySUiw5s3.png',
+                            image_url='https://hackmd.io/_uploads/ryHtCT2jn.png',
                             action=MessageAction(
                                 label='飲料紙杯教學',
                                 text='我想看飲料紙杯上傳詳細教學！'
@@ -855,21 +946,21 @@ class UploadTeachingDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/B1HUiwco2.png',
+                            image_url='https://hackmd.io/_uploads/HkBKRa3s3.png',
                             action=MessageAction(
                                 label='鋁箔包教學',
                                 text='我想看鋁箔包上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/BySUiw5s3.png',
+                            image_url='https://hackmd.io/_uploads/ryHtCT2jn.png',
                             action=MessageAction(
                                 label='飲料紙杯教學',
                                 text='我想看飲料紙杯上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/SkrLoPcs3.png',
+                            image_url='https://hackmd.io/_uploads/BkrFRThs2.png',
                             action=MessageAction(
                                 label='寶特瓶教學',
                                 text='我想看寶特瓶上傳詳細教學！'
@@ -914,21 +1005,21 @@ class UploadTeachingDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/BySUiw5s3.png',
+                            image_url='https://hackmd.io/_uploads/ryHtCT2jn.png',
                             action=MessageAction(
                                 label='飲料紙杯教學',
                                 text='我想看飲料紙杯上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/SkrLoPcs3.png',
+                            image_url='https://hackmd.io/_uploads/BkrFRThs2.png',
                             action=MessageAction(
                                 label='寶特瓶教學',
                                 text='我想看寶特瓶上傳詳細教學！'
                             ),
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/B1HUiwco2.png',
+                            image_url='https://hackmd.io/_uploads/HkBKRa3s3.png',
                             action=MessageAction(
                                 label='鋁箔包教學',
                                 text='我想看鋁箔包上傳詳細教學！'
@@ -973,21 +1064,21 @@ class UploadTeachingDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/SkrLoPcs3.png',
+                            image_url='https://hackmd.io/_uploads/BkrFRThs2.png',
                             action=MessageAction(
                                 label='寶特瓶教學',
                                 text='我想看寶特瓶上傳詳細教學！'
                             ),
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/B1HUiwco2.png',
+                            image_url='https://hackmd.io/_uploads/HkBKRa3s3.png',
                             action=MessageAction(
                                 label='鋁箔包教學',
                                 text='我想看鋁箔包上傳詳細教學！'
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/BySUiw5s3.png',
+                            image_url='https://hackmd.io/_uploads/ryHtCT2jn.png',
                             action=MessageAction(
                                 label='飲料紙杯教學',
                                 text='我想看飲料紙杯上傳詳細教學！'
@@ -1547,6 +1638,10 @@ text_message_handler_map = {
     # === Drama: Check Monster ===
     '我想關心怪獸🔦': 
         check_monster_drama.handle_check_monster_welcome_message,
+    '我想關心我的怪獸': 
+        check_monster_drama.handle_check_monster_user_check_message,
+    '還沒幫小怪怪取名誒，我現在想要幫他命名':
+        check_monster_drama.handle_check_monster_user_rename_monster_message,
     # === Drama: Check News ===
     '我想關心永續新知🌏': 
         check_news_drama.handle_check_news_welcome_message,
