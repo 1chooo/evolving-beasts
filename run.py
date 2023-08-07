@@ -81,7 +81,10 @@ def handle_text_message(event: MessageEvent) -> None:
             text_message_handler = text_message_handler_map[message_text]
             text_message_handler(event)
         elif check_monster_drama.ready_to_get_monster_name_or_not():
-            check_monster_drama.handle_check_monster_rename_monster_test(event)
+            check_monster_drama.handle_check_monster_rename_monster_test(event) # Ready rename
+        elif check_monster_drama.ready_to_get_monster_name_or_not() \
+            and upload_drama.ready_to_get_image_or_not():
+            check_monster_drama.handle_check_monster_rename_monster_test(event) # Ready upload
         else:
             unknown_handler.handle_unknown_text_message(event)
 
