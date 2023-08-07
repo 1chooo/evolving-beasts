@@ -1,0 +1,18 @@
+-- 創建名稱為 "beast" 的資料庫
+CREATE DATABASE IF NOT EXISTS beast;
+
+-- 切換到 "beast" 資料庫
+USE beast;
+
+-- 創建資料表 "userInfo"，包含所述欄位以及新的 monsterName 欄位
+CREATE TABLE IF NOT EXISTS userInfo (
+    userId INT PRIMARY KEY,
+    renameMonsterNameOrNot BOOLEAN,
+    totalScore INT,
+    bottleNum INT,
+    cupNum INT,
+    aluminiumNum INT,
+    lastUpload DATETIME,
+    days INT,
+    monsterName VARCHAR(255) DEFAULT '小怪怪'
+);

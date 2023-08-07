@@ -1111,6 +1111,50 @@ class UploadTeachingDrama:
             reply_messages
         )
 
+class CheckRuleDrama:
+    
+    def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
+        self.LINE_BOT_API = line_bot_api
+        self.HANDLER = handler
+
+    def handle_check_rule_test(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f'看來你想查看小怪怪的算分規則呢！'
+            ),
+            TextSendMessage(
+                text=f'再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'
+            ),
+            TextSendMessage(
+                text=f'近請期待～'
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/Hy__-uAoh.png",
+                preview_image_url = "https://hackmd.io/_uploads/Hy__-uAoh.png",
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_check_rule_welcome_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(text='看來你想查看怪獸排行榜呢！'),
+            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
+            TextSendMessage(text='近請期待～'),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/Hy__-uAoh.png",
+                preview_image_url = "https://hackmd.io/_uploads/Hy__-uAoh.png",
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
 class CheckRankDrama:
     
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
@@ -1620,6 +1664,7 @@ upload_drama = UploadDrama(LINE_BOT_API, HANDLER)
 check_monster_drama = CheckMonsterDrama(LINE_BOT_API, HANDLER)
 check_news_drama = CheckNewsDrama(LINE_BOT_API, HANDLER)
 upload_teaching_drama = UploadTeachingDrama(LINE_BOT_API, HANDLER)
+check_rule_drama = CheckRuleDrama(LINE_BOT_API, HANDLER)
 check_rank_drama = CheckRankDrama(LINE_BOT_API, HANDLER)
 about_us_drama = AboutUsDrama(LINE_BOT_API, HANDLER)
 
@@ -1665,8 +1710,8 @@ text_message_handler_map = {
     '我還是不夠了解小怪怪，我想再看一次': 
         upload_teaching_drama.handle_upload_teaching_welcome_message,
     # === Drama: Check Rank ===
-    '我想看最強怪獸👾': 
-        check_rank_drama.handle_check_rank_welcome_message,
+    '我想看使用規則📓': 
+        check_rule_drama.handle_check_rule_welcome_message,
     # === Drama: About Us ===
     '我想更認識你們👋🏻': 
         about_us_drama.handle_about_us_welcome_message,
