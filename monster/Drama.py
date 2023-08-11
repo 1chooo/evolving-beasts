@@ -398,12 +398,15 @@ class TestHandler:
             reply_messages
         )
 
+SCORE = 0
 class UploadDrama:
     
     def __init__(self, line_bot_api: LineBotApi, handler: WebhookHandler):
         self.LINE_BOT_API = line_bot_api
         self.HANDLER = handler
         self.ready_to_get_image = False
+        self.demo_type_num = 1
+        self.score = 0
 
     def handle_upload_test(self, event: MessageEvent) -> None:
         reply_messages = [
@@ -515,7 +518,14 @@ class UploadDrama:
         print('===Successfully get Image from User!!!===')
         self.ready_to_get_image = False
 
-        recycle_type = "寶特瓶"
+        if self.demo_type_num % 3 == 1:
+            recycle_type = "寶特瓶"
+        elif self.demo_type_num % 3 == 2:
+            recycle_type = "鋁箔包"
+        else:
+            recycle_type = "飲料紙杯"
+
+        self.demo_type_num += 1
 
         reply_messages = [
             TextSendMessage(
@@ -551,15 +561,120 @@ class UploadDrama:
             reply_messages
         )
 
+    def handle_upload_unknown_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text=f'好像出了點問題小怪怪認不太出來\n'
+                     f'小怪怪想向您確認種類'
+            ),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='小怪怪認不出來',
+                    text='小怪怪看錯了',
+                    actions=[
+                        MessageTemplateAction(
+                            label='我回收的是寶特瓶',
+                            text='已經成功投餵寶特瓶給小怪怪',
+                        ),
+                        MessageTemplateAction(
+                            label='我回收的是鋁箔包',
+                            text='已經成功投餵鋁箔包給小怪怪',
+                        ),
+                        MessageTemplateAction(
+                            label='我回收的是飲料紙杯',
+                            text='已經成功投餵飲料紙杯給小怪怪',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
     def handle_upload_bottle_message(self, event: MessageEvent) -> None:
+        self.score += 30
         reply_messages = [
             TextSendMessage(
                 text=f'感謝您投餵的寶特瓶\n'
-                     f'小怪怪非常開心與你一起為地球盡一份心力\n'
+                     f'小怪怪非常開心與你一起為地球盡一份心力'
             ),
             TextSendMessage(
                 text=f'另外因為您的投餵\n'
-                     f'「使用者的怪獸名稱」獲得了 10 分！！！'
+                     f'「小怪怪」獲得了 30 分！！！'
+            ),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='小怪怪又成長了！',
+                    text='小怪怪想被了解～',
+                    actions=[
+                        MessageTemplateAction(
+                            label='繼續投餵小怪怪',
+                            text='我想上傳回收物📸',
+                        ),
+                        MessageTemplateAction(
+                            label='關心小怪怪',
+                            text='我想關心怪獸🔦',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_upload_aluminum_message(self, event: MessageEvent) -> None:
+        self.score += 20
+        reply_messages = [
+            TextSendMessage(
+                text=f'感謝您投餵的鋁箔包\n'
+                     f'小怪怪非常開心與你一起為地球盡一份心力'
+            ),
+            TextSendMessage(
+                text=f'另外因為您的投餵\n'
+                     f'「小怪怪」獲得了 20 分！！！'
+            ),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='小怪怪又成長了！',
+                    text='小怪怪想被了解～',
+                    actions=[
+                        MessageTemplateAction(
+                            label='繼續投餵小怪怪',
+                            text='我想上傳回收物📸',
+                        ),
+                        MessageTemplateAction(
+                            label='關心小怪怪',
+                            text='我想關心怪獸🔦',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_upload_cup_message(self, event: MessageEvent) -> None:
+        self.score += 10
+        reply_messages = [
+            TextSendMessage(
+                text=f'感謝您投餵的飲料紙杯\n'
+                     f'小怪怪非常開心與你一起為地球盡一份心力'
+            ),
+            TextSendMessage(
+                text=f'另外因為您的投餵\n'
+                     f'「小怪怪」獲得了 10 分！！！'
             ),
             TemplateSendMessage(
                 alt_text='Buttons template',
@@ -937,9 +1052,17 @@ class UploadTeachingDrama:
     def handle_upload_teaching_bottle_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
-                text=f"這是寶特瓶教學\n"
-                     f"tt\n"
-                     f"tt"
+                text=f"請點擊「上傳回收物」，並確定已經命名怪獸名稱\n"
+                     f"便可以直接上傳寶特瓶哦！\n"
+                     f"以下是範例教學"
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/BJxNCimhh.png",
+                preview_image_url = "https://hackmd.io/_uploads/BJxNCimhh.png",
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/SklVRi7hn.png",
+                preview_image_url = "https://hackmd.io/_uploads/SklVRi7hn.png",
             ),
             TemplateSendMessage(
                 alt_text='ImageCarousel template',
@@ -1141,12 +1264,144 @@ class CheckRuleDrama:
 
     def handle_check_rule_welcome_message(self, event: MessageEvent) -> None:
         reply_messages = [
-            TextSendMessage(text='看來你想查看怪獸排行榜呢！'),
-            TextSendMessage(text='再給我們一段時間，我們即將譜出專屬於我們的樂章🎶'),
-            TextSendMessage(text='近請期待～'),
-            ImageSendMessage(
-                original_content_url = "https://hackmd.io/_uploads/Hy__-uAoh.png",
-                preview_image_url = "https://hackmd.io/_uploads/Hy__-uAoh.png",
+            TextSendMessage(text='歡迎查看我們的使用規則'),
+            TextSendMessage(text='接著我們將有請小怪怪出場講解！'),
+            TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='熟悉我們的規則嗎？',
+                    text='小怪怪真有規矩',
+                    actions=[
+                        MessageTemplateAction(
+                            label='我還不太熟悉',
+                            text='我還不太熟悉規則，快請小怪怪跟我說',
+                        ),
+                        MessageTemplateAction(
+                            label='我已經熟悉規則了！',
+                            text='我已經熟悉規則了我想試試其他功能',
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+        
+    def handle_check_rule_familiar_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(text='既然熟悉小怪怪的規則，快繼續試試我們其他功能吧！'),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ByHY3GE93.png',
+                            action=MessageAction(
+                                label='如何投餵小怪怪',
+                                text='我想學習如何上傳回收物📖'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkoK2GNc2.png',
+                            action=MessageAction(
+                                label='投餵小怪怪',
+                                text='我想上傳回收物📸'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ryGdhGVc2.png',
+                            action=MessageAction(
+                                label='查看怪獸狀態',
+                                text='我想關心怪獸🔦'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
+                            action=URIAction(
+                                label='關注永續新知',
+                                uri='https://weather-shakespeare.github.io/2023/07/31/aluminum/'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Hy1_hMN52.png',
+                            action=MessageAction(
+                                label='認識我們',
+                                text='我想更認識你們👋🏻'
+                            )
+                        ),
+                    ]
+                )
+            ),
+        ]
+                
+        self.LINE_BOT_API.reply_message(
+            event.reply_token,
+            reply_messages
+        )
+
+    def handle_check_rule_unfamiliar_message(self, event: MessageEvent) -> None:
+        reply_messages = [
+            TextSendMessage(
+                text='接著輪到小怪怪出場講解我們的規則了！'
+            ),
+            TextSendMessage(
+                text=f'因為我們想要將永續的觀念傳遞給大家\n'
+                     f'我們希望將落實資源回收的想法落實給大家\n'
+                     f'目前支援了三個種類的回收物'
+            ),
+            TextSendMessage(
+                text=f'以下是我們的計分規則：\n'
+                     f'- 寶特瓶一個 30 分／個\n'
+                     f'- 鋁箔包一個 20 分／個\n'
+                     f'- 飲料包紙杯 10 分／個'
+            ),
+            TextSendMessage(
+                text=f'快繼續試試我們其他功能吧！'
+            ),
+            TemplateSendMessage(
+                alt_text='ImageCarousel template',
+                template=ImageCarouselTemplate(
+                    columns=[
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ByHY3GE93.png',
+                            action=MessageAction(
+                                label='如何投餵小怪怪',
+                                text='我想學習如何上傳回收物📖'
+                            ),
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/BkoK2GNc2.png',
+                            action=MessageAction(
+                                label='投餵小怪怪',
+                                text='我想上傳回收物📸'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/ryGdhGVc2.png',
+                            action=MessageAction(
+                                label='查看怪獸狀態',
+                                text='我想關心怪獸🔦'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Skwd2fVcn.png',
+                            action=URIAction(
+                                label='關注永續新知',
+                                uri='https://weather-shakespeare.github.io/2023/07/31/aluminum/'
+                            )
+                        ),
+                        ImageCarouselColumn(
+                            image_url='https://hackmd.io/_uploads/Hy1_hMN52.png',
+                            action=MessageAction(
+                                label='認識我們',
+                                text='我想更認識你們👋🏻'
+                            )
+                        ),
+                    ]
+                )
             ),
         ]
                 
@@ -1334,7 +1589,7 @@ class AboutUsDrama:
             TextSendMessage(
                 text=f"若還想知道更多關於我的資訊可以前往我的個人網站\n"
                      f"可以點擊以下連結前往哦：\n"
-                     f"https://sites.google.com/g.ncu.edu.tw/1chooo"
+                     f"https://1chooo.github.io/"
             ),
             TextSendMessage(
                 text=f"快接續滑動以下成員列表，並點擊成員頭像以，更進一步認識我們吧！🫵🏻"
@@ -1678,8 +1933,14 @@ text_message_handler_map = {
         upload_drama.handle_upload_welcome_message,
     '我的小怪怪已經有名字了，我想直接投餵小怪怪！': 
         upload_drama.handle_upload_ready_upload_message,
+    '小怪怪好像太餓認錯了！':
+        upload_drama.handle_upload_unknown_message,
     '已經成功投餵寶特瓶給小怪怪':
         upload_drama.handle_upload_bottle_message,
+    '已經成功投餵鋁箔包給小怪怪':
+        upload_drama.handle_upload_aluminum_message,
+    '已經成功投餵飲料紙杯給小怪怪':
+        upload_drama.handle_upload_cup_message,
     # === Drama: Check Monster ===
     '我想關心怪獸🔦': 
         check_monster_drama.handle_check_monster_welcome_message,
@@ -1712,6 +1973,10 @@ text_message_handler_map = {
     # === Drama: Check Rank ===
     '我想看使用規則📓': 
         check_rule_drama.handle_check_rule_welcome_message,
+    '我已經熟悉規則了我想試試其他功能': 
+        check_rule_drama.handle_check_rule_familiar_message,
+    '我還不太熟悉規則，快請小怪怪跟我說': 
+        check_rule_drama.handle_check_rule_unfamiliar_message,
     # === Drama: About Us ===
     '我想更認識你們👋🏻': 
         about_us_drama.handle_about_us_welcome_message,
