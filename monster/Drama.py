@@ -604,7 +604,8 @@ class UploadDrama:
             ),
             TextSendMessage(
                 text=f'另外因為您的投餵\n'
-                     f'「小怪怪」獲得了 30 分！！！'
+                     f'「小怪怪」獲得了 30 分！！！\n'
+                     f'並且為地球減少了「140 g CO2」'
             ),
             TemplateSendMessage(
                 alt_text='Buttons template',
@@ -639,7 +640,8 @@ class UploadDrama:
             ),
             TextSendMessage(
                 text=f'另外因為您的投餵\n'
-                     f'「小怪怪」獲得了 20 分！！！'
+                     f'「小怪怪」獲得了 20 分！！！\n'
+                     f'並且為地球減少了「120 g CO2」'
             ),
             TemplateSendMessage(
                 alt_text='Buttons template',
@@ -674,7 +676,8 @@ class UploadDrama:
             ),
             TextSendMessage(
                 text=f'另外因為您的投餵\n'
-                     f'「小怪怪」獲得了 10 分！！！'
+                     f'「小怪怪」獲得了 10 分！！！\n'
+                     f'並且為地球減少了「42 g CO2」'
             ),
             TemplateSendMessage(
                 alt_text='Buttons template',
