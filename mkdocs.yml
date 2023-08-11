@@ -4,9 +4,9 @@ site_description: Evolving Beasts
 
 site_author: 1chooo(Hugo ChunHo Lin)
 
-site_url: https://1chooo.github.io/monster-bot/
+site_url: https://1chooo.github.io/evolving-beasts/
 
-repo_url: https://github.com/1chooo/monster-bot
+repo_url: https://github.com/1chooo/evolving-beasts
 
 copyright: Copyright &copy; 2023 1chooo (Hugo ChunHo Lin)
 
@@ -61,4 +61,4 @@ nav:
     - Enviroment Usage: usage.md
     - Beast: beast.md
     - Reference: reference.md
-    - Report Issues: https://github.com/Weather-Shakespeare/monster-bot/issues
+    - Report Issues: https://github.com/1chooo/evolving-beasts/issues
