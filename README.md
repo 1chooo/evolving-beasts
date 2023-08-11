@@ -87,7 +87,11 @@ type `ngrok start --all` in terminal to start `ngrok`
 $ mkdocs build
 $ mkdocs serve
 ```
-Workflow permissions
+
+### GitHub Actions
+#### Actions Permissions
+- [x] Allow all actions and reusable workflows
+#### Workflow permissions
 - [x] Read and Write Permissions
 
 Project Structure
