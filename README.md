@@ -113,7 +113,7 @@ PROJECT_ROOT
 ├── log/
 │   ├── date/
 │   └──   :
-├── run.py
+├── main.py
 ├── LICENSE
 └── README.md
 ```
