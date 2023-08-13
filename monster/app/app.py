@@ -35,6 +35,7 @@ from os.path import dirname
 from os.path import abspath
 
 app = Flask(__name__)
+swagger = Swagger(app)
 
 config_dir = join(dirname(abspath(__file__)), '..', '..', 'config')
 line_bot_config_path = join(config_dir, 'linebot.conf')
@@ -51,6 +52,28 @@ file_handler.create_directory(USER_LOG_PATH)
 
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
+    """Example endpoint returning a list of colors by palette
+    This is using docstrings for specifications.
+    ---
+    parameters:
+      - name: body
+        in: body
+        type: string
+        required: true
+        description: The payload of the callback request.
+      - name: X-Line-Signature
+        in: header
+        type: string
+        required: true
+        description: Signature for verifying the authenticity of the callback request.
+    responses:
+      200:
+        description: Successful callback processing.
+      400:
+        description: Invalid signature error.
+      500:
+        description: Error during callback processing.
+    """
     try:
         signature = request.headers['X-Line-Signature']
         body = request.get_data(as_text=True)
@@ -61,7 +84,7 @@ def callback() -> str:
         HANDLER.handle(body, signature)
 
         # Print a success message (you can log this message instead)
-        print("Callback processed successfully")
+        # print("Callback processed successfully")
 
     except InvalidSignatureError:
         # Log the error for debugging purposes

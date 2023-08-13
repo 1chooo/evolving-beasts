@@ -1610,7 +1610,7 @@ class AboutUsDrama:
                      f"若還想知道更多關於我的資訊可以點擊以下連結前往我的個人網站哦\n"
                      f"https://1chooo-github-io.vercel.app/\n"
                      f"也可以點擊以下連結註冊 AWS 服務\n"
-                     f"https://www.awseducate.com/registration/s/registration-detail?language=en_US&promocode=Taiwan_AWS2"
+                     f"https://awseducate.tw/2"
             ),
             TextSendMessage(
                 text=f"快接續滑動以下成員列表，並點擊成員頭像以，更進一步認識我們吧！🫵🏻"
