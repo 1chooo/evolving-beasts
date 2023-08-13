@@ -2,7 +2,7 @@
 '''
 Create Date: 2023/07/07
 Author: @1chooo(Hugo ChunHo Lin)
-Version: v0.0.1
+Version: v0.0.2
 '''
 
 import os
@@ -10,15 +10,18 @@ import json
 from pyimgur import Imgur
 from datetime import datetime
 from flask import Flask, request, abort
-from swagger_ui import api_doc
-from Monster.Drama import text_message_handler_map
-from Monster.Drama import upload_drama
-from Monster.Drama import check_monster_drama
-from Monster.Drama import unknown_handler
-from Monster.Drama import error_handler
+from flasgger import Swagger
+from flasgger import LazyString
+from flasgger import LazyJSONEncoder
+from flasgger import swag_from
 from Monster.Utils import console_logger
 from Monster.Utils import file_handler
 from linebot import LineBotApi
+from Monster.Handler.Text import text_handler
+from Monster.Handler.Image import image_handler
+from Monster.Handler.Video import video_handler
+from Monster.Handler.Audio import audio_handler
+from Monster.Handler.Follow import follow_handler
 from linebot import WebhookHandler
 from linebot.models import TextMessage
 from linebot.models import ImageMessage
@@ -47,83 +50,51 @@ file_handler.create_directory(USER_LOG_PATH)
 
 @app.route('/callback', methods=['POST'])
 def callback() -> str:
+    try:
+        signature = request.headers['X-Line-Signature']
+        body = request.get_data(as_text=True)
 
-    signature = request.headers['X-Line-Signature'] # get X-Line-Signature header value
-    body = request.get_data(as_text=True)   # get request body as text
+        # Log the callback payload and signature
+        console_logger.store_user_event(body, USER_LOG_PATH)
 
-    console_logger.store_user_event(body, USER_LOG_PATH)
-
-    try:        # handle webhook body
         HANDLER.handle(body, signature)
-        
+
+        # Print a success message (you can log this message instead)
+        print("Callback processed successfully")
+
     except InvalidSignatureError:
+        # Log the error for debugging purposes
+        console_logger.store_user_event("InvalidSignatureError: Failed to verify the signature", USER_LOG_PATH)
+        print("InvalidSignatureError: Failed to verify the signature")
         abort(400)
+
+    except Exception as e:
+        # Log the error for debugging purposes
+        console_logger.store_user_event(f"Error during callback processing: {str(e)}", USER_LOG_PATH)
+        print(f"Error during callback processing: {str(e)}")
+        return 'Error', 500
 
     return 'OK'
 
 @HANDLER.add(FollowEvent)
 def handle_user_profile(event: FollowEvent) -> None:
-    
-    try:
-        user_profile = LINE_BOT_API.get_profile(event.source.user_id)
-    except LineBotApiError as e:    # Handling the fails when obtaining the user profile
-        console_logger.line_bot_api_error_console(e)
-        return
-
-    console_logger.store_user_info(user_profile, USER_LOG_PATH)
+    follow_handler(event, LINE_BOT_API, USER_LOG_PATH)
 
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_text_message(event: MessageEvent) -> None:
-    try:
-        message_text = event.message.text
-        
-        if message_text in text_message_handler_map: # Check if the message text exists in the dictionary and call the corresponding handler function
-            text_message_handler = text_message_handler_map[message_text]
-            text_message_handler(event)
-        elif check_monster_drama.ready_to_get_monster_name_or_not():
-            check_monster_drama.handle_check_monster_rename_monster_test(event) # Ready rename
-        elif check_monster_drama.ready_to_get_monster_name_or_not() \
-            and upload_drama.ready_to_get_image_or_not():
-            check_monster_drama.handle_check_monster_rename_monster_test(event) # Ready upload
-        else:
-            unknown_handler.handle_unknown_text_message(event)
-
-    except Exception as e:
-        console_logger.text_exception_console(e)
-        error_handler.handle_invalid_text_message(event)
+    text_handler(event)
 
 @HANDLER.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event: MessageEvent) -> None:
-    try:    
-        if upload_drama.ready_to_get_image_or_not():
-            upload_drama.handle_upload_get_image(event)
-        else:
-            unknown_handler.handle_unknown_image_message(event)
-        file_handler.download_file(event, 'imgs', '.jpg', USER_LOG_PATH)   # Download the image
-
-    except LineBotApiError as e:
-        console_logger.image_exception_console(e)
-        error_handler.handle_invalid_image_message(event)
+    image_handler(event, USER_LOG_PATH)
 
 @HANDLER.add(MessageEvent, message=VideoMessage)
 def handle_video_message(event: MessageEvent) -> None:
-    try:    
-        unknown_handler.handle_unknown_video_message(event)
-        file_handler.download_file(event, 'video', '.mp4', USER_LOG_PATH)  # Download the audio
-
-    except LineBotApiError as e:
-        console_logger.image_exception_console(e)
-        error_handler.handle_invalid_video_message(event)
+    video_handler(event, USER_LOG_PATH)
 
 @HANDLER.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event: MessageEvent) -> None:
-    try:    
-        unknown_handler.handle_unknown_audio_message(event)
-        file_handler.download_file(event, 'audio', '.mp3', USER_LOG_PATH)      # Download the audio
-
-    except LineBotApiError as e:
-        console_logger.audio_exception_console(e)
-        error_handler.handle_invalid_audio_message(event)
+    audio_handler(event, USER_LOG_PATH)
 
 def start_flask() -> None:
     app.run(port=5002)

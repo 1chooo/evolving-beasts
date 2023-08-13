@@ -2,7 +2,7 @@
 '''
 Create Date: 2023/07/07
 Author: @1chooo(Hugo ChunHo Lin)
-Version: v0.0.1
+Version: v0.0.2
 '''
 
 import os
@@ -1122,9 +1122,17 @@ class UploadTeachingDrama:
     def handle_upload_teaching_aluminum_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
-                text=f"這是鋁箔包教學\n"
-                     f"tt\n"
-                     f"tt"
+                text=f"請點擊「上傳回收物」，並確定已經命名怪獸名稱\n"
+                     f"便可以直接上傳鋁箔包哦！\n"
+                     f"以下是範例教學"
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/BJxNCimhh.png",
+                preview_image_url = "https://hackmd.io/_uploads/BJxNCimhh.png",
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/SklVRi7hn.png",
+                preview_image_url = "https://hackmd.io/_uploads/SklVRi7hn.png",
             ),
             TemplateSendMessage(
                 alt_text='ImageCarousel template',
@@ -1181,9 +1189,17 @@ class UploadTeachingDrama:
     def handle_upload_teaching_cup_message(self, event: MessageEvent) -> None:
         reply_messages = [
             TextSendMessage(
-                text=f"這是飲料紙杯教學\n"
-                     f"tt\n"
-                     f"tt"
+                text=f"請點擊「上傳回收物」，並確定已經命名怪獸名稱\n"
+                     f"便可以直接上傳飲料紙杯哦！\n"
+                     f"以下是範例教學"
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/BJxNCimhh.png",
+                preview_image_url = "https://hackmd.io/_uploads/BJxNCimhh.png",
+            ),
+            ImageSendMessage(
+                original_content_url = "https://hackmd.io/_uploads/SklVRi7hn.png",
+                preview_image_url = "https://hackmd.io/_uploads/SklVRi7hn.png",
             ),
             TemplateSendMessage(
                 alt_text='ImageCarousel template',
@@ -1540,7 +1556,7 @@ class AboutUsDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            image_url='https://hackmd.io/_uploads/BkwF_MI23.jpg',
                             action=MessageAction(
                                 label='開發者——林群賀',
                                 text='我想更認識開發者——林群賀'
@@ -1590,9 +1606,11 @@ class AboutUsDrama:
                 text="嗨！大家好我是林群賀，主要負責本次專案 LINE BOT 的開發者，希望大家能享受這次的服務。"
             ),
             TextSendMessage(
-                text=f"若還想知道更多關於我的資訊可以前往我的個人網站\n"
-                     f"可以點擊以下連結前往哦：\n"
-                     f"https://1chooo.github.io/"
+                text=f"目前擔任和碩聯合軟體實習生和 AWS Educate 校園大使\n"
+                     f"若還想知道更多關於我的資訊可以點擊以下連結前往我的個人網站哦\n"
+                     f"https://1chooo-github-io.vercel.app/\n"
+                     f"也可以點擊以下連結註冊 AWS 服務\n"
+                     f"https://www.awseducate.com/registration/s/registration-detail?language=en_US&promocode=Taiwan_AWS2"
             ),
             TextSendMessage(
                 text=f"快接續滑動以下成員列表，並點擊成員頭像以，更進一步認識我們吧！🫵🏻"
@@ -1630,7 +1648,7 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            image_url='https://hackmd.io/_uploads/BkwF_MI23.jpg',
                             action=MessageAction(
                                 label='開發者——林群賀',
                                 text='我想更認識開發者——林群賀'
@@ -1691,7 +1709,7 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            image_url='https://hackmd.io/_uploads/BkwF_MI23.jpg',
                             action=MessageAction(
                                 label='開發者——林群賀',
                                 text='我想更認識開發者——林群賀'
@@ -1748,7 +1766,7 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            image_url='https://hackmd.io/_uploads/BkwF_MI23.jpg',
                             action=MessageAction(
                                 label='開發者——林群賀',
                                 text='我想更認識開發者——林群賀'
@@ -1805,7 +1823,7 @@ class AboutUsDrama:
                             )
                         ),
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            image_url='https://hackmd.io/_uploads/BkwF_MI23.jpg',
                             action=MessageAction(
                                 label='開發者——林群賀',
                                 text='我想更認識開發者——林群賀'
@@ -1862,7 +1880,7 @@ class AboutUsDrama:
                 template=ImageCarouselTemplate(
                     columns=[
                         ImageCarouselColumn(
-                            image_url='https://hackmd.io/_uploads/BkUURMVqh.jpg',
+                            image_url='https://hackmd.io/_uploads/BkwF_MI23.jpg',
                             action=MessageAction(
                                 label='開發者——林群賀',
                                 text='我想更認識開發者——林群賀'
