@@ -23,6 +23,7 @@ defusedxml==0.7.1
 Deprecated==1.2.14
 executing==1.2.0
 fastjsonschema==2.18.0
+flasgger==0.9.7.1
 Flask==2.3.2
 flask-swagger-ui==4.11.1
 fonttools==4.40.0
