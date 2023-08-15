@@ -47,7 +47,7 @@ CURRENT_DATE = datetime.today().strftime('%Y%m%d')
 LINE_BOT_API = LineBotApi(line_bot_config['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(line_bot_config['CHANNEL_SECRET'])
 IMGUR_CLIENT = Imgur(imgur_config["client_id"], imgur_config["client_secret"])
-USER_LOG_PATH = join(dirname(abspath(__file__)), '..', '..', 'config', CURRENT_DATE)
+USER_LOG_PATH = join(dirname(abspath(__file__)), '..', '..', 'log', CURRENT_DATE)
 file_handler.create_directory(USER_LOG_PATH)
 
 @app.route('/callback', methods=['POST'])
@@ -121,4 +121,4 @@ def handle_audio_message(event: MessageEvent) -> None:
     audio_handler(event, USER_LOG_PATH)
 
 def start_flask() -> None:
-    app.run(port=5002)
+    app.run(port=5002, debug=True)
