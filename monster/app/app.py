@@ -16,12 +16,12 @@ from flasgger import swag_from
 from Monster.Utils import console_logger
 from Monster.Utils import file_handler
 from linebot import LineBotApi
+from linebot import WebhookHandler
 from Monster.Handler.Text import text_handler
 from Monster.Handler.Image import image_handler
 from Monster.Handler.Video import video_handler
 from Monster.Handler.Audio import audio_handler
 from Monster.Handler.Follow import follow_handler
-from linebot import WebhookHandler
 from linebot.models import TextMessage
 from linebot.models import ImageMessage
 from linebot.models import VideoMessage
@@ -121,4 +121,7 @@ def handle_audio_message(event: MessageEvent) -> None:
     audio_handler(event, USER_LOG_PATH)
 
 def start_flask() -> None:
-    app.run(port=5002, debug=True)
+    app.run(
+        port=5002, 
+        # debug=True,
+    )
