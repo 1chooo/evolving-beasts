@@ -2,27 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://1chooo.github.io/evolving-beasts/</loc>
-         <lastmod>2023-08-15</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://1chooo.github.io/evolving-beasts/TODOs/</loc>
-         <lastmod>2023-08-15</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://1chooo.github.io/evolving-beasts/beast/</loc>
-         <lastmod>2023-08-15</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://1chooo.github.io/evolving-beasts/reference/</loc>
-         <lastmod>2023-08-15</lastmod>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://1chooo.github.io/evolving-beasts/thought/</loc>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://1chooo.github.io/evolving-beasts/usage/</loc>
-         <lastmod>2023-08-15</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
