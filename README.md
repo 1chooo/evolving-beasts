@@ -17,12 +17,12 @@ Enviroment:
 ---
 
 ### With pip vertial environment
-python request: `3.9.6`
+python request: `3.10.1`
 
 #### For **Linux/MacOS**
 ```shell
 $ pip3 install virtualenv
-$ virtualenv venv --python=python3.9.6
+$ virtualenv venv --python=python3.10.1
 $ source venv/bin/activate
 $ pip install -r requirements.txt
 $ deactivate
