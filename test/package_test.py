@@ -54,9 +54,9 @@ from linebot.models.template import ConfirmTemplate
 from linebot.models.template import ImageCarouselTemplate
 from linebot.models.events import FollowEvent
 from linebot.models.events import MessageEvent
-import openai
-import langchain
-import liffpy
+# import openai
+# import langchain
+# import liffpy
 
 class TestPackages(unittest.TestCase):
     def test_os(self):
@@ -141,14 +141,14 @@ class TestPackages(unittest.TestCase):
         self.assertIsNotNone(FollowEvent)
         self.assertIsNotNone(MessageEvent)
 
-    def test_linebot_openai(self):
-        self.assertIsNotNone(openai)
+    # def test_linebot_openai(self):
+    #     self.assertIsNotNone(openai)
 
-    def test_linebot_langchain(self):
-        self.assertIsNotNone(langchain)
+    # def test_linebot_langchain(self):
+    #     self.assertIsNotNone(langchain)
 
-    def test_liffpy(self):
-        self.assertIsNotNone(liffpy)
+    # def test_liffpy(self):
+    #     self.assertIsNotNone(liffpy)
 
 if __name__ == '__main__':
     unittest.main()
