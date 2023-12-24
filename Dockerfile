@@ -1,4 +1,7 @@
-FROM python:3.9-alpine as base
+FROM python:3.10-alpine as base
+
+RUN apk add --no-cache build-base
+
 FROM base as builder
 COPY requirements.txt /requirements.txt
 RUN pip install --user -r /requirements.txt
@@ -10,4 +13,4 @@ COPY . /app
 WORKDIR /app
 
 # command to run on container start
-ENTRYPOINT [ "python", "./app.py" ]
+ENTRYPOINT [ "python", "./main.py" ]
