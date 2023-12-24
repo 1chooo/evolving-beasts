@@ -18,3 +18,19 @@ Picture
 | | |
 |-|-|
 |![Thought](imgs/thought_01.jpg)| |
+
+Linkedin
+---
+I am delighted to have participated in the Weather Hackathon on August 15th and to have secured second place along with the Sustainable Excellence Award. All of this is thanks to the organization by Weather Risk Company and Dr. Peng's initial recommendation.
+
+Looking back on the past three months of hard work, I remember willingly stepping up on the first day of the event to share the open-source spirit of the hackathon. I introduced the use of GitHub, and our team, "Weather Hackathon Shakespeare," held onto this value throughout. We remained committed to open-source principles while integrating sustainability, machine learning, and addressing real-life scenarios. This led to the development of our product – "Hey! How's That Monster Growing so Big?"
+
+Our product, as mentioned earlier, aims for sustainability. We aspire to encourage individual recycling efforts, and thus, we created an image recognition system. We integrated it into the everyday social platform LINE, making it more convenient for everyone to use. In my post, I will share the link to my GitHub repository and the LINE BOT, inviting everyone to join. I intend to continuously update and improve this service, making sustainability an inseparable aspect of people's lives.
+
+Lastly, a heartfelt thank you to the "Weather Hackathon Shakespeare" team for the collaborative opportunity and for achieving outstanding results together!
+
+---
+
+GitHub Repo: https://github.com/1chooo/evolving-beasts
+
+LINE Bot URL: https://lin.ee/5BK5hnu
